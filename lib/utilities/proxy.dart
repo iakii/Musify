@@ -9,7 +9,7 @@ class ProxyClient extends HttpOverrides {
   HttpClient createHttpClient(SecurityContext? context) {
     final client = super.createHttpClient(context);
     // ignore: avoid_print
-    print("设置代理==========================");
+    print('设置代理==========================');
     // ignore: cascade_invocations
     client
       ..findProxy = (url) {

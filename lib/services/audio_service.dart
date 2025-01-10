@@ -26,10 +26,7 @@ import 'dart:math';
 // Package imports:
 import 'package:audio_service/audio_service.dart';
 import 'package:audio_session/audio_session.dart';
-import 'package:http/http.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:rxdart/rxdart.dart';
-
 // Project imports:
 import 'package:musify/API/musify.dart';
 import 'package:musify/main.dart';
@@ -37,6 +34,7 @@ import 'package:musify/models/position_data.dart';
 import 'package:musify/services/data_manager.dart';
 import 'package:musify/services/settings_manager.dart';
 import 'package:musify/utilities/mediaitem.dart';
+import 'package:rxdart/rxdart.dart';
 
 class MusifyAudioHandler extends BaseAudioHandler {
   MusifyAudioHandler() {
@@ -47,7 +45,7 @@ class MusifyAudioHandler extends BaseAudioHandler {
   }
 
   final AudioPlayer audioPlayer = AudioPlayer(
-    userAgent: "https://www.bilibili.com/",
+    userAgent: 'https://www.bilibili.com/',
     useProxyForRequestHeaders: false,
     audioLoadConfiguration: const AudioLoadConfiguration(
       androidLoadControl: AndroidLoadControl(
@@ -235,7 +233,7 @@ class MusifyAudioHandler extends BaseAudioHandler {
   Future<void> playSong(Map song) async {
     try {
       final isOffline = song['isOffline'] ?? false;
-      var songUrl = isOffline ? song['audioPath'] : await getSong(song['ytid'], song['isLive']);
+      final songUrl = isOffline ? song['audioPath'] : await getSong(song['ytid'], song['isLive']);
 
       // songUrl =
       //     'https://upos-sz-mirrorcos.bilivideo.com/ugaxcode/n230903a22zx6glzv1gq5h1l6s7febsw-320k.m4a?e=ig8euxZM2rNcNbdlhoNvNC8BqJIzNbfqXBvEuENvNC8aNEVEtEvE9IMvXBvE2ENvNCImNEVEIj0Y2J_aug859r1qXg8xNEVE5XREto8GuFGv2U7SuxI72X6fTr859IB_&uipk=5&nbs=1&deadline=1736513770&gen=playurlv2&os=cosbv&oi=177921628&trid=83859b3c49ef4f03bb4e7964c58e9b38B&mid=0&platform=android&og=cos&upsig=7f2d298560b3cb2ffc1294a3a6d0460b&uparams=e,uipk,nbs,deadline,gen,os,oi,trid,mid,platform,og&bvc=vod&nettype=0&orderid=0,1&logo=00000000';
