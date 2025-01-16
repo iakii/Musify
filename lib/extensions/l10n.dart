@@ -20,11 +20,23 @@
  */
 
 // Flutter imports:
+
+// Flutter imports:
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
+// Project imports:
+import 'package:musify/localization/app_localizations.dart';
+
 // Package imports:
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+// import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 extension ContextX on BuildContext {
   AppLocalizations? get l10n => AppLocalizations.of(this);
+
+  bool get isDesktop => [
+        TargetPlatform.windows,
+        TargetPlatform.linux,
+        TargetPlatform.macOS
+      ].contains(defaultTargetPlatform);
 }

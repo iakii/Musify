@@ -19,10 +19,12 @@
  *     please visit: https://github.com/gokadzev/Musify
  */
 
-// Package imports:
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 // Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+
 // Project imports:
 import 'package:musify/API/musify.dart';
 import 'package:musify/extensions/l10n.dart';
@@ -60,7 +62,8 @@ class _HomePageState extends State<HomePage> {
 
                 return AnnouncementBox(
                   message: context.l10n!.newAnnouncement,
-                  backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+                  backgroundColor:
+                      Theme.of(context).colorScheme.secondaryContainer,
                   textColor: Theme.of(context).colorScheme.onSecondaryContainer,
                   url: _url,
                 );
@@ -97,17 +100,28 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildPlaylistSection(BuildContext context, List<dynamic> playlists) {
-    final playlistHeight = MediaQuery.sizeOf(context).height * 0.25 / 1.1;
+    const playlistHeight = 200.0;
 
-    final itemsNumber = playlists.length > recommendedCubesNumber ? recommendedCubesNumber : playlists.length;
+    final itemsNumber = playlists.length > recommendedCubesNumber
+        ? recommendedCubesNumber
+        : playlists.length;
+
+    final width = MediaQuery.sizeOf(context).width;
+
+    const itemWidth = 156.0;
+
+    final itemCount = (width / itemWidth).floor();
+
+    final flexWeights =
+        List<int>.generate(itemCount, (index) => itemCount - index);
 
     return Column(
       children: [
         _buildSectionHeader(title: context.l10n!.suggestedPlaylists),
         ConstrainedBox(
-          constraints: BoxConstraints(maxHeight: playlistHeight),
+          constraints: const BoxConstraints(maxHeight: playlistHeight),
           child: CarouselView.weighted(
-            flexWeights: const <int>[3, 2, 1],
+            flexWeights: flexWeights,
             itemSnapping: true,
             onTap: (index) => Navigator.push(
               context,
@@ -191,19 +205,31 @@ class _HomePageState extends State<HomePage> {
     required List<dynamic> data,
     bool showArtists = true,
   }) {
-    final contentHeight = MediaQuery.sizeOf(context).height * 0.25;
+    const contentHeight = 200.0;
 
-    final itemsNumber = data.length > recommendedCubesNumber ? recommendedCubesNumber : data.length;
+    final itemsNumber = data.length > recommendedCubesNumber
+        ? recommendedCubesNumber
+        : data.length;
+
+    final width = MediaQuery.sizeOf(context).width;
+
+    const itemWidth = 156.0;
+
+    final itemCount = (width / itemWidth).floor();
+
+    final flexWeights =
+        List<int>.generate(itemCount, (index) => itemCount - index);
 
     return Column(
       children: [
-        if (showArtists) _buildSectionHeader(title: context.l10n!.suggestedArtists),
+        if (showArtists)
+          _buildSectionHeader(title: context.l10n!.suggestedArtists),
         if (showArtists)
           ConstrainedBox(
-            constraints: BoxConstraints(maxHeight: contentHeight),
+            constraints: const BoxConstraints(maxHeight: contentHeight),
             child: CarouselView.weighted(
-              flexWeights: const <int>[3, 2, 1],
-              itemSnapping: true,
+              flexWeights: flexWeights,
+              // itemSnapping: true,
               onTap: (index) => Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -218,6 +244,7 @@ class _HomePageState extends State<HomePage> {
                 final artist = data[index]['artist'].split('~')[0];
                 return PlaylistCube(
                   {'title': artist},
+                  // size: itemWidth,
                   cubeIcon: FluentIcons.mic_sparkle_24_regular,
                 );
               }),

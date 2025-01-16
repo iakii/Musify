@@ -10,6 +10,14 @@
       "type": "dart"
     },
     {
+      "name": "musify desktop",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--target=lib/main_desktop.dart"
+      ]
+    },
+    {
       "name": "musify (profile mode)",
       "request": "launch",
       "type": "dart",

@@ -19,11 +19,13 @@
  *     please visit: https://github.com/gokadzev/Musify
  */
 
-// Package imports:
-import 'package:dynamic_color/dynamic_color.dart';
 // Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+
+// Package imports:
+import 'package:dynamic_color/dynamic_color.dart';
+
 // Project imports:
 import 'package:musify/services/settings_manager.dart';
 import 'package:musify/style/dynamic_color_temp_fix.dart';
@@ -31,7 +33,9 @@ import 'package:musify/style/dynamic_color_temp_fix.dart';
 ThemeMode themeMode = getThemeMode(themeModeSetting);
 Brightness brightness = getBrightnessFromThemeMode(themeMode);
 
-PageTransitionsBuilder transitionsBuilder = predictiveBack.value ? const PredictiveBackPageTransitionsBuilder() : const CupertinoPageTransitionsBuilder();
+PageTransitionsBuilder transitionsBuilder = predictiveBack.value
+    ? const PredictiveBackPageTransitionsBuilder()
+    : const CupertinoPageTransitionsBuilder();
 
 Brightness getBrightnessFromThemeMode(
   ThemeMode themeMode,
@@ -39,7 +43,8 @@ Brightness getBrightnessFromThemeMode(
   final themeBrightnessMapping = {
     ThemeMode.light: Brightness.light,
     ThemeMode.dark: Brightness.dark,
-    ThemeMode.system: SchedulerBinding.instance.platformDispatcher.platformBrightness,
+    ThemeMode.system:
+        SchedulerBinding.instance.platformDispatcher.platformBrightness,
   };
 
   return themeBrightnessMapping[themeMode] ?? Brightness.dark;
@@ -62,13 +67,17 @@ ColorScheme getAppColorScheme(
   ColorScheme? lightColorScheme,
   ColorScheme? darkColorScheme,
 ) {
-  if (useSystemColor.value && lightColorScheme != null && darkColorScheme != null) {
+  if (useSystemColor.value &&
+      lightColorScheme != null &&
+      darkColorScheme != null) {
     // Temporary fix until this will be fixed: https://github.com/material-foundation/flutter-packages/issues/582
 
-    (lightColorScheme, darkColorScheme) = tempGenerateDynamicColourSchemes(lightColorScheme, darkColorScheme);
+    (lightColorScheme, darkColorScheme) =
+        tempGenerateDynamicColourSchemes(lightColorScheme, darkColorScheme);
   }
 
-  final selectedScheme = (brightness == Brightness.light) ? lightColorScheme : darkColorScheme;
+  final selectedScheme =
+      (brightness == Brightness.light) ? lightColorScheme : darkColorScheme;
 
   if (useSystemColor.value && selectedScheme != null) {
     return selectedScheme;
@@ -81,11 +90,16 @@ ColorScheme getAppColorScheme(
 }
 
 ThemeData getAppTheme(ColorScheme colorScheme) {
-  final base = colorScheme.brightness == Brightness.light ? ThemeData.light() : ThemeData.dark();
+  final base = colorScheme.brightness == Brightness.light
+      ? ThemeData.light()
+      : ThemeData.dark();
 
-  final isPureBlackUsable = colorScheme.brightness == Brightness.dark && usePureBlackColor.value;
+  final isPureBlackUsable =
+      colorScheme.brightness == Brightness.dark && usePureBlackColor.value;
 
-  final bgColor = colorScheme.brightness == Brightness.light ? colorScheme.surfaceContainer : (isPureBlackUsable ? const Color(0xFF000000) : null);
+  final bgColor = colorScheme.brightness == Brightness.light
+      ? colorScheme.surfaceContainer
+      : (isPureBlackUsable ? const Color(0xFF000000) : null);
 
   return ThemeData(
     scaffoldBackgroundColor: bgColor,
@@ -118,7 +132,8 @@ ThemeData getAppTheme(ColorScheme colorScheme) {
       ),
       contentPadding: const EdgeInsets.fromLTRB(18, 14, 20, 14),
     ),
-    navigationBarTheme: base.navigationBarTheme.copyWith(backgroundColor: bgColor),
+    navigationBarTheme:
+        base.navigationBarTheme.copyWith(backgroundColor: bgColor),
     visualDensity: VisualDensity.adaptivePlatformDensity,
     useMaterial3: true,
     pageTransitionsTheme: PageTransitionsTheme(

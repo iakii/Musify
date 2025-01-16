@@ -19,12 +19,15 @@
  *     please visit: https://github.com/gokadzev/Musify
  */
 
+// Flutter imports:
+import 'package:flutter/material.dart';
+
 // Package imports:
 import 'package:audio_service/audio_service.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
-// Flutter imports:
-import 'package:flutter/material.dart';
 import 'package:flutter_flip_card/flutter_flip_card.dart';
+import 'package:flutter_lyric/lyrics_reader.dart';
+
 // Project imports:
 import 'package:musify/API/musify.dart';
 import 'package:musify/extensions/l10n.dart';
@@ -95,7 +98,7 @@ class NowPlayingPage extends StatelessWidget {
   Widget buildArtwork(BuildContext context, Size size, MediaItem metadata) {
     const _padding = 70;
     const _radius = 17.0;
-    final screen = (size.width + size.height) / 3.05;
+    final screen = size.height / 2;
     final imageSize = screen - _padding;
     const lyricsTextStyle = TextStyle(
       fontSize: 24,
@@ -116,7 +119,7 @@ class NowPlayingPage extends StatelessWidget {
         width: imageSize,
         height: imageSize,
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.secondaryContainer,
+          color: Theme.of(context).colorScheme.primary,
           borderRadius: BorderRadius.circular(_radius),
         ),
         child: FutureBuilder<String?>(
@@ -129,30 +132,44 @@ class NowPlayingPage extends StatelessWidget {
                 child: Text(
                   context.l10n!.lyricsNotAvailable,
                   style: lyricsTextStyle.copyWith(
-                    color: Theme.of(context).colorScheme.secondary,
+                    color: Theme.of(context).cardColor,
                   ),
                   textAlign: TextAlign.center,
                 ),
               );
             } else if (snapshot.hasData && snapshot.data != 'not found') {
-              return SingleChildScrollView(
-                padding: const EdgeInsets.all(16),
-                child: Center(
-                  child: Text(
-                    snapshot.data!,
-                    style: lyricsTextStyle.copyWith(
-                      color: Theme.of(context).colorScheme.secondary,
+              final lyricUI = UINetease();
+              final lyricModel = LyricsModelBuilder.create()
+                  .bindLyricToMain(snapshot.data!)
+                  .bindLyricToExt(snapshot.data!)
+                  .getModel();
+              return StreamBuilder<PositionData>(
+                stream: audioHandler.positionDataStream,
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) return const SizedBox.shrink();
+                  return LyricsReader(
+                    lyricUi: lyricUI,
+                    model: lyricModel,
+                    playing: true,
+                    position: snapshot.data!.position.inMilliseconds,
+                    onTap: _lyricsController.flipcard,
+                    emptyBuilder: () => Center(
+                      child: Text(
+                        context.l10n!.lyricsNotAvailable,
+                        style: lyricUI.getOtherMainTextStyle().copyWith(
+                              color: Theme.of(context).colorScheme.secondary,
+                            ),
+                      ),
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
+                  );
+                },
               );
             } else {
               return Center(
                 child: Text(
                   context.l10n!.lyricsNotAvailable,
                   style: lyricsTextStyle.copyWith(
-                    color: Theme.of(context).colorScheme.secondary,
+                    color: Theme.of(context).cardColor,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -300,7 +317,7 @@ class NowPlayingPage extends StatelessWidget {
     final _primaryColor = theme.colorScheme.primary;
     final _secondaryColor = theme.colorScheme.secondaryContainer;
 
-    final screen = ((size.width + size.height) / 4) - 10;
+    // final screen = ((size.height) / 2) - 10;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 22),
@@ -345,10 +362,15 @@ class NowPlayingPage extends StatelessWidget {
                   return IconButton(
                     icon: Icon(
                       FluentIcons.previous_24_filled,
-                      color: audioHandler.hasPrevious ? _primaryColor : _secondaryColor,
+                      color: audioHandler.hasPrevious
+                          ? _primaryColor
+                          : _secondaryColor,
                     ),
-                    iconSize: screen * 0.115,
-                    onPressed: () => repeatNotifier.value == AudioServiceRepeatMode.one ? audioHandler.playAgain() : audioHandler.skipToPrevious(),
+                    iconSize: 28,
+                    onPressed: () =>
+                        repeatNotifier.value == AudioServiceRepeatMode.one
+                            ? audioHandler.playAgain()
+                            : audioHandler.skipToPrevious(),
                     splashColor: Colors.transparent,
                   );
                 },
@@ -359,11 +381,11 @@ class NowPlayingPage extends StatelessWidget {
                 builder: (context, snapshot) {
                   return buildPlaybackIconButton(
                     snapshot.data,
-                    screen * 0.125,
+                    32,
                     _primaryColor,
                     _secondaryColor,
                     elevation: 0,
-                    padding: EdgeInsets.all(screen * 0.08),
+                    padding: const EdgeInsets.all(12),
                   );
                 },
               ),
@@ -374,10 +396,15 @@ class NowPlayingPage extends StatelessWidget {
                   return IconButton(
                     icon: Icon(
                       FluentIcons.next_24_filled,
-                      color: audioHandler.hasNext ? _primaryColor : _secondaryColor,
+                      color: audioHandler.hasNext
+                          ? _primaryColor
+                          : _secondaryColor,
                     ),
-                    iconSize: screen * 0.115,
-                    onPressed: () => repeatNotifier.value == AudioServiceRepeatMode.one ? audioHandler.playAgain() : audioHandler.skipToNext(),
+                    iconSize: 28,
+                    onPressed: () =>
+                        repeatNotifier.value == AudioServiceRepeatMode.one
+                            ? audioHandler.playAgain()
+                            : audioHandler.skipToNext(),
                     splashColor: Colors.transparent,
                   );
                 },
@@ -390,12 +417,17 @@ class NowPlayingPage extends StatelessWidget {
               return repeatMode != AudioServiceRepeatMode.none
                   ? IconButton.filled(
                       icon: Icon(
-                        repeatMode == AudioServiceRepeatMode.all ? FluentIcons.arrow_repeat_all_24_filled : FluentIcons.arrow_repeat_1_24_filled,
+                        repeatMode == AudioServiceRepeatMode.all
+                            ? FluentIcons.arrow_repeat_all_24_filled
+                            : FluentIcons.arrow_repeat_1_24_filled,
                         color: _secondaryColor,
                       ),
                       iconSize: iconSize,
                       onPressed: () {
-                        repeatNotifier.value = repeatMode == AudioServiceRepeatMode.all ? AudioServiceRepeatMode.one : AudioServiceRepeatMode.none;
+                        repeatNotifier.value =
+                            repeatMode == AudioServiceRepeatMode.all
+                                ? AudioServiceRepeatMode.one
+                                : AudioServiceRepeatMode.none;
 
                         audioHandler.setRepeatMode(repeatMode);
                       },
@@ -407,10 +439,14 @@ class NowPlayingPage extends StatelessWidget {
                       ),
                       iconSize: iconSize,
                       onPressed: () {
-                        final _isSingleSongPlaying = activePlaylist['list'].isEmpty;
-                        repeatNotifier.value = _isSingleSongPlaying ? AudioServiceRepeatMode.one : AudioServiceRepeatMode.all;
+                        final _isSingleSongPlaying =
+                            activePlaylist['list'].isEmpty;
+                        repeatNotifier.value = _isSingleSongPlaying
+                            ? AudioServiceRepeatMode.one
+                            : AudioServiceRepeatMode.all;
 
-                        if (repeatNotifier.value == AudioServiceRepeatMode.one) audioHandler.setRepeatMode(repeatNotifier.value);
+                        if (repeatNotifier.value == AudioServiceRepeatMode.one)
+                          audioHandler.setRepeatMode(repeatNotifier.value);
                       },
                     );
             },
@@ -427,7 +463,8 @@ class NowPlayingPage extends StatelessWidget {
     double iconSize,
   ) {
     final songLikeStatus = ValueNotifier<bool>(isSongAlreadyLiked(audioId));
-    late final songOfflineStatus = ValueNotifier<bool>(isSongAlreadyOffline(audioId));
+    late final songOfflineStatus =
+        ValueNotifier<bool>(isSongAlreadyOffline(audioId));
 
     final _primaryColor = Theme.of(context).colorScheme.primary;
 
@@ -440,7 +477,9 @@ class NowPlayingPage extends StatelessWidget {
           builder: (_, value, __) {
             return IconButton.filledTonal(
               icon: Icon(
-                value ? FluentIcons.cellular_off_24_regular : FluentIcons.cellular_data_1_24_regular,
+                value
+                    ? FluentIcons.cellular_off_24_regular
+                    : FluentIcons.cellular_data_1_24_regular,
                 color: _primaryColor,
               ),
               iconSize: iconSize,
@@ -496,7 +535,8 @@ class NowPlayingPage extends StatelessWidget {
                       onPlay: () => {
                         audioHandler.playPlaylistSong(songIndex: index),
                       },
-                      backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh,
+                      backgroundColor:
+                          Theme.of(context).colorScheme.surfaceContainerHigh,
                       borderRadius: borderRadius,
                     );
                   },
@@ -519,7 +559,9 @@ class NowPlayingPage extends StatelessWidget {
             builder: (_, value, __) {
               return IconButton.filledTonal(
                 icon: Icon(
-                  value ? FluentIcons.heart_24_filled : FluentIcons.heart_24_regular,
+                  value
+                      ? FluentIcons.heart_24_filled
+                      : FluentIcons.heart_24_regular,
                   color: _primaryColor,
                 ),
                 iconSize: iconSize,

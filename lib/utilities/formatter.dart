@@ -39,7 +39,8 @@ final replacementsForSongTitle = {
 };
 
 String formatSongTitle(String title) {
-  final pattern = RegExp(replacementsForSongTitle.keys.map(RegExp.escape).join('|'));
+  final pattern =
+      RegExp(replacementsForSongTitle.keys.map(RegExp.escape).join('|'));
 
   var finalTitle = title
       .replaceAllMapped(

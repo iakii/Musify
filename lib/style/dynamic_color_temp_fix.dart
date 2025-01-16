@@ -1,7 +1,10 @@
 // Flutter imports:
+
+// Flutter imports:
+import 'package:flutter/material.dart';
+
 // Package imports:
 import 'package:dynamic_color/dynamic_color.dart';
-import 'package:flutter/material.dart';
 
 // issue: https://github.com/material-foundation/flutter-packages/issues/582
 // temp-fix comment: https://github.com/material-foundation/flutter-packages/issues/582#issuecomment-2081174158
@@ -19,7 +22,8 @@ import 'package:flutter/material.dart';
   final lightAdditionalColours = _extractAdditionalColours(lightBase);
   final darkAdditionalColours = _extractAdditionalColours(darkBase);
 
-  final lightScheme = _insertAdditionalColours(lightBase, lightAdditionalColours);
+  final lightScheme =
+      _insertAdditionalColours(lightBase, lightAdditionalColours);
   final darkScheme = _insertAdditionalColours(darkBase, darkAdditionalColours);
 
   return (lightScheme.harmonized(), darkScheme.harmonized());

@@ -19,12 +19,15 @@
  *     please visit: https://github.com/gokadzev/Musify
  */
 
+// Flutter imports:
+import 'package:flutter/material.dart';
+
 // Package imports:
 import 'package:audio_service/audio_service.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
-// Flutter imports:
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:window_manager/window_manager.dart';
+
 // Project imports:
 import 'package:musify/extensions/l10n.dart';
 import 'package:musify/main.dart';
@@ -48,92 +51,157 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
 
   @override
   Widget build(BuildContext context) {
-    // can be wrapped in the SafeArea:
-    // body: SafeArea(
-    //   child: widget.child,
-    // ),
+    final navs = !offlineMode.value
+        ? [
+            NavigationDestination(
+              icon: const Icon(FluentIcons.home_24_regular),
+              selectedIcon: const Icon(FluentIcons.home_24_filled),
+              label: context.l10n?.home ?? 'Home',
+            ),
+            NavigationDestination(
+              icon: const Icon(FluentIcons.search_24_regular),
+              selectedIcon: const Icon(FluentIcons.search_24_filled),
+              label: context.l10n?.search ?? 'Search',
+            ),
+            NavigationDestination(
+              icon: const Icon(FluentIcons.book_24_regular),
+              selectedIcon: const Icon(FluentIcons.book_24_filled),
+              label: context.l10n?.library ?? 'Library',
+            ),
+            NavigationDestination(
+              icon: const Icon(
+                FluentIcons.settings_24_regular,
+              ),
+              selectedIcon: const Icon(
+                FluentIcons.settings_24_filled,
+              ),
+              label: context.l10n?.settings ?? 'Settings',
+            ),
+          ]
+        : [
+            NavigationDestination(
+              icon: const Icon(FluentIcons.home_24_regular),
+              selectedIcon: const Icon(FluentIcons.home_24_filled),
+              label: context.l10n?.home ?? 'Home',
+            ),
+            NavigationDestination(
+              icon: const Icon(
+                FluentIcons.settings_24_regular,
+              ),
+              selectedIcon: const Icon(
+                FluentIcons.settings_24_filled,
+              ),
+              label: context.l10n?.settings ?? 'Settings',
+            ),
+          ];
 
+    final songBar = StreamBuilder<MediaItem?>(
+      stream: audioHandler.mediaItem,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          logger.log(
+            'Error in mini player bar',
+            snapshot.error,
+            snapshot.stackTrace,
+          );
+        }
+        final metadata = snapshot.data;
+        if (metadata == null) {
+          return const SizedBox.shrink();
+        } else {
+          return MiniPlayer(metadata: metadata);
+        }
+      },
+    );
     return Scaffold(
-      body: widget.child,
-      bottomNavigationBar: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          StreamBuilder<MediaItem?>(
-            stream: audioHandler.mediaItem,
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                logger.log(
-                  'Error in mini player bar',
-                  snapshot.error,
-                  snapshot.stackTrace,
-                );
-              }
-              final metadata = snapshot.data;
-              if (metadata == null) {
-                return const SizedBox.shrink();
-              } else {
-                return MiniPlayer(metadata: metadata);
-              }
-            },
-          ),
-          NavigationBar(
-            selectedIndex: _selectedIndex.value,
-            labelBehavior: ['en', 'zh'].contains(languageSetting.languageCode) ? NavigationDestinationLabelBehavior.onlyShowSelected : NavigationDestinationLabelBehavior.alwaysHide,
-            onDestinationSelected: (index) {
-              widget.child.goBranch(
-                index,
-                initialLocation: index == widget.child.currentIndex,
-              );
-              setState(() {
-                _selectedIndex.value = index;
-              });
-            },
-            destinations: !offlineMode.value
-                ? [
-                    NavigationDestination(
-                      icon: const Icon(FluentIcons.home_24_regular),
-                      selectedIcon: const Icon(FluentIcons.home_24_filled),
-                      label: context.l10n?.home ?? 'Home',
+      body: context.isDesktop
+          ? Row(
+              children: [
+                SizedBox(
+                  width: 64,
+                  child: NavigationRail(
+                    elevation: 10,
+                    leading: Column(
+                      children: [
+                        Center(
+                          child: Image.asset(
+                            'assets/images/ic_launcher_foreground.png',
+                            width: 48,
+                            height: 48,
+                          ),
+                        ),
+                        const Text(
+                          'Musify',
+                          style: TextStyle(
+                              color: Color(0xff6BA1FF),
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 16),
+                      ],
                     ),
-                    NavigationDestination(
-                      icon: const Icon(FluentIcons.search_24_regular),
-                      selectedIcon: const Icon(FluentIcons.search_24_filled),
-                      label: context.l10n?.search ?? 'Search',
-                    ),
-                    NavigationDestination(
-                      icon: const Icon(FluentIcons.book_24_regular),
-                      selectedIcon: const Icon(FluentIcons.book_24_filled),
-                      label: context.l10n?.library ?? 'Library',
-                    ),
-                    NavigationDestination(
-                      icon: const Icon(
-                        FluentIcons.settings_24_regular,
+                    selectedIndex: _selectedIndex.value,
+                    onDestinationSelected: (int index) {
+                      widget.child.goBranch(
+                        index,
+                        initialLocation: index == widget.child.currentIndex,
+                      );
+                      setState(() {
+                        _selectedIndex.value = index;
+                      });
+                    },
+                    labelType: NavigationRailLabelType.all,
+                    destinations: navs
+                        .map((nav) => NavigationRailDestination(
+                              icon: nav.icon,
+                              label: Text(nav.label),
+                              selectedIcon: nav.selectedIcon,
+                            ))
+                        .toList(),
+                  ),
+                ),
+                Expanded(
+                    child: Column(
+                  children: [
+                    SizedBox(
+                      height: kWindowCaptionHeight,
+                      child: WindowCaption(
+                        brightness: Theme.of(context).brightness,
                       ),
-                      selectedIcon: const Icon(
-                        FluentIcons.settings_24_filled,
-                      ),
-                      label: context.l10n?.settings ?? 'Settings',
                     ),
-                  ]
-                : [
-                    NavigationDestination(
-                      icon: const Icon(FluentIcons.home_24_regular),
-                      selectedIcon: const Icon(FluentIcons.home_24_filled),
-                      label: context.l10n?.home ?? 'Home',
-                    ),
-                    NavigationDestination(
-                      icon: const Icon(
-                        FluentIcons.settings_24_regular,
-                      ),
-                      selectedIcon: const Icon(
-                        FluentIcons.settings_24_filled,
-                      ),
-                      label: context.l10n?.settings ?? 'Settings',
-                    ),
+                    Expanded(child: widget.child),
+                    songBar,
                   ],
-          ),
-        ],
-      ),
+                )),
+              ],
+            )
+          : widget.child,
+      bottomNavigationBar: context.isDesktop
+          ? null
+          : Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // if ()
+                songBar,
+                NavigationBar(
+                  selectedIndex: _selectedIndex.value,
+                  labelBehavior:
+                      ['en', 'zh'].contains(languageSetting.languageCode)
+                          ? NavigationDestinationLabelBehavior.onlyShowSelected
+                          : NavigationDestinationLabelBehavior.alwaysHide,
+                  onDestinationSelected: (index) {
+                    widget.child.goBranch(
+                      index,
+                      initialLocation: index == widget.child.currentIndex,
+                    );
+                    setState(() {
+                      _selectedIndex.value = index;
+                    });
+                  },
+                  destinations: navs,
+                ),
+              ],
+            ),
     );
   }
 }

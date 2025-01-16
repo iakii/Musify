@@ -1,4 +1,10 @@
 analyzer:
+  errors:
+    always_use_package_imports: ignore
+    noop_primitive_operations: ignore
+    require_trailing_commas: ignore
+    unnecessary_string_escapes: ignore
+    use_super_parameters: ignore
   exclude:
     - packages/**
     - scripts/**

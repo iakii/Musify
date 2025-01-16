@@ -31,11 +31,11 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:just_audio_media_kit/just_audio_media_kit.dart';
 // Project imports:
+import 'package:musify/localization/app_localizations.dart';
 import 'package:musify/services/audio_service.dart';
 import 'package:musify/services/data_manager.dart';
 import 'package:musify/services/logger_service.dart';
@@ -208,19 +208,19 @@ class _MusifyState extends State<Musify> {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  WidgetsFlutterBinding.ensureInitialized();
-
-  JustAudioMediaKit.ensureInitialized(
-    android: true, // default: false - dependency: media_kit_libs_android_audio
-    iOS: true, // default: false - dependency: media_kit_libs_ios_audio
-    macOS: true, // default: false - dependency: media_kit_libs_macos_audio
-  );
-  JustAudioMediaKit.bufferSize = 12 * 1024 * 1024;
-  JustAudioMediaKit.prefetchPlaylist = true;
-  JustAudioMediaKit.pitch = false;
-  JustAudioMediaKit.protocolWhitelist = const [
-    ...['udp', 'rtp', 'tcp', 'tls', 'data', 'file', 'http', 'https', 'crypto'],
-  ];
+  if (defaultTargetPlatform != TargetPlatform.ohos) {
+    JustAudioMediaKit.ensureInitialized(
+      android: true, // default: false - dependency: media_kit_libs_android_audio
+      iOS: true, // default: false - dependency: media_kit_libs_ios_audio
+      macOS: true, // default: false - dependency: media_kit_libs_macos_audio
+    );
+    JustAudioMediaKit.bufferSize = 12 * 1024 * 1024;
+    JustAudioMediaKit.prefetchPlaylist = true;
+    JustAudioMediaKit.pitch = false;
+    JustAudioMediaKit.protocolWhitelist = const [
+      ...['udp', 'rtp', 'tcp', 'tls', 'data', 'file', 'http', 'https', 'crypto'],
+    ];
+  }
 
   // JustAudioMediaKit.mpvLogLevel = MPVLogLevel.debug;
   await initialisation();

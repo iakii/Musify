@@ -203,6 +203,22 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.7.0"
+  extended_image:
+    dependency: "direct main"
+    description:
+      name: extended_image
+      sha256: "85199f9233e03abc2ce2e68cbb2991648666af4a527ae4e6250935be8edfddae"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "9.1.0"
+  extended_image_library:
+    dependency: transitive
+    description:
+      name: extended_image_library
+      sha256: "9a94ec9314aa206cfa35f16145c3cd6e2c924badcc670eaaca8a3a8063a68cd7"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "4.0.5"
   fake_async:
     dependency: transitive
     description:
@@ -326,6 +342,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_lyric:
+    dependency: "direct main"
+    description:
+      name: flutter_lyric
+      sha256: "5d7e6c46c07b96842a05d5d8af385cb9d715feb7e0f1db1983bc128813c420d7"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.4+6"
   flutter_native_splash:
     dependency: "direct dev"
     description:
@@ -373,7 +397,7 @@ packages:
     description:
       path: "packages/go_router"
       ref: master
-      resolved-ref: "488ed8207ad8121e3d4fefb18303305155c90b38"
+      resolved-ref: "9dd6909619e1232f9b7efa1ba63f98f4f45f8acb"
       url: "https://gitee.com/openharmony-sig/flutter_packages.git"
     source: git
     version: "10.1.2"
@@ -409,6 +433,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.2.2"
+  http_client_helper:
+    dependency: transitive
+    description:
+      name: http_client_helper
+      sha256: "8a9127650734da86b5c73760de2b404494c968a3fd55602045ffec789dac3cb1"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.0.0"
   http_parser:
     dependency: transitive
     description:
@@ -533,10 +565,10 @@ packages:
     dependency: "direct main"
     description:
       name: just_audio
-      sha256: a49e7120b95600bd357f37a2bb04cd1e88252f7cdea8f3368803779b925b1049
+      sha256: "1a1eb86e7d81e69a1d36943f2b3efd62dece3dad2cafd9ec2e62e6db7c04d9b7"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.9.42"
+    version: "0.9.43"
   just_audio_media_kit:
     dependency: "direct main"
     description:
@@ -711,7 +743,7 @@ packages:
     description:
       path: "packages/path_provider/path_provider"
       ref: HEAD
-      resolved-ref: "488ed8207ad8121e3d4fefb18303305155c90b38"
+      resolved-ref: "9dd6909619e1232f9b7efa1ba63f98f4f45f8acb"
       url: "https://gitee.com/openharmony-sig/flutter_packages.git"
     source: git
     version: "2.1.0"
@@ -744,7 +776,7 @@ packages:
     description:
       path: "packages/path_provider/path_provider_ohos"
       ref: HEAD
-      resolved-ref: "488ed8207ad8121e3d4fefb18303305155c90b38"
+      resolved-ref: "9dd6909619e1232f9b7efa1ba63f98f4f45f8acb"
       url: "https://gitee.com/openharmony-sig/flutter_packages.git"
     source: git
     version: "2.2.1"
@@ -844,6 +876,46 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.2"
+  screen_retriever:
+    dependency: transitive
+    description:
+      name: screen_retriever
+      sha256: "570dbc8e4f70bac451e0efc9c9bb19fa2d6799a11e6ef04f946d7886d2e23d0c"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.2.0"
+  screen_retriever_linux:
+    dependency: transitive
+    description:
+      name: screen_retriever_linux
+      sha256: f7f8120c92ef0784e58491ab664d01efda79a922b025ff286e29aa123ea3dd18
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.2.0"
+  screen_retriever_macos:
+    dependency: transitive
+    description:
+      name: screen_retriever_macos
+      sha256: "71f956e65c97315dd661d71f828708bd97b6d358e776f1a30d5aa7d22d78a149"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.2.0"
+  screen_retriever_platform_interface:
+    dependency: transitive
+    description:
+      name: screen_retriever_platform_interface
+      sha256: ee197f4581ff0d5608587819af40490748e1e39e648d7680ecf95c05197240c0
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.2.0"
+  screen_retriever_windows:
+    dependency: transitive
+    description:
+      name: screen_retriever_windows
+      sha256: "449ee257f03ca98a57288ee526a301a430a344a161f9202b4fcc38576716fe13"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.2.0"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -998,7 +1070,7 @@ packages:
     description:
       path: "packages/url_launcher/url_launcher"
       ref: HEAD
-      resolved-ref: "488ed8207ad8121e3d4fefb18303305155c90b38"
+      resolved-ref: "9dd6909619e1232f9b7efa1ba63f98f4f45f8acb"
       url: "https://gitee.com/openharmony-sig/flutter_packages.git"
     source: git
     version: "6.1.12"
@@ -1039,7 +1111,7 @@ packages:
     description:
       path: "packages/url_launcher/url_launcher_ohos"
       ref: HEAD
-      resolved-ref: "488ed8207ad8121e3d4fefb18303305155c90b38"
+      resolved-ref: "9dd6909619e1232f9b7efa1ba63f98f4f45f8acb"
       url: "https://gitee.com/openharmony-sig/flutter_packages.git"
     source: git
     version: "6.0.38"
@@ -1063,10 +1135,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_windows
-      sha256: "44cf3aabcedde30f2dba119a9dea3b0f2672fbe6fa96e85536251d678216b3c4"
+      sha256: "3284b6d2ac454cf34f114e1d3319866fdd1e19cdc329999057e44ffe936cfa77"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.1.3"
+    version: "3.1.4"
   uuid:
     dependency: transitive
     description:
@@ -1107,6 +1179,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.1.4"
+  window_manager:
+    dependency: "direct main"
+    description:
+      name: window_manager
+      sha256: "732896e1416297c63c9e3fb95aea72d0355f61390263982a47fd519169dc5059"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.4.3"
   xdg_directories:
     dependency: transitive
     description:

@@ -19,10 +19,12 @@
  *     please visit: https://github.com/gokadzev/Musify
  */
 
-// Package imports:
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 // Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+
 // Project imports:
 import 'package:musify/API/musify.dart';
 import 'package:musify/extensions/l10n.dart';
@@ -81,7 +83,8 @@ class _LibraryPageState extends State<LibraryPage> {
   }
 
   Widget _buildUserPlaylistsSection(Color primaryColor) {
-    final isUserPlaylistsEmpty = userPlaylists.isEmpty && userCustomPlaylists.isEmpty;
+    final isUserPlaylistsEmpty =
+        userPlaylists.isEmpty && userCustomPlaylists.isEmpty;
     return Column(
       children: [
         Row(
@@ -102,22 +105,27 @@ class _LibraryPageState extends State<LibraryPage> {
           children: <Widget>[
             PlaylistBar(
               context.l10n!.recentlyPlayed,
-              onPressed: () => NavigationManager.router.go('/library/userSongs/recents'),
+              onPressed: () =>
+                  NavigationManager.router.go('/library/userSongs/recents'),
               cubeIcon: FluentIcons.history_24_filled,
               borderRadius: commonCustomBarRadiusFirst,
               showBuildActions: false,
             ),
             PlaylistBar(
               context.l10n!.likedSongs,
-              onPressed: () => NavigationManager.router.go('/library/userSongs/liked'),
+              onPressed: () =>
+                  NavigationManager.router.go('/library/userSongs/liked'),
               cubeIcon: FluentIcons.music_note_2_24_regular,
               showBuildActions: false,
             ),
             PlaylistBar(
               context.l10n!.offlineSongs,
-              onPressed: () => NavigationManager.router.go('/library/userSongs/offline'),
+              onPressed: () =>
+                  NavigationManager.router.go('/library/userSongs/offline'),
               cubeIcon: FluentIcons.cellular_off_24_filled,
-              borderRadius: isUserPlaylistsEmpty ? commonCustomBarRadiusLast : BorderRadius.zero,
+              borderRadius: isUserPlaylistsEmpty
+                  ? commonCustomBarRadiusLast
+                  : BorderRadius.zero,
               showBuildActions: false,
             ),
           ],
@@ -175,7 +183,9 @@ class _LibraryPageState extends State<LibraryPage> {
   }
 
   Widget _buildPlaylistListView(BuildContext context, List playlists) {
-    final isUserPlaylists = playlists.isNotEmpty && (playlists[0]['source'] == 'user-created' || playlists[0]['source'] == 'user-youtube');
+    final isUserPlaylists = playlists.isNotEmpty &&
+        (playlists[0]['source'] == 'user-created' ||
+            playlists[0]['source'] == 'user-youtube');
     final _length = playlists.length + (isUserPlaylists ? 3 : 0);
     return ListView.builder(
       shrinkWrap: true,
@@ -193,7 +203,10 @@ class _LibraryPageState extends State<LibraryPage> {
           playlistArtwork: playlist['image'],
           isAlbum: playlist['isAlbum'],
           playlistData: playlist['source'] == 'user-created' ? playlist : null,
-          onDelete: playlist['source'] == 'user-created' || playlist['source'] == 'user-youtube' ? () => _showRemovePlaylistDialog(playlist) : null,
+          onDelete: playlist['source'] == 'user-created' ||
+                  playlist['source'] == 'user-youtube'
+              ? () => _showRemovePlaylistDialog(playlist)
+              : null,
           borderRadius: borderRadius,
         );
       },
@@ -212,7 +225,8 @@ class _LibraryPageState extends State<LibraryPage> {
             builder: (context, setState) {
               final theme = Theme.of(context);
               final activeButtonBackground = theme.colorScheme.surfaceContainer;
-              final inactiveButtonBackground = theme.colorScheme.secondaryContainer;
+              final inactiveButtonBackground =
+                  theme.colorScheme.secondaryContainer;
               final dialogBackgroundColor = theme.dialogBackgroundColor;
 
               return AlertDialog(
@@ -234,7 +248,9 @@ class _LibraryPageState extends State<LibraryPage> {
                               });
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: isYouTubeMode ? inactiveButtonBackground : activeButtonBackground,
+                              backgroundColor: isYouTubeMode
+                                  ? inactiveButtonBackground
+                                  : activeButtonBackground,
                             ),
                             child: const Icon(
                               FluentIcons.globe_add_24_filled,
@@ -251,7 +267,9 @@ class _LibraryPageState extends State<LibraryPage> {
                               });
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: isYouTubeMode ? activeButtonBackground : inactiveButtonBackground,
+                              backgroundColor: isYouTubeMode
+                                  ? activeButtonBackground
+                                  : inactiveButtonBackground,
                             ),
                             child: const Icon(
                               FluentIcons.person_add_24_filled,
@@ -305,7 +323,8 @@ class _LibraryPageState extends State<LibraryPage> {
                             context,
                           ),
                         );
-                      } else if (!isYouTubeMode && customPlaylistName.isNotEmpty) {
+                      } else if (!isYouTubeMode &&
+                          customPlaylistName.isNotEmpty) {
                         showToast(
                           context,
                           createCustomPlaylist(
@@ -345,7 +364,8 @@ class _LibraryPageState extends State<LibraryPage> {
             onSubmit: () {
               Navigator.of(context).pop();
 
-              if (playlist['ytid'] == null && playlist['source'] == 'user-created') {
+              if (playlist['ytid'] == null &&
+                  playlist['source'] == 'user-created') {
                 removeUserCustomPlaylist(playlist);
               } else {
                 removeUserPlaylist(playlist['ytid']);
