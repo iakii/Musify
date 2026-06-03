@@ -4,7 +4,7 @@ import 'dart:io';
 import 'dart:convert';
 
 const String upsteamRepo = 'https://github.com/gokadzev/Musify.git';
-const String upstreamBranch = 'main';
+const String upstreamBranch = 'master';
 const String yourBranch = 'harmonyos-port';
 
 /// 颜色输出
