@@ -119,7 +119,7 @@ Future<bool> performMerge() async {
       }
     }
 
-    print('\n${Colors.yellow}建议处理方式：$reset');
+    print('\n${Colors.yellow}建议处理方式：');
     print('  1. 查看冲突文件：git status');
     print('  2. 手动编辑冲突文件，删除 <<<<<<< ======= >>>>>>> 标记');
     print('  3. 对于鸿蒙特定文件，保留你的修改版本');
