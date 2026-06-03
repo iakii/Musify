@@ -1,5 +1,6 @@
-// Project imports:
 import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
 
 /// The translations for Russian (`ru`).
 class AppLocalizationsRu extends AppLocalizations {
@@ -108,8 +109,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get copyLogsSuccess => 'Логи успешно скопированы. ';
 
   @override
-  String get customPlaylistImgUrl =>
-      'Обложка плейлиста (ссылка на изображение)';
+  String get customPlaylistImgUrl => 'Обложка плейлиста (ссылка на изображение)';
 
   @override
   String get customPlaylistName => 'Название плейлиста';
@@ -130,8 +130,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get error => 'Что-то пошло не так';
 
   @override
-  String get folderRestrictions =>
-      'Ввиду ограничений Android, необходимо выбрать определённые папки для разных типов файлов. Пожалуйста убедитесь в том, что вы выбрали папку \'Документы\' или \'Скачанные\' для файлов восстановления.';
+  String get folderRestrictions => 'Ввиду ограничений Android, необходимо выбрать определённые папки для разных типов файлов. Пожалуйста убедитесь в том, что вы выбрали папку \'Документы\' или \'Скачанные\' для файлов восстановления.';
 
   @override
   String get home => 'Главная';
@@ -203,15 +202,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get playlists => 'Плейлисты';
 
   @override
-  String get predictiveBack =>
-      'Анимация подсказки жеста \"Назад\" (Android 14+)';
+  String get predictiveBack => 'Анимация подсказки жеста \"Назад\" (Android 14+)';
 
   @override
   String get preferences => 'Настройки';
 
   @override
-  String get provideIdOrNameError =>
-      'Пожалуйста введите ID плейлиста YouTube или имя пользовательского плейлиста';
+  String get provideIdOrNameError => 'Пожалуйста введите ID плейлиста YouTube или имя пользовательского плейлиста';
 
   @override
   String get pureBlackTheme => 'Ночная тема';
@@ -247,8 +244,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get removeSearchQueryQuestion => 'Удалить этот поисковый запрос?';
 
   @override
-  String get restartAppMsg =>
-      'Перезапустите приложение для применения изменений';
+  String get restartAppMsg => 'Перезапустите приложение для применения изменений';
 
   @override
   String get restoreError => 'Ошибка при восстановлении данных';
@@ -311,6 +307,5 @@ class AppLocalizationsRu extends AppLocalizations {
   String get userPlaylists => 'Ваши плейлисты';
 
   @override
-  String get youtubePlaylistLinkOrId =>
-      'ID плейлиста YouTube или ссылка на него ';
+  String get youtubePlaylistLinkOrId => 'ID плейлиста YouTube или ссылка на него ';
 }

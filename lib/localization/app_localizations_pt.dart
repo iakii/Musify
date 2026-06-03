@@ -1,5 +1,6 @@
-// Project imports:
 import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
 
 /// The translations for Portuguese (`pt`).
 class AppLocalizationsPt extends AppLocalizations {
@@ -36,8 +37,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get albums => 'Álbuns';
 
   @override
-  String get appUpdateIsAvailable =>
-      'Uma atualização para o aplicativo está disponível';
+  String get appUpdateIsAvailable => 'Uma atualização para o aplicativo está disponível';
 
   @override
   String get artist => 'Artista';
@@ -85,15 +85,13 @@ class AppLocalizationsPt extends AppLocalizations {
   String get clearRecentlyPlayed => 'Limpar histórico de reproduções recentes';
 
   @override
-  String get clearRecentlyPlayedQuestion =>
-      'Deseja limpar o histórico de reprodução recente?';
+  String get clearRecentlyPlayedQuestion => 'Deseja limpar o histórico de reprodução recente?';
 
   @override
   String get clearSearchHistory => 'Limpar histórico de pesquisa';
 
   @override
-  String get clearSearchHistoryQuestion =>
-      'Deseja limpar o histórico de pesquisa?';
+  String get clearSearchHistoryQuestion => 'Deseja limpar o histórico de pesquisa?';
 
   @override
   String get confirm => 'Confirmar';
@@ -132,8 +130,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get error => 'Algo deu errado';
 
   @override
-  String get folderRestrictions =>
-      'Devido às novas restrições no Android, é essencial selecionar pastas específicas e apropriadas para diferentes tipos de arquivo. Por favor, certifique-se de escolher a pasta \'Documentos\' ou \'Downloads\' para o backup do aplicativo.';
+  String get folderRestrictions => 'Devido às novas restrições no Android, é essencial selecionar pastas específicas e apropriadas para diferentes tipos de arquivo. Por favor, certifique-se de escolher a pasta \'Documentos\' ou \'Downloads\' para o backup do aplicativo.';
 
   @override
   String get home => 'Início';
@@ -175,8 +172,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get newAnnouncement => 'New announcement posted';
 
   @override
-  String get noCustomPlaylists =>
-      'Você ainda não criou nenhuma playlist personalizada';
+  String get noCustomPlaylists => 'Você ainda não criou nenhuma playlist personalizada';
 
   @override
   String get notYTlist => 'Isso não é um ID de playlist do YouTube';
@@ -206,15 +202,13 @@ class AppLocalizationsPt extends AppLocalizations {
   String get playlists => 'Playlists';
 
   @override
-  String get predictiveBack =>
-      'Ativar animações de retorno preditivas (Android 14+)';
+  String get predictiveBack => 'Ativar animações de retorno preditivas (Android 14+)';
 
   @override
   String get preferences => 'Configurações';
 
   @override
-  String get provideIdOrNameError =>
-      'Por favor, forneça um ID do YouTube ou um nome personalizado da playlist.';
+  String get provideIdOrNameError => 'Por favor, forneça um ID do YouTube ou um nome personalizado da playlist.';
 
   @override
   String get pureBlackTheme => 'Usar preto puro';
@@ -250,8 +244,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get removeSearchQueryQuestion => 'Deseja remover essa pesquisa?';
 
   @override
-  String get restartAppMsg =>
-      'Reinicie o aplicativo para aplicar as alterações';
+  String get restartAppMsg => 'Reinicie o aplicativo para aplicar as alterações';
 
   @override
   String get restoreError => 'Erro ao restaurar os dados';

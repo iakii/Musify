@@ -1,5 +1,6 @@
-// Project imports:
 import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
 
 /// The translations for Chinese (`zh`).
 class AppLocalizationsZh extends AppLocalizations {
@@ -129,8 +130,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get error => '发生错误，请重试。';
 
   @override
-  String get folderRestrictions =>
-      '由于 Android 限制，需要选择特定文件夹（如 Documents 或 Downloads）进行备份。';
+  String get folderRestrictions => '由于 Android 限制，需要选择特定文件夹（如 Documents 或 Downloads）进行备份。';
 
   @override
   String get home => '首页';

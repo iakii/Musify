@@ -22,13 +22,11 @@
 // Dart imports:
 import 'dart:io';
 
-// Flutter imports:
-import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:file_picker_ohos/file_picker_ohos.dart';
+// Flutter imports:
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-
 // Project imports:
 import 'package:musify/extensions/l10n.dart';
 import 'package:musify/main.dart';

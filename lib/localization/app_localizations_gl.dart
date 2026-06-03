@@ -1,5 +1,6 @@
-// Project imports:
 import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
 
 /// The translations for Galician (`gl`).
 class AppLocalizationsGl extends AppLocalizations {
@@ -84,8 +85,7 @@ class AppLocalizationsGl extends AppLocalizations {
   String get clearRecentlyPlayed => 'Borrar reproducido recientemente';
 
   @override
-  String get clearRecentlyPlayedQuestion =>
-      'Borrar o historial de reproducción recente?';
+  String get clearRecentlyPlayedQuestion => 'Borrar o historial de reproducción recente?';
 
   @override
   String get clearSearchHistory => 'Borrar historial de búsqueda';
@@ -109,12 +109,10 @@ class AppLocalizationsGl extends AppLocalizations {
   String get copyLogsSuccess => 'Rexistros copiados correctamente';
 
   @override
-  String get customPlaylistImgUrl =>
-      'URL de imaxe personalizada para a lista de reproducción';
+  String get customPlaylistImgUrl => 'URL de imaxe personalizada para a lista de reproducción';
 
   @override
-  String get customPlaylistName =>
-      'Nome personalizado da lista de reproducción';
+  String get customPlaylistName => 'Nome personalizado da lista de reproducción';
 
   @override
   String get deletePlaylist => 'Delete playlist';
@@ -132,15 +130,13 @@ class AppLocalizationsGl extends AppLocalizations {
   String get error => 'Ocurriu un erro. Por favor, téntao de novo.';
 
   @override
-  String get folderRestrictions =>
-      'As restriccións de Android requiren seleccionar cartafoles específicos (p.e., Documentos ou Descargas) para respaldos.';
+  String get folderRestrictions => 'As restriccións de Android requiren seleccionar cartafoles específicos (p.e., Documentos ou Descargas) para respaldos.';
 
   @override
   String get home => 'Coemzo';
 
   @override
-  String get invalidYouTubePlaylist =>
-      'Lista de reproducción de YouTube non válida';
+  String get invalidYouTubePlaylist => 'Lista de reproducción de YouTube non válida';
 
   @override
   String get language => 'Idioma';
@@ -176,8 +172,7 @@ class AppLocalizationsGl extends AppLocalizations {
   String get newAnnouncement => 'New announcement posted';
 
   @override
-  String get noCustomPlaylists =>
-      'Aínda non se crearon listas de reproducción personalizadas';
+  String get noCustomPlaylists => 'Aínda non se crearon listas de reproducción personalizadas';
 
   @override
   String get notYTlist => 'ID de lista de reproducción de YouTube non válido';
@@ -213,8 +208,7 @@ class AppLocalizationsGl extends AppLocalizations {
   String get preferences => 'Preferenzas';
 
   @override
-  String get provideIdOrNameError =>
-      'Por favor, proporciona un ID de YouTube ou un nome personalizado para a lista de reproducción';
+  String get provideIdOrNameError => 'Por favor, proporciona un ID de YouTube ou un nome personalizado para a lista de reproducción';
 
   @override
   String get pureBlackTheme => 'Tema negro puro';
@@ -313,6 +307,5 @@ class AppLocalizationsGl extends AppLocalizations {
   String get userPlaylists => 'Listas de reproducción do/a usuario/a';
 
   @override
-  String get youtubePlaylistLinkOrId =>
-      'Ligazón ou ID de lista de reproducción de YouTube';
+  String get youtubePlaylistLinkOrId => 'Ligazón ou ID de lista de reproducción de YouTube';
 }

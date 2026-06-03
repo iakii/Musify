@@ -1,10 +1,9 @@
 // Flutter imports:
 
-// Flutter imports:
-import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:dynamic_color/dynamic_color.dart';
+// Flutter imports:
+import 'package:flutter/material.dart';
 
 // issue: https://github.com/material-foundation/flutter-packages/issues/582
 // temp-fix comment: https://github.com/material-foundation/flutter-packages/issues/582#issuecomment-2081174158

@@ -19,20 +19,18 @@
  *     please visit: https://github.com/gokadzev/Musify
  */
 
-// Flutter imports:
-import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:audio_service/audio_service.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+// Flutter imports:
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:window_manager/window_manager.dart';
-
 // Project imports:
 import 'package:musify/extensions/l10n.dart';
 import 'package:musify/main.dart';
 import 'package:musify/services/settings_manager.dart';
 import 'package:musify/widgets/mini_player.dart';
+import 'package:window_manager/window_manager.dart';
 
 class BottomNavigationPage extends StatefulWidget {
   const BottomNavigationPage({

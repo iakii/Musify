@@ -1,5 +1,6 @@
-// Project imports:
 import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
 
 /// The translations for Japanese (`ja`).
 class AppLocalizationsJa extends AppLocalizations {
@@ -129,8 +130,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get error => '不明のエラーが発生';
 
   @override
-  String get folderRestrictions =>
-      'Androidの新しい制約により、ファイルの種類に対して適切なフォルダを選択する必要があります。本アプリのバックアップには、「Documents」か「Downloads」フォルダを必ず選択してください。';
+  String get folderRestrictions => 'Androidの新しい制約により、ファイルの種類に対して適切なフォルダを選択する必要があります。本アプリのバックアップには、「Documents」か「Downloads」フォルダを必ず選択してください。';
 
   @override
   String get home => 'ホーム';

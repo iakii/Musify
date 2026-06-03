@@ -1,5 +1,6 @@
-// Project imports:
 import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
 
 /// The translations for German (`de`).
 class AppLocalizationsDe extends AppLocalizations {
@@ -108,8 +109,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get copyLogsSuccess => 'Logs erfolgreich kopiert';
 
   @override
-  String get customPlaylistImgUrl =>
-      'Bildlink der benutzerdefinierten Playlist';
+  String get customPlaylistImgUrl => 'Bildlink der benutzerdefinierten Playlist';
 
   @override
   String get customPlaylistName => 'Name der benutzerdefinierten Playlist';
@@ -130,8 +130,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get error => 'Etwas ist schiefgelaufen';
 
   @override
-  String get folderRestrictions =>
-      'Aufgrund neuer Beschränkungen auf Android ist es wichtig, spezifische und geeignete Ordner für verschiedene Dateitypen auszuwählen. Stelle sicher, dass du entweder den Ordner \'Dokumente\' oder \'Downloads\' für das App-Backup auswählst.';
+  String get folderRestrictions => 'Aufgrund neuer Beschränkungen auf Android ist es wichtig, spezifische und geeignete Ordner für verschiedene Dateitypen auszuwählen. Stelle sicher, dass du entweder den Ordner \'Dokumente\' oder \'Downloads\' für das App-Backup auswählst.';
 
   @override
   String get home => 'Startseite';
@@ -203,15 +202,13 @@ class AppLocalizationsDe extends AppLocalizations {
   String get playlists => 'Playlists';
 
   @override
-  String get predictiveBack =>
-      'Predective-Back Animationen aktivieren (Android 14+)';
+  String get predictiveBack => 'Predective-Back Animationen aktivieren (Android 14+)';
 
   @override
   String get preferences => 'Einstellungen';
 
   @override
-  String get provideIdOrNameError =>
-      'Bitte gib eine YouTube-ID oder einen benutzerdefinierten Playlist-Namen an';
+  String get provideIdOrNameError => 'Bitte gib eine YouTube-ID oder einen benutzerdefinierten Playlist-Namen an';
 
   @override
   String get pureBlackTheme => 'Richtig dunkler Modus';
@@ -247,8 +244,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get removeSearchQueryQuestion => 'Suchanfrage löschen?';
 
   @override
-  String get restartAppMsg =>
-      'Die App muss neugestartet werden, um Änderungen anzuwenden';
+  String get restartAppMsg => 'Die App muss neugestartet werden, um Änderungen anzuwenden';
 
   @override
   String get restoreError => 'Fehler bei der Datenwiederherstellung';
@@ -311,6 +307,5 @@ class AppLocalizationsDe extends AppLocalizations {
   String get userPlaylists => 'Deine Playlists';
 
   @override
-  String get youtubePlaylistLinkOrId =>
-      'Youtube-Playlist-Link oder ID einer Youtube-Playlist';
+  String get youtubePlaylistLinkOrId => 'Youtube-Playlist-Link oder ID einer Youtube-Playlist';
 }

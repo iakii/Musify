@@ -1,5 +1,6 @@
-// Project imports:
 import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
 
 /// The translations for Turkish (`tr`).
 class AppLocalizationsTr extends AppLocalizations {
@@ -84,8 +85,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get clearRecentlyPlayed => 'Yakında Oynatılanları Temizle';
 
   @override
-  String get clearRecentlyPlayedQuestion =>
-      'Yakında oynatınlanlar temizlensin mi?';
+  String get clearRecentlyPlayedQuestion => 'Yakında oynatınlanlar temizlensin mi?';
 
   @override
   String get clearSearchHistory => 'Arama Geçmişini Temizle';
@@ -130,8 +130,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get error => 'Bir hata oluştu';
 
   @override
-  String get folderRestrictions =>
-      'Android üzerindeki yeni kısıtlamalar nedeniyle, farklı dosya türleri için belirli ve uygun klasörleri seçmek önemlidir. Lütfen uygulama yedekleme için \'Belgeler\' veya \'İndirilenler\' klasörlerinden birini seçtiğinizden emin olun.';
+  String get folderRestrictions => 'Android üzerindeki yeni kısıtlamalar nedeniyle, farklı dosya türleri için belirli ve uygun klasörleri seçmek önemlidir. Lütfen uygulama yedekleme için \'Belgeler\' veya \'İndirilenler\' klasörlerinden birini seçtiğinizden emin olun.';
 
   @override
   String get home => 'Ana Sayfa';
@@ -209,8 +208,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get preferences => 'Tercihler';
 
   @override
-  String get provideIdOrNameError =>
-      'Lütfen ya bir YouTube Kimliği ya da özel çalma listesi adı sağlayın';
+  String get provideIdOrNameError => 'Lütfen ya bir YouTube Kimliği ya da özel çalma listesi adı sağlayın';
 
   @override
   String get pureBlackTheme => 'Pure black theme';
@@ -246,8 +244,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get removeSearchQueryQuestion => 'Aramayı sil';
 
   @override
-  String get restartAppMsg =>
-      'Değişikliklerin uygulanması için uygulamayı yeniden başlatın';
+  String get restartAppMsg => 'Değişikliklerin uygulanması için uygulamayı yeniden başlatın';
 
   @override
   String get restoreError => 'Veri geri yükleme sırasında hata oluştu';

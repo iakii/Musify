@@ -4,18 +4,17 @@
 
 /// @docImport 'color_scheme.dart';
 
-// ignore_for_file: omit_local_variable_types, prefer_int_literals, cascade_invocations
+// ignore_for_file: omit_local_variable_types, prefer_int_literals, cascade_invocations, deprecated_member_use
 
 // Dart imports:
 import 'dart:math' as math;
 
+// Package imports:
+import 'package:collection/collection.dart';
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-
-// Package imports:
-import 'package:collection/collection.dart';
 
 // Examples can assume:
 // late BuildContext context;

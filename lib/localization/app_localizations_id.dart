@@ -1,5 +1,6 @@
-// Project imports:
 import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
 
 /// The translations for Indonesian (`id`).
 class AppLocalizationsId extends AppLocalizations {
@@ -129,8 +130,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get error => 'Kesalahan';
 
   @override
-  String get folderRestrictions =>
-      'Karena adanya pembatasan baru pada Android, penting untuk memilih folder yang spesifik dan sesuai untuk berbagai jenis file. Pastikan Anda memilih folder \'Dokumen\' atau \'Unduhan\' untuk pencadangan aplikasi.';
+  String get folderRestrictions => 'Karena adanya pembatasan baru pada Android, penting untuk memilih folder yang spesifik dan sesuai untuk berbagai jenis file. Pastikan Anda memilih folder \'Dokumen\' atau \'Unduhan\' untuk pencadangan aplikasi.';
 
   @override
   String get home => 'Beranda';
@@ -208,8 +208,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get preferences => 'Preferensi';
 
   @override
-  String get provideIdOrNameError =>
-      'Harap berikan ID YouTube atau nama playlist kustom';
+  String get provideIdOrNameError => 'Harap berikan ID YouTube atau nama playlist kustom';
 
   @override
   String get pureBlackTheme => 'Gunakan hitam murni';

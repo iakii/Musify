@@ -1,5 +1,6 @@
-// Project imports:
 import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
 
 /// The translations for Ukrainian (`uk`).
 class AppLocalizationsUk extends AppLocalizations {
@@ -108,8 +109,7 @@ class AppLocalizationsUk extends AppLocalizations {
   String get copyLogsSuccess => 'Журнали успішно скопійовано';
 
   @override
-  String get customPlaylistImgUrl =>
-      'Посилання на зображення власного плейлиста';
+  String get customPlaylistImgUrl => 'Посилання на зображення власного плейлиста';
 
   @override
   String get customPlaylistName => 'Назва власного плейлиста';
@@ -130,8 +130,7 @@ class AppLocalizationsUk extends AppLocalizations {
   String get error => 'Щось пішло не так';
 
   @override
-  String get folderRestrictions =>
-      'У зв\'язку з новими обмеженнями на Android, обирається конкретні та відповідні теки для різних типів файлів. Будь ласка, переконайтеся, що ви вибрали теку \'Документи\' або \'Завантаження\' для резервного копіювання програми';
+  String get folderRestrictions => 'У зв\'язку з новими обмеженнями на Android, обирається конкретні та відповідні теки для різних типів файлів. Будь ласка, переконайтеся, що ви вибрали теку \'Документи\' або \'Завантаження\' для резервного копіювання програми';
 
   @override
   String get home => 'Головна';
@@ -173,8 +172,7 @@ class AppLocalizationsUk extends AppLocalizations {
   String get newAnnouncement => 'New announcement posted';
 
   @override
-  String get noCustomPlaylists =>
-      'You haven\'t created any custom playlists yet';
+  String get noCustomPlaylists => 'You haven\'t created any custom playlists yet';
 
   @override
   String get notYTlist => 'Це не ідентифікатор плейлиста YouTube';
@@ -186,8 +184,7 @@ class AppLocalizationsUk extends AppLocalizations {
   String get offlineSongs => 'Offline songs';
 
   @override
-  String get originalRecommendations =>
-      'Original algorithm for recommendations';
+  String get originalRecommendations => 'Original algorithm for recommendations';
 
   @override
   String get others => 'Інше';
@@ -211,8 +208,7 @@ class AppLocalizationsUk extends AppLocalizations {
   String get preferences => 'Preferences';
 
   @override
-  String get provideIdOrNameError =>
-      'Будь ласка, вказуйте або ID плейлиста YouTube, або назву власного плейлиста';
+  String get provideIdOrNameError => 'Будь ласка, вказуйте або ID плейлиста YouTube, або назву власного плейлиста';
 
   @override
   String get pureBlackTheme => 'Pure black theme';

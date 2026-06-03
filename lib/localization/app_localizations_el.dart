@@ -1,5 +1,6 @@
-// Project imports:
 import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
 
 /// The translations for Modern Greek (`el`).
 class AppLocalizationsEl extends AppLocalizations {
@@ -36,8 +37,7 @@ class AppLocalizationsEl extends AppLocalizations {
   String get albums => 'Albums';
 
   @override
-  String get appUpdateIsAvailable =>
-      'Υπάρχει διαθέσιμη ενημέρωση για την εφαρμογή';
+  String get appUpdateIsAvailable => 'Υπάρχει διαθέσιμη ενημέρωση για την εφαρμογή';
 
   @override
   String get artist => 'Artist';
@@ -55,12 +55,10 @@ class AppLocalizationsEl extends AppLocalizations {
   String get backedupSuccess => 'Επιτυχής δημιουργία αντιγράφου ασφαλείας';
 
   @override
-  String get backupError =>
-      'Σφάλμα κατά τη δημιουργία αντιγράφου ασφαλείας δεδομένων';
+  String get backupError => 'Σφάλμα κατά τη δημιουργία αντιγράφου ασφαλείας δεδομένων';
 
   @override
-  String get backupUserData =>
-      'Δημιουργία αντιγράφων ασφαλείας δεδομένων χρήστη';
+  String get backupUserData => 'Δημιουργία αντιγράφων ασφαλείας δεδομένων χρήστη';
 
   @override
   String get becomeSponsor => 'Γίνετε χορηγός';
@@ -84,12 +82,10 @@ class AppLocalizationsEl extends AppLocalizations {
   String get clearCache => 'Απαλοιφή cache';
 
   @override
-  String get clearRecentlyPlayed =>
-      'Καθαρισμός πρόσφατου ιστορικού αναπαραγωγής';
+  String get clearRecentlyPlayed => 'Καθαρισμός πρόσφατου ιστορικού αναπαραγωγής';
 
   @override
-  String get clearRecentlyPlayedQuestion =>
-      'Καθαρισμός πρόσφατου ιστορικού αναπαραγωγής?';
+  String get clearRecentlyPlayedQuestion => 'Καθαρισμός πρόσφατου ιστορικού αναπαραγωγής?';
 
   @override
   String get clearSearchHistory => 'Καθαρισμός ιστορικού αναζήτησης';
@@ -113,8 +109,7 @@ class AppLocalizationsEl extends AppLocalizations {
   String get copyLogsSuccess => 'Οι καταγραφές αντιγράφηκαν με επιτυχία.';
 
   @override
-  String get customPlaylistImgUrl =>
-      'Σύνδεσμος εικόνας προσαρμοσμένης λίστας αναπαραγωγής';
+  String get customPlaylistImgUrl => 'Σύνδεσμος εικόνας προσαρμοσμένης λίστας αναπαραγωγής';
 
   @override
   String get customPlaylistName => 'Όνομα προσαρμοσμένης λίστας αναπαραγωγής';
@@ -135,8 +130,7 @@ class AppLocalizationsEl extends AppLocalizations {
   String get error => 'Παρουσιάστηκε κάποιο πρόβλημα';
 
   @override
-  String get folderRestrictions =>
-      'Λόγω νέων περιορισμών στο Android, είναι απαραίτητο να επιλέξετε συγκεκριμένους και κατάλληλους φακέλους για διάφορους τύπους αρχείων. Βεβαιωθείτε ότι επιλέγετε είτε τον φάκελο \'Έγγραφα\' είτε τον φάκελο \'Λήψεις\' για τη δημιουργία αντιγράφου ασφαλείας της εφαρμογής.';
+  String get folderRestrictions => 'Λόγω νέων περιορισμών στο Android, είναι απαραίτητο να επιλέξετε συγκεκριμένους και κατάλληλους φακέλους για διάφορους τύπους αρχείων. Βεβαιωθείτε ότι επιλέγετε είτε τον φάκελο \'Έγγραφα\' είτε τον φάκελο \'Λήψεις\' για τη δημιουργία αντιγράφου ασφαλείας της εφαρμογής.';
 
   @override
   String get home => 'Κεντρική';
@@ -178,12 +172,10 @@ class AppLocalizationsEl extends AppLocalizations {
   String get newAnnouncement => 'New announcement posted';
 
   @override
-  String get noCustomPlaylists =>
-      'Δεν έχετε δημιουργήσει ακόμα λίστες αναπαραγωγής';
+  String get noCustomPlaylists => 'Δεν έχετε δημιουργήσει ακόμα λίστες αναπαραγωγής';
 
   @override
-  String get notYTlist =>
-      'Αυτό δεν είναι αναγνωριστικό λίστας αναπαραγωγής του YouTube';
+  String get notYTlist => 'Αυτό δεν είναι αναγνωριστικό λίστας αναπαραγωγής του YouTube';
 
   @override
   String get offlineMode => 'Λειτουργία εκτός σύνδεσης';
@@ -216,8 +208,7 @@ class AppLocalizationsEl extends AppLocalizations {
   String get preferences => 'Preferences';
 
   @override
-  String get provideIdOrNameError =>
-      'Παρακαλώ παρέχετε είτε αναγνωριστικό YouTube είτε όνομα προσαρμοσμένης λίστας αναπαραγωγής';
+  String get provideIdOrNameError => 'Παρακαλώ παρέχετε είτε αναγνωριστικό YouTube είτε όνομα προσαρμοσμένης λίστας αναπαραγωγής';
 
   @override
   String get pureBlackTheme => 'Pure black theme';
@@ -226,8 +217,7 @@ class AppLocalizationsEl extends AppLocalizations {
   String get recentlyPlayed => 'Πρόσφατα εκτελεσμένα';
 
   @override
-  String get recentlyPlayedMsg =>
-      'Το ιστορικό αναπαραγωγής διαγράφηκε πρόσφατα';
+  String get recentlyPlayedMsg => 'Το ιστορικό αναπαραγωγής διαγράφηκε πρόσφατα';
 
   @override
   String get recommendedForYou => 'Συνιστάται για εσάς';
@@ -248,16 +238,13 @@ class AppLocalizationsEl extends AppLocalizations {
   String get removeOffline => 'Remove from offline';
 
   @override
-  String get removePlaylistQuestion =>
-      'Κατάργηση αυτής της λίστας αναπαραγωγής;';
+  String get removePlaylistQuestion => 'Κατάργηση αυτής της λίστας αναπαραγωγής;';
 
   @override
-  String get removeSearchQueryQuestion =>
-      'Να καταργηθεί αυτό το ερώτημα αναζήτησης;';
+  String get removeSearchQueryQuestion => 'Να καταργηθεί αυτό το ερώτημα αναζήτησης;';
 
   @override
-  String get restartAppMsg =>
-      'Επανεκκινήστε την εφαρμογή για να εφαρμόσετε τις αλλαγές';
+  String get restartAppMsg => 'Επανεκκινήστε την εφαρμογή για να εφαρμόσετε τις αλλαγές';
 
   @override
   String get restoreError => 'Σφάλμα κατά την επαναφορά δεδομένων';

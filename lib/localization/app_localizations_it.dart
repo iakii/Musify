@@ -1,5 +1,6 @@
-// Project imports:
 import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
 
 /// The translations for Italian (`it`).
 class AppLocalizationsIt extends AppLocalizations {
@@ -129,8 +130,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get error => 'Qualcosa è andato storto';
 
   @override
-  String get folderRestrictions =>
-      'A causa delle nuove restrizioni su Android, è necessario selezionare cartelle specifiche e appropriate per diversi tipi di file. Assicurati di scegliere la cartella \'Documents\' o \'Downloads\' per il backup dell\'app.';
+  String get folderRestrictions => 'A causa delle nuove restrizioni su Android, è necessario selezionare cartelle specifiche e appropriate per diversi tipi di file. Assicurati di scegliere la cartella \'Documents\' o \'Downloads\' per il backup dell\'app.';
 
   @override
   String get home => 'Home';
@@ -172,8 +172,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get newAnnouncement => 'New announcement posted';
 
   @override
-  String get noCustomPlaylists =>
-      'Non hai ancora creato playlist personalizzate';
+  String get noCustomPlaylists => 'Non hai ancora creato playlist personalizzate';
 
   @override
   String get notYTlist => 'Questo non è un ID playlist di YouTube valido';
@@ -185,8 +184,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get offlineSongs => 'Brani offline';
 
   @override
-  String get originalRecommendations =>
-      'Algoritmo originale per le raccomandazioni';
+  String get originalRecommendations => 'Algoritmo originale per le raccomandazioni';
 
   @override
   String get others => 'Altri';
@@ -210,8 +208,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get preferences => 'Preferenze';
 
   @override
-  String get provideIdOrNameError =>
-      'Per favore fornisci un ID YouTube o un nome di playlist personalizzata';
+  String get provideIdOrNameError => 'Per favore fornisci un ID YouTube o un nome di playlist personalizzata';
 
   @override
   String get pureBlackTheme => 'Pure black theme';

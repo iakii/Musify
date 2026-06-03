@@ -1,5 +1,6 @@
-// Project imports:
 import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
 
 /// The translations for Arabic (`ar`).
 class AppLocalizationsAr extends AppLocalizations {
@@ -129,8 +130,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get error => 'حدث خطأ ما';
 
   @override
-  String get folderRestrictions =>
-      'نظرًا للقيود الجديدة على Android، فإنه من الضروري اختيار مجلدات محددة ومناسبة لأنواع الملفات المختلفة. يرجى التأكد من اختيار مجلد \'المستندات\' أو \'التنزيلات\' لنسخة احتياطية للتطبيق.';
+  String get folderRestrictions => 'نظرًا للقيود الجديدة على Android، فإنه من الضروري اختيار مجلدات محددة ومناسبة لأنواع الملفات المختلفة. يرجى التأكد من اختيار مجلد \'المستندات\' أو \'التنزيلات\' لنسخة احتياطية للتطبيق.';
 
   @override
   String get home => 'الرئيسية';
@@ -172,8 +172,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get newAnnouncement => 'New announcement posted';
 
   @override
-  String get noCustomPlaylists =>
-      'You haven\'t created any custom playlists yet';
+  String get noCustomPlaylists => 'You haven\'t created any custom playlists yet';
 
   @override
   String get notYTlist => 'هذا ليس معرف قائمة تشغيل YouTube';
@@ -185,8 +184,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get offlineSongs => 'Offline songs';
 
   @override
-  String get originalRecommendations =>
-      'Original algorithm for recommendations';
+  String get originalRecommendations => 'Original algorithm for recommendations';
 
   @override
   String get others => 'آخرون';
@@ -210,8 +208,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get preferences => 'Preferences';
 
   @override
-  String get provideIdOrNameError =>
-      'يرجى توفير إما معرف YouTube أو اسم قائمة التشغيل الخاصة';
+  String get provideIdOrNameError => 'يرجى توفير إما معرف YouTube أو اسم قائمة التشغيل الخاصة';
 
   @override
   String get pureBlackTheme => 'Pure black theme';

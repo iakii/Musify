@@ -19,13 +19,11 @@
  *     please visit: https://github.com/gokadzev/Musify
  */
 
-// Flutter imports:
-import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
-
+// Flutter imports:
+import 'package:flutter/material.dart';
 // Project imports:
 import 'package:musify/API/musify.dart';
 import 'package:musify/extensions/l10n.dart';
@@ -67,7 +65,7 @@ class PlaylistCube extends StatelessWidget {
       borderRadius: BorderRadius.circular(borderRadius),
       clipBehavior: Clip.antiAlias,
       child: Stack(
-        fit: StackFit.expand,
+        // fit: StackFit.expand,
         children: [
           _buildImage(context),
           if (borderRadius == 13 && playlist['image'] != null)
@@ -82,7 +80,7 @@ class PlaylistCube extends StatelessWidget {
   }
 
   Widget _buildImage(BuildContext context) {
-    print(playlist['image']);
+    // print(playlist['image']);
     return playlist['image'] != null
         ? CachedNetworkImage(
             key: Key(playlist['image'].toString()),

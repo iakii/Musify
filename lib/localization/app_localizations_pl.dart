@@ -1,5 +1,6 @@
-// Project imports:
 import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
 
 /// The translations for Polish (`pl`).
 class AppLocalizationsPl extends AppLocalizations {
@@ -81,12 +82,10 @@ class AppLocalizationsPl extends AppLocalizations {
   String get clearCache => 'Wyczyść pamięć podręczną';
 
   @override
-  String get clearRecentlyPlayed =>
-      'Wyczyść historię ostatnio odtworzonych utworów';
+  String get clearRecentlyPlayed => 'Wyczyść historię ostatnio odtworzonych utworów';
 
   @override
-  String get clearRecentlyPlayedQuestion =>
-      'Wyczyścić historię ostatnio odtworzonych utworów?';
+  String get clearRecentlyPlayedQuestion => 'Wyczyścić historię ostatnio odtworzonych utworów?';
 
   @override
   String get clearSearchHistory => 'Wyczyść historię wyszukiwania';
@@ -131,8 +130,7 @@ class AppLocalizationsPl extends AppLocalizations {
   String get error => 'Coś poszło nie tak';
 
   @override
-  String get folderRestrictions =>
-      'Ze względu na nowe ograniczenia w systemie Android konieczne jest wybranie określonych i odpowiednich folderów dla różnych typów plików. Upewnij się, że wybrałeś folder „Dokumenty” lub „Pobrane” dla kopii zapasowej aplikacji.';
+  String get folderRestrictions => 'Ze względu na nowe ograniczenia w systemie Android konieczne jest wybranie określonych i odpowiednich folderów dla różnych typów plików. Upewnij się, że wybrałeś folder „Dokumenty” lub „Pobrane” dla kopii zapasowej aplikacji.';
 
   @override
   String get home => 'Dom';
@@ -204,15 +202,13 @@ class AppLocalizationsPl extends AppLocalizations {
   String get playlists => 'Playlisty';
 
   @override
-  String get predictiveBack =>
-      'Gest przewidywanego przejścia wstecz (Android 14+)';
+  String get predictiveBack => 'Gest przewidywanego przejścia wstecz (Android 14+)';
 
   @override
   String get preferences => 'Preferencje';
 
   @override
-  String get provideIdOrNameError =>
-      'Podaj ID YouTube lub własną nazwę playlisty';
+  String get provideIdOrNameError => 'Podaj ID YouTube lub własną nazwę playlisty';
 
   @override
   String get pureBlackTheme => 'Motyw czarny';
@@ -221,8 +217,7 @@ class AppLocalizationsPl extends AppLocalizations {
   String get recentlyPlayed => 'Ostatnio odtwarzane';
 
   @override
-  String get recentlyPlayedMsg =>
-      'Wyczyszczono historię ostatnio odtworzonych utworów';
+  String get recentlyPlayedMsg => 'Wyczyszczono historię ostatnio odtworzonych utworów';
 
   @override
   String get recommendedForYou => 'Polecane dla Ciebie';
@@ -249,8 +244,7 @@ class AppLocalizationsPl extends AppLocalizations {
   String get removeSearchQueryQuestion => 'Usunąć to wyszukiwanie?';
 
   @override
-  String get restartAppMsg =>
-      'Uruchom ponownie aplikację, aby zastosować zmiany';
+  String get restartAppMsg => 'Uruchom ponownie aplikację, aby zastosować zmiany';
 
   @override
   String get restoreError => 'Błąd podczas przywracania danych';

@@ -1,5 +1,6 @@
-// Project imports:
 import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
 
 /// The translations for English (`en`).
 class AppLocalizationsEn extends AppLocalizations {
@@ -84,15 +85,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get clearRecentlyPlayed => 'Clear recently played';
 
   @override
-  String get clearRecentlyPlayedQuestion =>
-      'Are you sure you want to clear recently played history?';
+  String get clearRecentlyPlayedQuestion => 'Are you sure you want to clear recently played history?';
 
   @override
   String get clearSearchHistory => 'Clear search history';
 
   @override
-  String get clearSearchHistoryQuestion =>
-      'Are you sure you want to clear search history?';
+  String get clearSearchHistoryQuestion => 'Are you sure you want to clear search history?';
 
   @override
   String get confirm => 'Confirm';
@@ -131,8 +130,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get error => 'An error occurred. Please try again.';
 
   @override
-  String get folderRestrictions =>
-      'Android restrictions require selecting specific folders (e.g., Documents or Downloads) for backup.';
+  String get folderRestrictions => 'Android restrictions require selecting specific folders (e.g., Documents or Downloads) for backup.';
 
   @override
   String get home => 'Home';
@@ -210,8 +208,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get preferences => 'Preferences';
 
   @override
-  String get provideIdOrNameError =>
-      'Please provide a YouTube ID or custom playlist name';
+  String get provideIdOrNameError => 'Please provide a YouTube ID or custom playlist name';
 
   @override
   String get pureBlackTheme => 'Pure black theme';
@@ -241,12 +238,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get removeOffline => 'Remove from offline';
 
   @override
-  String get removePlaylistQuestion =>
-      'Are you sure you want to remove this playlist?';
+  String get removePlaylistQuestion => 'Are you sure you want to remove this playlist?';
 
   @override
-  String get removeSearchQueryQuestion =>
-      'Are you sure you want to remove this search query?';
+  String get removeSearchQueryQuestion => 'Are you sure you want to remove this search query?';
 
   @override
   String get restartAppMsg => 'Restart the app to apply changes';

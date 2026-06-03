@@ -1,5 +1,6 @@
-// Project imports:
 import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
 
 /// The translations for Korean (`ko`).
 class AppLocalizationsKo extends AppLocalizations {
@@ -129,8 +130,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get error => '오류가 발생했습니다. 다시 시도해 주세요.';
 
   @override
-  String get folderRestrictions =>
-      '안드로이드 제한으로 인해 백업할 특정 폴더(예: 문서 또는 다운로드)를 선택해야 합니다.';
+  String get folderRestrictions => '안드로이드 제한으로 인해 백업할 특정 폴더(예: 문서 또는 다운로드)를 선택해야 합니다.';
 
   @override
   String get home => '홈';

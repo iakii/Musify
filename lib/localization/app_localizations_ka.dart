@@ -1,5 +1,6 @@
-// Project imports:
 import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
 
 /// The translations for Georgian (`ka`).
 class AppLocalizationsKa extends AppLocalizations {
@@ -84,8 +85,7 @@ class AppLocalizationsKa extends AppLocalizations {
   String get clearRecentlyPlayed => 'ბოლოს ჩართული სიმღერების გასუფთავება';
 
   @override
-  String get clearRecentlyPlayedQuestion =>
-      'გავასუფთავოთ ბოლოს მოსმენილი სიმღერების ისტორია?';
+  String get clearRecentlyPlayedQuestion => 'გავასუფთავოთ ბოლოს მოსმენილი სიმღერების ისტორია?';
 
   @override
   String get clearSearchHistory => 'საძიებო ისტორიის გასუფთავება';
@@ -130,8 +130,7 @@ class AppLocalizationsKa extends AppLocalizations {
   String get error => 'დაფიქსირდა შეცდომა';
 
   @override
-  String get folderRestrictions =>
-      'Android-ის ახალი შეზღუდვებიდან გამომდინარე, საჭიროა რომ აირჩიოთ კონკრეტული და შესაბამისი საქაღალდეები განსხვავებული ფაილის ტიპებისთვის. გთხოვთ დარწმუნდით რომ ირჩევთ \'Documents\' ან \'Downloads\' საქაღალდეს აპლიკაციის ინფორმაციის რეზერვისთვის.';
+  String get folderRestrictions => 'Android-ის ახალი შეზღუდვებიდან გამომდინარე, საჭიროა რომ აირჩიოთ კონკრეტული და შესაბამისი საქაღალდეები განსხვავებული ფაილის ტიპებისთვის. გთხოვთ დარწმუნდით რომ ირჩევთ \'Documents\' ან \'Downloads\' საქაღალდეს აპლიკაციის ინფორმაციის რეზერვისთვის.';
 
   @override
   String get home => 'მთავარი';
@@ -185,8 +184,7 @@ class AppLocalizationsKa extends AppLocalizations {
   String get offlineSongs => 'უინტერნეტო სიმღერები';
 
   @override
-  String get originalRecommendations =>
-      'ორიგინალი ალგორითმი რეკომენდაციებისთვის';
+  String get originalRecommendations => 'ორიგინალი ალგორითმი რეკომენდაციებისთვის';
 
   @override
   String get others => 'სხვა';
@@ -204,15 +202,13 @@ class AppLocalizationsKa extends AppLocalizations {
   String get playlists => 'ჩასართავი სიები';
 
   @override
-  String get predictiveBack =>
-      'პროგნოზირებადი უკანსვლის ანიმაცია (Android 14+)';
+  String get predictiveBack => 'პროგნოზირებადი უკანსვლის ანიმაცია (Android 14+)';
 
   @override
   String get preferences => 'უპირატესობები';
 
   @override
-  String get provideIdOrNameError =>
-      'გთხოვთ ჩაწეროთ YouTube ID ან საკუთარი ჩასართავი სიის სახელი';
+  String get provideIdOrNameError => 'გთხოვთ ჩაწეროთ YouTube ID ან საკუთარი ჩასართავი სიის სახელი';
 
   @override
   String get pureBlackTheme => 'მკვეთრი შავი თემა';
@@ -221,8 +217,7 @@ class AppLocalizationsKa extends AppLocalizations {
   String get recentlyPlayed => 'ბოლოს მოსმენილი';
 
   @override
-  String get recentlyPlayedMsg =>
-      'ბოლოს მოსმენილი სიმღერების ისტორია გასუფთავდა';
+  String get recentlyPlayedMsg => 'ბოლოს მოსმენილი სიმღერების ისტორია გასუფთავდა';
 
   @override
   String get recommendedForYou => 'შემოთავაზებები შენთვის';

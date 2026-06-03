@@ -1,5 +1,6 @@
-// Project imports:
 import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
 
 /// The translations for French (`fr`).
 class AppLocalizationsFr extends AppLocalizations {
@@ -84,15 +85,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get clearRecentlyPlayed => 'Effacer l\'historique de lecture';
 
   @override
-  String get clearRecentlyPlayedQuestion =>
-      'Souhaitez-vous effacer l\'historique de lecture ?';
+  String get clearRecentlyPlayedQuestion => 'Souhaitez-vous effacer l\'historique de lecture ?';
 
   @override
   String get clearSearchHistory => 'Effacer l\'historique de recherche';
 
   @override
-  String get clearSearchHistoryQuestion =>
-      'Souhaitez-vous effacer l\'historique de recherche ?';
+  String get clearSearchHistoryQuestion => 'Souhaitez-vous effacer l\'historique de recherche ?';
 
   @override
   String get confirm => 'Confirmer';
@@ -110,8 +109,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get copyLogsSuccess => 'Copie des logs réussie';
 
   @override
-  String get customPlaylistImgUrl =>
-      'Lien d\'image de la playlist personnalisée';
+  String get customPlaylistImgUrl => 'Lien d\'image de la playlist personnalisée';
 
   @override
   String get customPlaylistName => 'Nom de la playlist personnalisée';
@@ -132,8 +130,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get error => 'Une erreur s\'est produite';
 
   @override
-  String get folderRestrictions =>
-      'En raison des nouvelles restrictions sur Android, il est essentiel de sélectionner des dossiers spécifiques et appropriés pour différents types de fichiers. Assurez-vous de choisir soit le dossier \'Documents\' soit le dossier \'Téléchargements\' pour la sauvegarde de l\'application.';
+  String get folderRestrictions => 'En raison des nouvelles restrictions sur Android, il est essentiel de sélectionner des dossiers spécifiques et appropriés pour différents types de fichiers. Assurez-vous de choisir soit le dossier \'Documents\' soit le dossier \'Téléchargements\' pour la sauvegarde de l\'application.';
 
   @override
   String get home => 'Accueil';
@@ -175,8 +172,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get newAnnouncement => 'Nouvelle annonce publiée';
 
   @override
-  String get noCustomPlaylists =>
-      'Vous n\'avez pas encore créé de playlists personnalisées';
+  String get noCustomPlaylists => 'Vous n\'avez pas encore créé de playlists personnalisées';
 
   @override
   String get notYTlist => 'Ceci n\'est pas un identifiant de playlist YouTube';
@@ -188,8 +184,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get offlineSongs => 'Titres hors ligne';
 
   @override
-  String get originalRecommendations =>
-      'Algorithme original pour les recommandations';
+  String get originalRecommendations => 'Algorithme original pour les recommandations';
 
   @override
   String get others => 'Autres';
@@ -213,8 +208,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get preferences => 'Préférences';
 
   @override
-  String get provideIdOrNameError =>
-      'Veuillez fournir soit un identifiant YouTube, soit un nom de playlist personnalisée';
+  String get provideIdOrNameError => 'Veuillez fournir soit un identifiant YouTube, soit un nom de playlist personnalisée';
 
   @override
   String get pureBlackTheme => 'Thème sombre';
@@ -244,16 +238,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get removeOffline => 'Supprimer du mode hors ligne';
 
   @override
-  String get removePlaylistQuestion =>
-      'Souhaitez-vous supprimer cette playlist ?';
+  String get removePlaylistQuestion => 'Souhaitez-vous supprimer cette playlist ?';
 
   @override
-  String get removeSearchQueryQuestion =>
-      'Souhaitez-vous supprimer cette requête de recherche ?';
+  String get removeSearchQueryQuestion => 'Souhaitez-vous supprimer cette requête de recherche ?';
 
   @override
-  String get restartAppMsg =>
-      'Redémarrez l\'application pour appliquer les modifications';
+  String get restartAppMsg => 'Redémarrez l\'application pour appliquer les modifications';
 
   @override
   String get restoreError => 'Erreur pendant la restauration';
@@ -316,6 +307,5 @@ class AppLocalizationsFr extends AppLocalizations {
   String get userPlaylists => 'Playlists des Utilisateurs';
 
   @override
-  String get youtubePlaylistLinkOrId =>
-      'Lien ou identifiant de la playlist YouTube';
+  String get youtubePlaylistLinkOrId => 'Lien ou identifiant de la playlist YouTube';
 }
