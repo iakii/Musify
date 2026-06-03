@@ -23,8 +23,10 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:musify/constants/app_constants.dart'
+    show commonSingleChildScrollViewPadding;
+import 'package:musify/constants/version.dart' show appVersion;
 // Project imports:
-import 'package:musify/API/version.dart';
 import 'package:musify/extensions/l10n.dart';
 import 'package:musify/utilities/url_launcher.dart';
 

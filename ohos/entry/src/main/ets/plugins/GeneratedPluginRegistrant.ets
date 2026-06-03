@@ -1,10 +1,10 @@
 import { FlutterEngine, Log } from '@ohos/flutter_ohos';
-import AudioSessionPlugin from 'audio_session';
-import PathProviderPlugin from 'path_provider_ohos';
 import UrlLauncherPlugin from 'url_launcher_ohos';
-import AudioServicePlugin from 'audio_service_ohos';
-import FilePickerPlugin from 'file_picker_ohos';
+import PathProviderPlugin from 'path_provider_ohos';
 import JustAudioOhosPlugin from 'just_audio_ohos';
+import AudioSessionPlugin from 'audio_session';
+import FilePickerPlugin from 'file_picker_ohos';
+import AudioServicePlugin from 'audio_service_ohos';
 
 /**
  * Generated file. Do not edit.
@@ -18,12 +18,12 @@ export class GeneratedPluginRegistrant {
 
   static registerWith(flutterEngine: FlutterEngine) {
     try {
-      flutterEngine.getPlugins()?.add(new AudioSessionPlugin());
-      flutterEngine.getPlugins()?.add(new PathProviderPlugin());
       flutterEngine.getPlugins()?.add(new UrlLauncherPlugin());
-      flutterEngine.getPlugins()?.add(new AudioServicePlugin());
-      flutterEngine.getPlugins()?.add(new FilePickerPlugin());
+      flutterEngine.getPlugins()?.add(new PathProviderPlugin());
       flutterEngine.getPlugins()?.add(new JustAudioOhosPlugin());
+      flutterEngine.getPlugins()?.add(new AudioSessionPlugin());
+      flutterEngine.getPlugins()?.add(new FilePickerPlugin());
+      flutterEngine.getPlugins()?.add(new AudioServicePlugin());
     } catch (e) {
       Log.e(
         TAG,

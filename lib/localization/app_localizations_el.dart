@@ -1,3 +1,5 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -19,73 +21,129 @@ class AppLocalizationsEl extends AppLocalizations {
   String get add => 'Προσθήκη';
 
   @override
-  String get addToLikedPlaylists => 'Add to liked playlists';
+  String get addPlaylist => 'Προσθήκη λίστας αναπαραγωγής';
 
   @override
-  String get addToLikedSongs => 'Add to liked songs';
+  String get addToLikedPlaylists =>
+      'Προσθήκη στις λίστες αναπαραγωγής που αρέσουν';
+
+  @override
+  String get addToLikedSongs => 'Προσθήκη στα αγαπημένα τραγούδια';
 
   @override
   String get addToPlaylist => 'Προσθήκη στη λίστα αναπαραγωγής';
 
   @override
+  String get addToQueue => 'Add to queue';
+
+  @override
+  String get addedPlaylists => 'Προστέθηκαν λίστες αναπαραγωγής';
+
+  @override
   String get addedSuccess => 'Επιτυχής προσθήκη';
+
+  @override
+  String get addedToLikedSongs => 'Προσθήκη στα αγαπημένα τραγούδια';
 
   @override
   String get album => 'Άλμπουμ';
 
   @override
-  String get albums => 'Albums';
+  String get albums => 'Άλμπουμ';
 
   @override
-  String get appUpdateIsAvailable => 'Υπάρχει διαθέσιμη ενημέρωση για την εφαρμογή';
+  String get alreadyDownloading => 'Ήδη λήψη';
 
   @override
-  String get artist => 'Artist';
+  String get appUpdateIsAvailable =>
+      'Υπάρχει διαθέσιμη ενημέρωση για την εφαρμογή';
+
+  @override
+  String get artist => 'Καλλιτέχνης';
 
   @override
   String get audioQuality => 'Ποιότητα ήχου';
 
   @override
+  String get audioQualityHigh => 'Υψηλή';
+
+  @override
+  String get audioQualityLow => 'Χαμηλή';
+
+  @override
+  String get audioQualityMedium => 'Μεσαίο';
+
+  @override
   String get audioQualityMsg => 'Η ποιότητα ήχου έχει αλλάξει';
 
   @override
-  String get automaticSongPicker => 'Automatic song picker';
+  String get automaticSongPicker => 'Αυτόματος επιλογέας τραγουδιού';
+
+  @override
+  String get automaticSongPickerDescription =>
+      'Αυτόματη αναπαραγωγή ενός τυχαίου τραγουδιού μετά το τέλος του τρέχοντος κομματιού.';
+
+  @override
+  String get automaticUpdateChecks => 'Αυτόματοι έλεγχοι ενημέρωσης';
+
+  @override
+  String get automaticUpdateChecksDescription =>
+      'Αυτόματος έλεγχος ενημέρωσης της εφαρμογής κατά την εκκίνηση.';
+
+  @override
+  String get back => 'Back';
+
+  @override
+  String get backToFavorites => 'Επιστροφή στα αγαπημένα';
 
   @override
   String get backedupSuccess => 'Επιτυχής δημιουργία αντιγράφου ασφαλείας';
 
   @override
-  String get backupError => 'Σφάλμα κατά τη δημιουργία αντιγράφου ασφαλείας δεδομένων';
+  String get backupError =>
+      'Σφάλμα κατά τη δημιουργία αντιγράφου ασφαλείας δεδομένων';
 
   @override
-  String get backupUserData => 'Δημιουργία αντιγράφων ασφαλείας δεδομένων χρήστη';
+  String get backupUserData =>
+      'Δημιουργία αντιγράφων ασφαλείας δεδομένων χρήστη';
 
   @override
   String get becomeSponsor => 'Γίνετε χορηγός';
 
   @override
-  String get cacheMsg => 'Έγινε εκκαθάριση της cache';
+  String get cacheMsg => 'Έγινε εκκαθάριση της βραχύχρονης μνήμης';
 
   @override
   String get cancel => 'Ακύρωση';
 
   @override
+  String get checkForUpdates => 'Έλεγχος για ενημερώσεις;';
+
+  @override
   String get chooseBackupDir => 'Επιλογή καταλόγου αντιγράφων ασφαλείας';
 
   @override
-  String get chooseBackupFiles => 'Choose backup files';
+  String get chooseBackupFiles => 'Επιλογή αρχείων για αντίγραφα ασφαλείας';
 
   @override
   String get clear => 'Απαλοιφή';
 
   @override
-  String get clearCache => 'Απαλοιφή cache';
+  String get clearCache => 'Απαλοιφή βραχύχρονης μνήμης';
 
   @override
-  String get clearRecentlyPlayed => 'Καθαρισμός πρόσφατου ιστορικού αναπαραγωγής';
+  String get clearQueue => 'Εκκαθάριση λίστας';
 
   @override
-  String get clearRecentlyPlayedQuestion => 'Καθαρισμός πρόσφατου ιστορικού αναπαραγωγής?';
+  String get clearQueueQuestion => 'Are you sure you want to clear the queue?';
+
+  @override
+  String get clearRecentlyPlayed =>
+      'Καθαρισμός πρόσφατου ιστορικού αναπαραγωγής';
+
+  @override
+  String get clearRecentlyPlayedQuestion =>
+      'Καθαρισμός πρόσφατου ιστορικού αναπαραγωγής;';
 
   @override
   String get clearSearchHistory => 'Καθαρισμός ιστορικού αναζήτησης';
@@ -109,13 +167,49 @@ class AppLocalizationsEl extends AppLocalizations {
   String get copyLogsSuccess => 'Οι καταγραφές αντιγράφηκαν με επιτυχία.';
 
   @override
-  String get customPlaylistImgUrl => 'Σύνδεσμος εικόνας προσαρμοσμένης λίστας αναπαραγωγής';
+  String get create => 'Δημιουργία';
+
+  @override
+  String get createFolder => 'Δημιουργία φακέλου';
+
+  @override
+  String get custom => 'Προτιμητέο';
+
+  @override
+  String get customPlaylistImgUrl =>
+      'Σύνδεσμος εικόνας προσαρμοσμένης λίστας αναπαραγωγής';
 
   @override
   String get customPlaylistName => 'Όνομα προσαρμοσμένης λίστας αναπαραγωγής';
 
   @override
-  String get deletePlaylist => 'Delete playlist';
+  String get customPlaylists => 'Προσαρμοσμένα λίστες αναπαραγωγής';
+
+  @override
+  String get dateAdded => 'Ημερομηνία Προσθήκης';
+
+  @override
+  String get default_ => 'Προεπιλογή';
+
+  @override
+  String get delete => 'Διαγραφή';
+
+  @override
+  String get deleteDownloads => 'Delete downloads';
+
+  @override
+  String get deleteDownloadsQuestion =>
+      'Are you sure you want to delete all downloads?';
+
+  @override
+  String get deleteFolder => 'Διαγραφή φακέλου';
+
+  @override
+  String get deleteFolderQuestion =>
+      'Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτό το φάκελο? Οι λίστες αναπαραγωγής μέσα θα μετακινηθούν στην κύρια βιβλιοθήκη.';
+
+  @override
+  String get deletePlaylist => 'Διαγραφή λίστας αναπαραγωγής';
 
   @override
   String get download => 'Λήψη';
@@ -124,16 +218,129 @@ class AppLocalizationsEl extends AppLocalizations {
   String get downloadAppUpdate => 'Λήψη ενημέρωσης εφαρμογής';
 
   @override
+  String get downloadCancelled => 'Η λήψη ακυρώθηκε';
+
+  @override
+  String get cancellingDownload => 'Cancelling download...';
+
+  @override
+  String get downloadFailed => 'Αποτυχία λήψης';
+
+  @override
+  String get downloadPlaylist => 'Λήψη λίστας αναπαραγωγής';
+
+  @override
+  String get downloadsDeleted => 'Downloads deleted successfully';
+
+  @override
   String get dynamicColor => 'Δυναμικό χρώμα έμφασης (Android 12+)';
+
+  @override
+  String get editFolder => 'Edit folder';
+
+  @override
+  String get editPlaylist => 'Επεξεργασία λίστας αναπαραγωγής';
+
+  @override
+  String get emptyFolderMsg =>
+      'Αυτός ο φάκελος είναι κενός. Προσθέστε λίστες αναπαραγωγής για να οργανώσετε τη μουσική σας.';
+
+  @override
+  String get enableUpdateChecksDescription =>
+      'Θα θέλατε το Musify να ελέγχει για ενημερώσεις αυτόματα από τις εκδόσεις του GitHub? Μπορείτε πάντα να ελέγξετε για ενημερώσεις χειροκίνητα από τις ρυθμίσεις';
+
+  @override
+  String get enterFolderName => 'Παρακαλώ εισάγετε ένα όνομα φακέλου';
+
+  @override
+  String get equalizer => 'Equalizer';
+
+  @override
+  String get equalizerAndroidOnly => 'Equalizer is available on Android only.';
+
+  @override
+  String get equalizerDisabledHint => 'Band gain adjustments are bypassed.';
+
+  @override
+  String get equalizerEnable => 'Enable equalizer';
+
+  @override
+  String get equalizerEnabledHint => 'Band gain adjustments are active.';
+
+  @override
+  String get equalizerInitFailed =>
+      'Equalizer could not be initialized right now. Try playing a song and reopen this page.';
+
+  @override
+  String get equalizerResetBands => 'Reset bands';
+
+  @override
+  String get equalizerPresetBalanced => 'Balanced';
+
+  @override
+  String get equalizerPresetBassBoost => 'Bass Boost';
+
+  @override
+  String get equalizerPresetElectronic => 'Electronic';
+
+  @override
+  String get equalizerPresetPop => 'Pop';
+
+  @override
+  String get equalizerPresetRock => 'Rock';
+
+  @override
+  String get equalizerPresetTrebleBoost => 'Treble Boost';
+
+  @override
+  String get equalizerPresetVocal => 'Vocal';
+
+  @override
+  String get equalizerPresets => 'Presets';
+
+  @override
+  String get equalizerBands => 'Bands';
 
   @override
   String get error => 'Παρουσιάστηκε κάποιο πρόβλημα';
 
   @override
-  String get folderRestrictions => 'Λόγω νέων περιορισμών στο Android, είναι απαραίτητο να επιλέξετε συγκεκριμένους και κατάλληλους φακέλους για διάφορους τύπους αρχείων. Βεβαιωθείτε ότι επιλέγετε είτε τον φάκελο \'Έγγραφα\' είτε τον φάκελο \'Λήψεις\' για τη δημιουργία αντιγράφου ασφαλείας της εφαρμογής.';
+  String get externalRecommendations => 'Εξωτερικές συστάσεις';
+
+  @override
+  String get externalRecommendationsDescription =>
+      'Χρήση εξωτερικού αλγόριθμου για συστάσεις αντί της εφαρμογής.';
+
+  @override
+  String get failedToLoadPlaylist => 'Failed to load playlist';
+
+  @override
+  String get fieldsNotEmpty => 'Όλα τα πεδία πρέπει να συμπληρωθούν';
+
+  @override
+  String get folderAlreadyExists => 'Υπάρχει ήδη ένας φάκελος με αυτό το όνομα';
+
+  @override
+  String get folderDeleted => 'Ο φάκελος διαγράφηκε επιτυχώς';
+
+  @override
+  String get folderName => 'Όνομα φακέλου';
+
+  @override
+  String get folderRestrictions =>
+      'Λόγω νέων περιορισμών στο Android, είναι απαραίτητο να επιλέξετε συγκεκριμένους και κατάλληλους φακέλους για διάφορους τύπους αρχείων. Βεβαιωθείτε ότι επιλέγετε είτε τον φάκελο \'Έγγραφα\' είτε τον φάκελο \'Λήψεις\' για τη δημιουργία αντιγράφου ασφαλείας της εφαρμογής.';
+
+  @override
+  String get folderUpdated => 'Folder updated successfully';
 
   @override
   String get home => 'Κεντρική';
+
+  @override
+  String get hours => 'Ώρες';
+
+  @override
+  String get imagePicked => 'Επιλέχθηκε εικόνα';
 
   @override
   String get invalidYouTubePlaylist => 'Invalid Youtube playlist';
@@ -142,10 +349,76 @@ class AppLocalizationsEl extends AppLocalizations {
   String get language => 'Γλώσσα';
 
   @override
+  String get languageDe => 'German';
+
+  @override
+  String get languageEl => 'Greek';
+
+  @override
+  String get languageEn => 'English';
+
+  @override
+  String get languageEs => 'Spanish';
+
+  @override
+  String get languageEt => 'Estonian';
+
+  @override
+  String get languageFr => 'French';
+
+  @override
+  String get languageHe => 'Hebrew';
+
+  @override
+  String get languageHi => 'Hindi';
+
+  @override
+  String get languageHu => 'Hungarian';
+
+  @override
+  String get languageId => 'Indonesian';
+
+  @override
+  String get languageIt => 'Italian';
+
+  @override
+  String get languageJa => 'Japanese';
+
+  @override
+  String get languageKo => 'Korean';
+
+  @override
   String get languageMsg => 'Η γλώσσα έχει αλλάξει';
 
   @override
-  String get library => 'Library';
+  String get languagePl => 'Polish';
+
+  @override
+  String get languagePt => 'Portuguese';
+
+  @override
+  String get languageRu => 'Russian';
+
+  @override
+  String get languageSv => 'Swedish';
+
+  @override
+  String get languageTa => 'Tamil';
+
+  @override
+  String get languageTr => 'Turkish';
+
+  @override
+  String get languageUk => 'Ukrainian';
+
+  @override
+  String get languageZh => 'Chinese (Simplified)';
+
+  @override
+  String get languageZhHant => 'Chinese (Traditional)';
+
+  @override
+  String get library => 'Βιβλιοθήκη';
 
   @override
   String get licenses => 'Άδειες';
@@ -157,43 +430,128 @@ class AppLocalizationsEl extends AppLocalizations {
   String get likedSongs => 'Αγαπημένα τραγούδια';
 
   @override
+  String get loading => 'Loading';
+
+  @override
   String get lyrics => 'Στίχοι';
 
   @override
   String get lyricsNotAvailable => 'Δεν υπάρχουν διαθέσιμοι στίχοι';
 
   @override
-  String get makeOffline => 'Make available offline';
+  String get makeOffline => 'Διαθέσιμα εκτός σύνδεσης';
 
   @override
-  String get name => 'Name';
+  String get minutes => 'Λεπτά';
 
   @override
-  String get newAnnouncement => 'New announcement posted';
+  String get moreOptions => 'More options';
 
   @override
-  String get noCustomPlaylists => 'Δεν έχετε δημιουργήσει ακόμα λίστες αναπαραγωγής';
+  String get mostPlayed => 'Most played';
 
   @override
-  String get notYTlist => 'Αυτό δεν είναι αναγνωριστικό λίστας αναπαραγωγής του YouTube';
+  String get moveToFolder => 'Μετακίνηση στο φάκελο';
+
+  @override
+  String get name => 'Όνομα';
+
+  @override
+  String get newAnnouncement => 'Νέα ανακοίνωση δημοσιεύτηκε';
+
+  @override
+  String get newFolder => 'Νέος φάκελος';
+
+  @override
+  String get no => 'Όχι';
+
+  @override
+  String get noCustomPlaylists =>
+      'Δεν έχετε δημιουργήσει ακόμα λίστες αναπαραγωγής';
+
+  @override
+  String get noFolders => 'No folders created yet';
+
+  @override
+  String get noOfflineLibraryContent =>
+      'No offline content. Enable online mode or download playlists/songs to use the library.';
+
+  @override
+  String get noPlaylistsAdded =>
+      'Δεν έχουν προστεθεί λίστες αναπαραγωγής ακόμα';
+
+  @override
+  String get noSongsInPlaylist => 'No songs in playlist';
+
+  @override
+  String get noSongsInQueue => 'Δεν υπάρχουν τραγούδια σε ουρά';
+
+  @override
+  String get notYTlist =>
+      'Αυτό δεν είναι αναγνωριστικό λίστας αναπαραγωγής του YouTube';
 
   @override
   String get offlineMode => 'Λειτουργία εκτός σύνδεσης';
 
   @override
-  String get offlineSongs => 'Τραγούδια εκτός σύνδεσης';
+  String get offlineModeDescription =>
+      'Disable online features and use Musify completely offline.';
 
   @override
-  String get originalRecommendations => 'Πρωτότυπος αλγόριθμος για συστάσεις';
+  String get offlinePlaylists => 'Λίστες αναπαραγωγής εκτός σύνδεσης';
+
+  @override
+  String get offlineSongs => 'Τραγούδια εκτός σύνδεσης';
 
   @override
   String get others => 'Άλλα';
 
   @override
+  String get pause => 'Pause';
+
+  @override
+  String get pickImageFromDevice => 'Επιλέξτε εικόνα από τη συσκευή';
+
+  @override
+  String get play => 'Play';
+
+  @override
+  String get playNext => 'Αναπαραγωγή επόμενου';
+
+  @override
+  String get pinnedPlaylists => 'Pinned';
+
+  @override
+  String get pinToLibrary => 'Pin to library';
+
+  @override
+  String get unpinFromLibrary => 'Unpin from library';
+
+  @override
+  String get pinnedPlaylistsLimit => 'You can pin up to 5 playlists or albums';
+
+  @override
   String get playlist => 'Λίστα αναπαραγωγής';
 
   @override
-  String get playlistAlreadyExists => 'Playlist already exists';
+  String get playlistAlreadyDownloaded =>
+      'Η λίστα αναπαραγωγής έχει ήδη ληφθεί';
+
+  @override
+  String get playlistAlreadyExists => 'Η λίστα αναπαραγωγής υπάρχει ήδη';
+
+  @override
+  String get playlistDownloaded => 'Λήψη λίστας αναπαραγωγής';
+
+  @override
+  String get playlistEmpty => 'Η λίστα είναι κενή';
+
+  @override
+  String get playlistFolders => 'Φάκελοι λίστας αναπαραγωγής';
+
+  @override
+  String get playlistRemovedFromOffline =>
+      'Η λίστα αναπαραγωγής αφαιρέθηκε από αποσυνδεδεμένο χώρο';
 
   @override
   String get playlistUpdated => 'Η λίστα αναπαραγωγής ενημερώθηκε επιτυχώς';
@@ -205,19 +563,24 @@ class AppLocalizationsEl extends AppLocalizations {
   String get predictiveBack => 'Predictive back animations (Android 14+)';
 
   @override
-  String get preferences => 'Preferences';
+  String get preferences => 'Ρυθμίσεις';
 
   @override
-  String get provideIdOrNameError => 'Παρακαλώ παρέχετε είτε αναγνωριστικό YouTube είτε όνομα προσαρμοσμένης λίστας αναπαραγωγής';
+  String get provideIdOrNameError =>
+      'Παρακαλώ παρέχετε είτε αναγνωριστικό YouTube είτε όνομα προσαρμοσμένης λίστας αναπαραγωγής';
 
   @override
-  String get pureBlackTheme => 'Pure black theme';
+  String get pureBlackTheme => 'Καθαρό μαύρο θέμα';
+
+  @override
+  String get queue => 'Λίστα';
 
   @override
   String get recentlyPlayed => 'Πρόσφατα εκτελεσμένα';
 
   @override
-  String get recentlyPlayedMsg => 'Το ιστορικό αναπαραγωγής διαγράφηκε πρόσφατα';
+  String get recentlyPlayedMsg =>
+      'Το ιστορικό αναπαραγωγής διαγράφηκε πρόσφατα';
 
   @override
   String get recommendedForYou => 'Συνιστάται για εσάς';
@@ -226,25 +589,51 @@ class AppLocalizationsEl extends AppLocalizations {
   String get remove => 'Αφαίρεση';
 
   @override
-  String get removeFromLikedPlaylists => 'Remove from liked playlists';
+  String get removeFromFolder => 'Αφαίρεση από το φάκελο';
 
   @override
-  String get removeFromLikedSongs => 'Remove from liked songs';
+  String get removeFromLikedPlaylists =>
+      'Κατάργηση από τις λίστες αναπαραγωγής που αρέσουν';
 
   @override
-  String get removeFromPlaylist => 'Remove from playlist';
+  String get removeFromLikedSongs => 'Αφαίρεση από αγαπημένα τραγούδια';
 
   @override
-  String get removeOffline => 'Remove from offline';
+  String get removeFromPlaylist => 'Αφαίρεση από τη λίστα αναπαραγωγής';
 
   @override
-  String get removePlaylistQuestion => 'Κατάργηση αυτής της λίστας αναπαραγωγής;';
+  String get removeFromRecentlyPlayed => 'Κατάργηση από τα πρόσφατα παιγμένα';
 
   @override
-  String get removeSearchQueryQuestion => 'Να καταργηθεί αυτό το ερώτημα αναζήτησης;';
+  String get removeOffline => 'Αφαίρεση από αποσυνδεδεμένο';
 
   @override
-  String get restartAppMsg => 'Επανεκκινήστε την εφαρμογή για να εφαρμόσετε τις αλλαγές';
+  String get removeOfflinePlaylist =>
+      'Αφαίρεση Λίστας Αναπαραγωγής Χωρίς Σύνδεση';
+
+  @override
+  String get removeOfflinePlaylistConfirm =>
+      'Αυτό θα αφαιρέσει τη λίστα αναπαραγωγής από τον χώρο αποθήκευσης εκτός σύνδεσης. Τραγούδια που χρησιμοποιούνται σε άλλες λίστες αναπαραγωγής θα είναι ακόμα διαθέσιμα.';
+
+  @override
+  String get removePlaylistQuestion =>
+      'Κατάργηση αυτής της λίστας αναπαραγωγής;';
+
+  @override
+  String get removeSearchQueryQuestion =>
+      'Να καταργηθεί αυτό το ερώτημα αναζήτησης;';
+
+  @override
+  String get removedFromLikedSongs => 'Διαγραφή από αγαπημένα τραγούδια';
+
+  @override
+  String get renameSong => 'Μετονομασία τραγουδιού';
+
+  @override
+  String get repeat => 'Repeat';
+
+  @override
+  String get replay => 'Replay';
 
   @override
   String get restoreError => 'Σφάλμα κατά την επαναφορά δεδομένων';
@@ -262,25 +651,68 @@ class AppLocalizationsEl extends AppLocalizations {
   String get searchHistoryMsg => 'Έγινε απαλοιφή του ιστορικού αναζήτησης';
 
   @override
+  String get selectDuration => 'Επιλογή διάρκειας';
+
+  @override
+  String get setTimer => 'Ορισμός χρονομέτρου';
+
+  @override
   String get settingChangedMsg => 'Η ρύθμιση άλλαξε';
 
   @override
   String get settings => 'Ρυθμίσεις';
 
   @override
+  String get share => 'Share';
+
+  @override
+  String get linkCopied => 'Playlist link copied to clipboard';
+
+  @override
+  String get shuffle => 'Shuffle';
+
+  @override
+  String get skipToNext => 'Skip to next';
+
+  @override
+  String get skipToPrevious => 'Skip to previous';
+
+  @override
+  String get sleepTimer => 'Sleep timer';
+
+  @override
+  String get sleepTimerCancelled => 'Ο χρονοδιακόπτης ύπνου ακυρώθηκε';
+
+  @override
+  String get sleepTimerSet => 'Ρύθμιση χρονοδιακόπτη ύπνου';
+
+  @override
   String get songAdded => 'Το τραγούδι προστέθηκε με επιτυχία!';
 
   @override
-  String get songAlreadyInPlaylist => 'Song is already in the playlist';
+  String get songAddedToOffline =>
+      'Το τραγούδι είναι τώρα διαθέσιμο εκτός σύνδεσης';
+
+  @override
+  String get songAlreadyInPlaylist =>
+      'Το τραγούδι είναι ήδη στη λίστα αναπαραγωγής';
 
   @override
   String get songRemoved => 'Το τραγούδι αφαιρέθηκε με επιτυχία!';
 
   @override
+  String get songRemovedFromOffline =>
+      'Το τραγούδι δεν είναι πλέον διαθέσιμο εκτός σύνδεσης';
+
+  @override
   String get songs => 'Τραγούδια';
 
   @override
-  String get sponsorProject => 'Χορηγεία στον ιδιοκτήτη';
+  String get sponsorBlockDescription =>
+      'Παράλειψη διαφημιστικών τμημάτων σε υποστηριζόμενα κομμάτια.';
+
+  @override
+  String get sponsorProject => 'Χορηγία στον ιδιοκτήτη';
 
   @override
   String get suggestedArtists => 'Προτεινόμενοι καλλιτέχνες';
@@ -289,10 +721,29 @@ class AppLocalizationsEl extends AppLocalizations {
   String get suggestedPlaylists => 'Προτεινόμενες λίστες αναπαραγωγής';
 
   @override
+  String get tapToView => 'Πατήστε για προβολή';
+
+  @override
   String get themeMode => 'Λειτουργία θέματος';
 
   @override
+  String get themeModeDark => 'Σκοτεινό';
+
+  @override
+  String get themeModeLight => 'Φωτεινό';
+
+  @override
+  String get themeModeSystem => 'Σύστημα';
+
+  @override
   String get tools => 'Εργαλεία';
+
+  @override
+  String get translate => 'Μετάφραση';
+
+  @override
+  String get translateDescription =>
+      'Βοήθα να μεταφραστεί η εφαρμογή στη δική σου γλώσσα στο Crowdin.';
 
   @override
   String get understand => 'Το κατάλαβα';
@@ -301,10 +752,20 @@ class AppLocalizationsEl extends AppLocalizations {
   String get undo => 'Αναίρεση';
 
   @override
-  String get useSquigglySlider => 'Use squiggly slider';
+  String get update => 'Ενημέρωση';
+
+  @override
+  String get useProxy => 'Χρήση διαμεσολαβητή';
+
+  @override
+  String get useProxyDescription =>
+      'Use the proxy only when streaming fails, unnecessary use may break playback.';
 
   @override
   String get userPlaylists => 'Λίστες αναπαραγωγής χρήστη';
+
+  @override
+  String get yes => 'Ναι';
 
   @override
   String get youtubePlaylistLinkOrId => 'YouTube playlist link or ID ';

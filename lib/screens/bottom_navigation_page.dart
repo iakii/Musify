@@ -71,12 +71,8 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
               label: context.l10n?.library ?? 'Library',
             ),
             NavigationDestination(
-              icon: const Icon(
-                FluentIcons.settings_24_regular,
-              ),
-              selectedIcon: const Icon(
-                FluentIcons.settings_24_filled,
-              ),
+              icon: const Icon(FluentIcons.settings_24_regular),
+              selectedIcon: const Icon(FluentIcons.settings_24_filled),
               label: context.l10n?.settings ?? 'Settings',
             ),
           ]
@@ -87,12 +83,8 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
               label: context.l10n?.home ?? 'Home',
             ),
             NavigationDestination(
-              icon: const Icon(
-                FluentIcons.settings_24_regular,
-              ),
-              selectedIcon: const Icon(
-                FluentIcons.settings_24_filled,
-              ),
+              icon: const Icon(FluentIcons.settings_24_regular),
+              selectedIcon: const Icon(FluentIcons.settings_24_filled),
               label: context.l10n?.settings ?? 'Settings',
             ),
           ];
@@ -103,8 +95,8 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
         if (snapshot.hasError) {
           logger.log(
             'Error in mini player bar',
-            snapshot.error,
-            snapshot.stackTrace,
+            error: snapshot.error,
+            stackTrace: snapshot.stackTrace,
           );
         }
         final metadata = snapshot.data;
@@ -135,9 +127,10 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
                         const Text(
                           'Musify',
                           style: TextStyle(
-                              color: Color(0xff6BA1FF),
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold),
+                            color: Color(0xff6BA1FF),
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         const SizedBox(height: 16),
                       ],
@@ -154,27 +147,30 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
                     },
                     labelType: NavigationRailLabelType.all,
                     destinations: navs
-                        .map((nav) => NavigationRailDestination(
-                              icon: nav.icon,
-                              label: Text(nav.label),
-                              selectedIcon: nav.selectedIcon,
-                            ))
+                        .map(
+                          (nav) => NavigationRailDestination(
+                            icon: nav.icon,
+                            label: Text(nav.label),
+                            selectedIcon: nav.selectedIcon,
+                          ),
+                        )
                         .toList(),
                   ),
                 ),
                 Expanded(
-                    child: Column(
-                  children: [
-                    SizedBox(
-                      height: kWindowCaptionHeight,
-                      child: WindowCaption(
-                        brightness: Theme.of(context).brightness,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: kWindowCaptionHeight,
+                        child: WindowCaption(
+                          brightness: Theme.of(context).brightness,
+                        ),
                       ),
-                    ),
-                    Expanded(child: widget.child),
-                    songBar,
-                  ],
-                )),
+                      Expanded(child: widget.child),
+                      songBar,
+                    ],
+                  ),
+                ),
               ],
             )
           : widget.child,
@@ -189,8 +185,8 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
                   selectedIndex: _selectedIndex.value,
                   labelBehavior:
                       ['en', 'zh'].contains(languageSetting.languageCode)
-                          ? NavigationDestinationLabelBehavior.onlyShowSelected
-                          : NavigationDestinationLabelBehavior.alwaysHide,
+                      ? NavigationDestinationLabelBehavior.onlyShowSelected
+                      : NavigationDestinationLabelBehavior.alwaysHide,
                   onDestinationSelected: (index) {
                     widget.child.goBranch(
                       index,

@@ -1,3 +1,5 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -19,22 +21,37 @@ class AppLocalizationsJa extends AppLocalizations {
   String get add => '追加';
 
   @override
-  String get addToLikedPlaylists => 'Add to liked playlists';
+  String get addPlaylist => 'Add playlist';
 
   @override
-  String get addToLikedSongs => 'Add to liked songs';
+  String get addToLikedPlaylists => 'いいねした再生リストに追加';
+
+  @override
+  String get addToLikedSongs => 'いいねした曲に追加';
 
   @override
   String get addToPlaylist => '再生リストに追加';
 
   @override
+  String get addToQueue => 'Add to queue';
+
+  @override
+  String get addedPlaylists => '追加済みの再生リスト';
+
+  @override
   String get addedSuccess => '追加しました';
+
+  @override
+  String get addedToLikedSongs => 'Added to liked songs';
 
   @override
   String get album => 'アルバム';
 
   @override
-  String get albums => 'Albums';
+  String get albums => 'アルバム';
+
+  @override
+  String get alreadyDownloading => 'すでにダウンロード中';
 
   @override
   String get appUpdateIsAvailable => 'アプリの最新版があります';
@@ -46,10 +63,36 @@ class AppLocalizationsJa extends AppLocalizations {
   String get audioQuality => '音質';
 
   @override
+  String get audioQualityHigh => 'High';
+
+  @override
+  String get audioQualityLow => 'Low';
+
+  @override
+  String get audioQualityMedium => 'Medium';
+
+  @override
   String get audioQualityMsg => '音質を変更しました';
 
   @override
   String get automaticSongPicker => '自動で曲選択';
+
+  @override
+  String get automaticSongPickerDescription =>
+      'Automatically play a random song after the current track ends.';
+
+  @override
+  String get automaticUpdateChecks => 'Automatic update checks';
+
+  @override
+  String get automaticUpdateChecksDescription =>
+      'Automatically check for app updates on startup.';
+
+  @override
+  String get back => 'Back';
+
+  @override
+  String get backToFavorites => 'お気に入りに戻す';
 
   @override
   String get backedupSuccess => 'データを正常にバックアップしました';
@@ -70,16 +113,25 @@ class AppLocalizationsJa extends AppLocalizations {
   String get cancel => 'キャンセル';
 
   @override
+  String get checkForUpdates => 'Check for Updates?';
+
+  @override
   String get chooseBackupDir => 'バックアップ先のフォルダを選択';
 
   @override
-  String get chooseBackupFiles => 'Choose backup files';
+  String get chooseBackupFiles => 'バックアップファイルを選択';
 
   @override
   String get clear => '消去';
 
   @override
   String get clearCache => 'キャッシュを削除';
+
+  @override
+  String get clearQueue => 'Clear queue';
+
+  @override
+  String get clearQueueQuestion => 'Are you sure you want to clear the queue?';
 
   @override
   String get clearRecentlyPlayed => '再生履歴を削除';
@@ -109,43 +161,256 @@ class AppLocalizationsJa extends AppLocalizations {
   String get copyLogsSuccess => 'ログをコピーしました';
 
   @override
+  String get create => '作成';
+
+  @override
+  String get createFolder => 'フォルダーを作成';
+
+  @override
+  String get custom => 'Custom';
+
+  @override
   String get customPlaylistImgUrl => 'リスト用の画像のリンク';
 
   @override
   String get customPlaylistName => 'リスト名の指定';
 
   @override
-  String get deletePlaylist => 'Delete playlist';
+  String get customPlaylists => 'あなたの再生リスト';
 
   @override
-  String get download => 'Download';
+  String get dateAdded => 'Date Added';
+
+  @override
+  String get default_ => 'Default';
+
+  @override
+  String get delete => '削除';
+
+  @override
+  String get deleteDownloads => 'Delete downloads';
+
+  @override
+  String get deleteDownloadsQuestion =>
+      'Are you sure you want to delete all downloads?';
+
+  @override
+  String get deleteFolder => 'フォルダーを削除';
+
+  @override
+  String get deleteFolderQuestion =>
+      'このフォルダーを削除しますか? 中身の再生リストは、メインのライブラリに移動されます。';
+
+  @override
+  String get deletePlaylist => '再生リストを削除';
+
+  @override
+  String get download => 'ダウンロード';
 
   @override
   String get downloadAppUpdate => 'アプリの最新版をダウンロード';
 
   @override
+  String get downloadCancelled => 'ダウンロードをキャンセルしました';
+
+  @override
+  String get cancellingDownload => 'Cancelling download...';
+
+  @override
+  String get downloadFailed => 'ダウンロード失敗';
+
+  @override
+  String get downloadPlaylist => '再生リストをダウンロード';
+
+  @override
+  String get downloadsDeleted => 'Downloads deleted successfully';
+
+  @override
   String get dynamicColor => '差し色を動的に変更 (Android 12以上)';
+
+  @override
+  String get editFolder => 'Edit folder';
+
+  @override
+  String get editPlaylist => 'Edit playlist';
+
+  @override
+  String get emptyFolderMsg => 'このフォルダーは空です。再生リストを追加して好きな音楽を整理しよう。';
+
+  @override
+  String get enableUpdateChecksDescription =>
+      'Would you like Musify to check for updates automatically from GitHub releases? You can always check for updates manually from the settings';
+
+  @override
+  String get enterFolderName => 'フォルダー名を入力してください';
+
+  @override
+  String get equalizer => 'Equalizer';
+
+  @override
+  String get equalizerAndroidOnly => 'Equalizer is available on Android only.';
+
+  @override
+  String get equalizerDisabledHint => 'Band gain adjustments are bypassed.';
+
+  @override
+  String get equalizerEnable => 'Enable equalizer';
+
+  @override
+  String get equalizerEnabledHint => 'Band gain adjustments are active.';
+
+  @override
+  String get equalizerInitFailed =>
+      'Equalizer could not be initialized right now. Try playing a song and reopen this page.';
+
+  @override
+  String get equalizerResetBands => 'Reset bands';
+
+  @override
+  String get equalizerPresetBalanced => 'Balanced';
+
+  @override
+  String get equalizerPresetBassBoost => 'Bass Boost';
+
+  @override
+  String get equalizerPresetElectronic => 'Electronic';
+
+  @override
+  String get equalizerPresetPop => 'Pop';
+
+  @override
+  String get equalizerPresetRock => 'Rock';
+
+  @override
+  String get equalizerPresetTrebleBoost => 'Treble Boost';
+
+  @override
+  String get equalizerPresetVocal => 'Vocal';
+
+  @override
+  String get equalizerPresets => 'Presets';
+
+  @override
+  String get equalizerBands => 'Bands';
 
   @override
   String get error => '不明のエラーが発生';
 
   @override
-  String get folderRestrictions => 'Androidの新しい制約により、ファイルの種類に対して適切なフォルダを選択する必要があります。本アプリのバックアップには、「Documents」か「Downloads」フォルダを必ず選択してください。';
+  String get externalRecommendations => 'External recommendations';
+
+  @override
+  String get externalRecommendationsDescription =>
+      'Use the external algorithm for recommendations instead of Musify’s own.';
+
+  @override
+  String get failedToLoadPlaylist => 'Failed to load playlist';
+
+  @override
+  String get fieldsNotEmpty => 'All fields must be filled';
+
+  @override
+  String get folderAlreadyExists => 'このフォルダー名は既にあります';
+
+  @override
+  String get folderDeleted => 'フォルダーを削除しました';
+
+  @override
+  String get folderName => 'フォルダー名';
+
+  @override
+  String get folderRestrictions =>
+      'Androidの新しい制約により、ファイルの種類に対して適切なフォルダを選択する必要があります。本アプリのバックアップには、「Documents」か「Downloads」フォルダを必ず選択してください。';
+
+  @override
+  String get folderUpdated => 'Folder updated successfully';
 
   @override
   String get home => 'ホーム';
 
   @override
-  String get invalidYouTubePlaylist => 'Invalid Youtube playlist';
+  String get hours => '時間';
+
+  @override
+  String get imagePicked => 'Image selected';
+
+  @override
+  String get invalidYouTubePlaylist => '無効な Youtube 再生リスト';
 
   @override
   String get language => '言語';
 
   @override
+  String get languageDe => 'German';
+
+  @override
+  String get languageEl => 'Greek';
+
+  @override
+  String get languageEn => 'English';
+
+  @override
+  String get languageEs => 'Spanish';
+
+  @override
+  String get languageEt => 'Estonian';
+
+  @override
+  String get languageFr => 'French';
+
+  @override
+  String get languageHe => 'Hebrew';
+
+  @override
+  String get languageHi => 'Hindi';
+
+  @override
+  String get languageHu => 'Hungarian';
+
+  @override
+  String get languageId => 'Indonesian';
+
+  @override
+  String get languageIt => 'Italian';
+
+  @override
+  String get languageJa => 'Japanese';
+
+  @override
+  String get languageKo => 'Korean';
+
+  @override
   String get languageMsg => '言語を変更しました';
 
   @override
-  String get library => 'Library';
+  String get languagePl => 'Polish';
+
+  @override
+  String get languagePt => 'Portuguese';
+
+  @override
+  String get languageRu => 'Russian';
+
+  @override
+  String get languageSv => 'Swedish';
+
+  @override
+  String get languageTa => 'Tamil';
+
+  @override
+  String get languageTr => 'Turkish';
+
+  @override
+  String get languageUk => 'Ukrainian';
+
+  @override
+  String get languageZh => 'Chinese (Simplified)';
+
+  @override
+  String get languageZhHant => 'Chinese (Traditional)';
+
+  @override
+  String get library => 'ライブラリ';
 
   @override
   String get licenses => 'ライセンス';
@@ -157,43 +422,123 @@ class AppLocalizationsJa extends AppLocalizations {
   String get likedSongs => 'いいねした曲';
 
   @override
+  String get loading => 'Loading';
+
+  @override
   String get lyrics => '歌詞';
 
   @override
   String get lyricsNotAvailable => '歌詞は利用できません';
 
   @override
-  String get makeOffline => 'Make available offline';
+  String get makeOffline => 'オフラインで利用する';
 
   @override
-  String get name => 'Name';
+  String get minutes => '分';
 
   @override
-  String get newAnnouncement => 'New announcement posted';
+  String get moreOptions => 'More options';
+
+  @override
+  String get mostPlayed => 'Most played';
+
+  @override
+  String get moveToFolder => 'フォルダーに移動';
+
+  @override
+  String get name => '名前';
+
+  @override
+  String get newAnnouncement => '新しいお知らせを掲載';
+
+  @override
+  String get newFolder => '新規フォルダー';
+
+  @override
+  String get no => 'No';
 
   @override
   String get noCustomPlaylists => 'まだ再生リストを作成していません';
 
   @override
-  String get notYTlist => '有効な YouTube 再生リスト ID ではありません';
+  String get noFolders => 'No folders created yet';
+
+  @override
+  String get noOfflineLibraryContent =>
+      'No offline content. Enable online mode or download playlists/songs to use the library.';
+
+  @override
+  String get noPlaylistsAdded => 'まだ再生リストは追加されていません';
+
+  @override
+  String get noSongsInPlaylist => 'No songs in playlist';
+
+  @override
+  String get noSongsInQueue => 'キュー内に曲なし';
+
+  @override
+  String get notYTlist => '有効な YouTube の再生リスト ID ではありません';
 
   @override
   String get offlineMode => 'オフラインモード';
 
   @override
-  String get offlineSongs => 'オフライン用の曲';
+  String get offlineModeDescription =>
+      'Disable online features and use Musify completely offline.';
 
   @override
-  String get originalRecommendations => 'おすすめに独自アルゴリズムを使用';
+  String get offlinePlaylists => 'オフラインの再生リスト';
+
+  @override
+  String get offlineSongs => 'オフライン用の曲';
 
   @override
   String get others => 'ほか';
 
   @override
+  String get pause => 'Pause';
+
+  @override
+  String get pickImageFromDevice => '端末から画像を選択';
+
+  @override
+  String get play => 'Play';
+
+  @override
+  String get playNext => '次に再生';
+
+  @override
+  String get pinnedPlaylists => 'Pinned';
+
+  @override
+  String get pinToLibrary => 'Pin to library';
+
+  @override
+  String get unpinFromLibrary => 'Unpin from library';
+
+  @override
+  String get pinnedPlaylistsLimit => 'You can pin up to 5 playlists or albums';
+
+  @override
   String get playlist => '再生リスト';
 
   @override
-  String get playlistAlreadyExists => 'Playlist already exists';
+  String get playlistAlreadyDownloaded => '再生リストは既にダウンロード済みです';
+
+  @override
+  String get playlistAlreadyExists => '再生リストは既に存在します';
+
+  @override
+  String get playlistDownloaded => 'ダウンロード済みの再生リスト';
+
+  @override
+  String get playlistEmpty => '再生リストはからです';
+
+  @override
+  String get playlistFolders => '再生リストのフォルダー';
+
+  @override
+  String get playlistRemovedFromOffline => 'オフライン用保存領域から再生リストを削除しました';
 
   @override
   String get playlistUpdated => '再生リストを更新しました';
@@ -214,7 +559,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String get pureBlackTheme => 'ピュアブラックを使用';
 
   @override
-  String get recentlyPlayed => '最近再生した曲';
+  String get queue => 'Queue';
+
+  @override
+  String get recentlyPlayed => '最近聴いた曲';
 
   @override
   String get recentlyPlayedMsg => '再生履歴を消去しました';
@@ -226,16 +574,29 @@ class AppLocalizationsJa extends AppLocalizations {
   String get remove => '削除';
 
   @override
-  String get removeFromLikedPlaylists => 'Remove from liked playlists';
+  String get removeFromFolder => 'フォルダーから削除';
 
   @override
-  String get removeFromLikedSongs => 'Remove from liked songs';
+  String get removeFromLikedPlaylists => 'いいねした再生リストから削除';
 
   @override
-  String get removeFromPlaylist => 'Remove from playlist';
+  String get removeFromLikedSongs => 'いいねした曲から削除';
 
   @override
-  String get removeOffline => 'Remove from offline';
+  String get removeFromPlaylist => '再生リストから削除';
+
+  @override
+  String get removeFromRecentlyPlayed => '最近聴いた曲から削除';
+
+  @override
+  String get removeOffline => 'オフラインから削除';
+
+  @override
+  String get removeOfflinePlaylist => 'オフライン再生リストから削除';
+
+  @override
+  String get removeOfflinePlaylistConfirm =>
+      'オフライン用保存領域から再生リストを除去します。ほかの再生リストで使われている曲は利用できるまま残ります。';
 
   @override
   String get removePlaylistQuestion => 'この再生リストを削除しますか？';
@@ -244,7 +605,16 @@ class AppLocalizationsJa extends AppLocalizations {
   String get removeSearchQueryQuestion => 'この検索語句を削除しますか？';
 
   @override
-  String get restartAppMsg => '変更を適用するにはアプリを再起動してください';
+  String get removedFromLikedSongs => 'Removed from liked songs';
+
+  @override
+  String get renameSong => 'Rename song';
+
+  @override
+  String get repeat => 'Repeat';
+
+  @override
+  String get replay => 'Replay';
 
   @override
   String get restoreError => 'データ復元中にエラーが発生しました';
@@ -262,22 +632,62 @@ class AppLocalizationsJa extends AppLocalizations {
   String get searchHistoryMsg => '検索履歴を削除しました';
 
   @override
+  String get selectDuration => '時間を選択';
+
+  @override
+  String get setTimer => 'タイマーを設定';
+
+  @override
   String get settingChangedMsg => '設定を変更しました';
 
   @override
   String get settings => '設定';
 
   @override
+  String get share => 'Share';
+
+  @override
+  String get linkCopied => 'Playlist link copied to clipboard';
+
+  @override
+  String get shuffle => 'Shuffle';
+
+  @override
+  String get skipToNext => 'Skip to next';
+
+  @override
+  String get skipToPrevious => 'Skip to previous';
+
+  @override
+  String get sleepTimer => 'Sleep timer';
+
+  @override
+  String get sleepTimerCancelled => 'スリープタイマーをキャンセルしました';
+
+  @override
+  String get sleepTimerSet => 'スリープタイマーを設定';
+
+  @override
   String get songAdded => '曲を追加しました';
 
   @override
-  String get songAlreadyInPlaylist => 'Song is already in the playlist';
+  String get songAddedToOffline => '曲がオフラインで利用可能になりました';
+
+  @override
+  String get songAlreadyInPlaylist => '曲は既に再生リストに含まれます';
 
   @override
   String get songRemoved => '曲を除去しました';
 
   @override
+  String get songRemovedFromOffline => '曲をオフラインで利用できなくしました';
+
+  @override
   String get songs => '曲';
+
+  @override
+  String get sponsorBlockDescription =>
+      'Skip sponsored segments in supported tracks.';
 
   @override
   String get sponsorProject => 'このプロジェクトを支援';
@@ -289,10 +699,29 @@ class AppLocalizationsJa extends AppLocalizations {
   String get suggestedPlaylists => 'おすすめ再生リスト';
 
   @override
-  String get themeMode => 'テーマ種別';
+  String get tapToView => 'Tap to view';
+
+  @override
+  String get themeMode => 'テーマ';
+
+  @override
+  String get themeModeDark => 'Dark';
+
+  @override
+  String get themeModeLight => 'Light';
+
+  @override
+  String get themeModeSystem => 'System';
 
   @override
   String get tools => 'ツール';
+
+  @override
+  String get translate => 'Translate';
+
+  @override
+  String get translateDescription =>
+      'Help translate Musify into your language on Crowdin.';
 
   @override
   String get understand => '理解しました';
@@ -301,11 +730,21 @@ class AppLocalizationsJa extends AppLocalizations {
   String get undo => '元に戻す';
 
   @override
-  String get useSquigglySlider => 'くねくねしたスライダーを使用';
+  String get update => '更新';
+
+  @override
+  String get useProxy => 'Use proxy';
+
+  @override
+  String get useProxyDescription =>
+      'Use the proxy only when streaming fails, unnecessary use may break playback.';
 
   @override
   String get userPlaylists => '再生リスト';
 
   @override
-  String get youtubePlaylistLinkOrId => 'YouTube playlist link or ID ';
+  String get yes => 'Yes';
+
+  @override
+  String get youtubePlaylistLinkOrId => 'YouTube 再生リストのリンクかID ';
 }
