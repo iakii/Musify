@@ -187,9 +187,9 @@ Future<void> syncMain() async {
   await showUpdateLog();
 
   // 3. 询问是否继续
-  stdout.write('\n是否继续合并？(y/N) ');
+  stdout.write('\n是否继续合并？(Y/n) ');
   final input = await stdin.first;
-  if (input.toString().toLowerCase() != 'y\n') {
+  if (input.toString().toLowerCase() == 'n\n') {
     Colors.warning('用户取消同步');
     return;
   }
