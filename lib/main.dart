@@ -1,5 +1,5 @@
 /*
- *     Copyright (C) 2024 Valeri Gokadze
+ *     Copyright (C) 2026 Valeri Gokadze
  *
  *     Musify is free software: you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
@@ -38,7 +38,10 @@ import 'package:just_audio_media_kit/just_audio_media_kit.dart';
 import 'package:musify/localization/app_localizations.dart';
 import 'package:musify/services/audio_service.dart';
 import 'package:musify/services/data_manager.dart';
+import 'package:musify/services/io_service.dart';
 import 'package:musify/services/logger_service.dart';
+import 'package:musify/services/playlist_sharing.dart';
+import 'package:musify/services/playlists_manager.dart';
 import 'package:musify/services/router_service.dart';
 import 'package:musify/services/settings_manager.dart';
 import 'package:musify/services/update_manager.dart';
@@ -47,8 +50,10 @@ import 'package:musify/utilities/proxy.dart';
 import 'package:path_provider/path_provider.dart';
 
 late MusifyAudioHandler audioHandler;
+late StreamSubscription<String?> sharingIntentSubscription;
 
 final logger = Logger();
+final appLinks = AppLinks();
 
 bool isFdroidBuild = false;
 bool isUpdateChecked = false;
@@ -97,11 +102,11 @@ class Musify extends StatefulWidget {
     bool? useSystemColor,
   }) async {
     context.findAncestorStateOfType<_MusifyState>()!.changeSettings(
-          newThemeMode: newThemeMode,
-          newLocale: newLocale,
-          newAccentColor: newAccentColor,
-          systemColorStatus: useSystemColor,
-        );
+      newThemeMode: newThemeMode,
+      newLocale: newLocale,
+      newAccentColor: newAccentColor,
+      systemColorStatus: useSystemColor,
+    );
   }
 
   @override
@@ -126,11 +131,7 @@ class _MusifyState extends State<Musify> {
       if (newAccentColor != null) {
         if (systemColorStatus != null && useSystemColor.value != systemColorStatus) {
           useSystemColor.value = systemColorStatus;
-          addOrUpdateData(
-            'settings',
-            'useSystemColor',
-            systemColorStatus,
-          );
+          addOrUpdateData('settings', 'useSystemColor', systemColorStatus);
         }
         primaryColorSetting = newAccentColor;
       }
@@ -143,18 +144,37 @@ class _MusifyState extends State<Musify> {
 
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      SystemChrome.setSystemUIOverlayStyle(
-        const SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-          systemNavigationBarColor: Colors.transparent,
-        ),
-      );
-      SystemChrome.setPreferredOrientations([
-        DeviceOrientation.portraitUp,
-        DeviceOrientation.portraitDown,
-      ]);
-    });
+    final platformDispatcher = PlatformDispatcher.instance;
+
+    // This callback is called every time the brightness changes.
+    platformDispatcher.onPlatformBrightnessChanged = () {
+      if (themeMode == ThemeMode.system) {
+        setState(() {
+          brightness = platformDispatcher.platformBrightness;
+        });
+      }
+    };
+
+    offlineMode.addListener(_onOfflineModeChanged);
+
+    sharingIntentSubscription = ReceiveSharingIntent.getTextStream().listen(
+      (String? value) async {
+        await consumeYoutubeSharedTextIntent(
+          value,
+          audioHandler: audioHandler,
+          onError: (error, stackTrace) {
+            logger.log(
+              'Error while playing shared song:',
+              error: error,
+              stackTrace: stackTrace,
+            );
+          },
+        );
+      },
+      onError: (err) {
+        logger.log('getTextStream error:', error: err);
+      },
+    );
 
     try {
       LicenseRegistry.addLicense(() async* {
@@ -162,7 +182,11 @@ class _MusifyState extends State<Musify> {
         yield LicenseEntryWithLineBreaks(['paytoneOne'], license);
       });
     } catch (e, stackTrace) {
-      logger.log('License Registration Error', e, stackTrace);
+      logger.log(
+        'License Registration Error',
+        error: e,
+        stackTrace: stackTrace,
+      );
     }
 
     if (!isFdroidBuild && !isUpdateChecked && !offlineMode.value && kReleaseMode) {
@@ -175,8 +199,16 @@ class _MusifyState extends State<Musify> {
 
   @override
   void dispose() {
+    offlineMode.removeListener(_onOfflineModeChanged);
+
     Hive.close();
+    sharingIntentSubscription.cancel();
     super.dispose();
+  }
+
+  void _onOfflineModeChanged() {
+    // Force rebuild when offline mode changes
+    setState(() {});
   }
 
   @override
@@ -236,11 +268,12 @@ Future<void> initialisation() async {
 
     await Hive.initFlutter(dir.path);
 
-    final boxNames = ['settings', 'user', 'userNoBackup', 'cache'];
-
-    for (final boxName in boxNames) {
-      await Hive.openBox(boxName);
-    }
+    await Future.wait([
+      Hive.openBox('settings'),
+      Hive.openBox('user'),
+      Hive.openBox('userNoBackup'),
+      Hive.openBox('cache'),
+    ]);
 
     audioHandler = await AudioService.init(
       builder: MusifyAudioHandler.new,
@@ -249,12 +282,104 @@ Future<void> initialisation() async {
         androidNotificationChannelName: 'Musify',
         androidNotificationIcon: 'drawable/ic_launcher_foreground',
         androidShowNotificationBadge: true,
+        androidStopForegroundOnPause: false,
       ),
     );
 
     // Init router
     NavigationManager.instance;
+
+    try {
+      // Listen to incoming links while app is running
+      appLinks.uriLinkStream.listen(
+        handleIncomingLink,
+        onError: (err) {
+          logger.log('URI link error:', error: err);
+        },
+      );
+    } on PlatformException {
+      logger.log('Failed to get initial uri');
+    }
+
+    if (isFdroidBuild && !offlineMode.value) {
+      await fetchAnnouncementOnly();
+    }
   } catch (e, stackTrace) {
-    logger.log('Initialization Error', e, stackTrace);
+    logger.log('Initialization Error', error: e, stackTrace: stackTrace);
+  }
+
+  applicationDirPath = (await getApplicationDocumentsDirectory()).path;
+  await FilePaths.ensureDirectoriesExist();
+}
+
+void handleIncomingLink(Uri? uri) async {
+  if (uri != null && uri.scheme == 'musify' && uri.host == 'playlist') {
+    try {
+      if (uri.pathSegments[0] == 'custom') {
+        final encodedPlaylist = uri.pathSegments[1];
+
+        final playlist = await PlaylistSharingService.decodeAndExpandPlaylist(
+          encodedPlaylist,
+        );
+
+        if (playlist != null) {
+          // Ensure the incoming playlist has a unique id so it can be removed later
+          if (playlist['ytid'] == null || playlist['ytid'].toString().isEmpty) {
+            playlist['ytid'] = PlaylistUtils.generateCustomPlaylistId();
+          }
+          // Check for duplicate by title and song ytids
+          final incomingYtids = (playlist['list'] as List<dynamic>)
+              .map((s) => s['ytid'].toString())
+              .toList();
+
+          final exists = userCustomPlaylists.value.any((p) {
+            if (p['title'] != playlist['title']) return false;
+            final existingList = (p['list'] as List<dynamic>?) ?? [];
+            final existingYtids = existingList
+                .map((s) => s['ytid']?.toString())
+                .where((e) => e != null)
+                .toList();
+            if (existingYtids.length != incomingYtids.length) return false;
+            for (var i = 0; i < incomingYtids.length; i++) {
+              if (existingYtids[i] != incomingYtids[i]) return false;
+            }
+            return true;
+          });
+
+          if (exists) {
+            showToast(
+              NavigationManager().context,
+              NavigationManager().context.l10n!.playlistAlreadyExists,
+            );
+          } else {
+            userCustomPlaylists.value = [
+              ...userCustomPlaylists.value,
+              playlist,
+            ];
+            unawaited(
+              addOrUpdateData(
+                'user',
+                'customPlaylists',
+                userCustomPlaylists.value,
+              ),
+            );
+            showToast(
+              NavigationManager().context,
+              '${NavigationManager().context.l10n!.addedSuccess}!',
+            );
+          }
+        } else {
+          showToast(
+            NavigationManager().context,
+            NavigationManager().context.l10n!.failedToLoadPlaylist,
+          );
+        }
+      }
+    } catch (e) {
+      showToast(
+        NavigationManager().context,
+        NavigationManager().context.l10n!.failedToLoadPlaylist,
+      );
+    }
   }
 }

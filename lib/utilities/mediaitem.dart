@@ -1,5 +1,5 @@
 /*
- *     Copyright (C) 2024 Valeri Gokadze
+ *     Copyright (C) 2026 Valeri Gokadze
  *
  *     Musify is free software: you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
@@ -21,54 +21,62 @@
 
 // Package imports:
 import 'package:audio_service/audio_service.dart';
-import 'package:just_audio/just_audio.dart';
+import 'package:musify/services/common_services.dart';
 
-Map mediaItemToMap(MediaItem mediaItem) => {
-      'id': mediaItem.id,
-      'ytid': mediaItem.extras!['ytid'],
-      'album': mediaItem.album.toString(),
-      'artist': mediaItem.artist.toString(),
-      'title': mediaItem.title,
-      'highResImage': mediaItem.artUri.toString(),
-      'lowResImage': mediaItem.extras!['lowResImage'],
-      'url': mediaItem.extras!['url'].toString(),
-      'isLive': mediaItem.extras!['isLive'],
-    };
+Map mediaItemToMap(MediaItem mediaItem) {
+  final extras = mediaItem.extras;
+  return {
+    'id': mediaItem.id,
+    'ytid': extras?['ytid'],
+    'album': mediaItem.album.toString(),
+    'artist': mediaItem.artist.toString(),
+    'title': mediaItem.title,
+    'highResImage': extras?['highResImage'] ?? mediaItem.artUri.toString(),
+    'lowResImage': extras?['lowResImage'],
+    'isLive': extras?['isLive'] ?? false,
+  };
+}
 
-MediaItem mapToMediaItem(Map song, String songUrl) => MediaItem(
-      id: song['id'].toString(),
-      album: '',
-      artist: song['artist'].toString().trim(),
-      title: song['title'].toString(),
-      artUri: song['isOffline'] ?? false
-          ? Uri.file(
-              song['highResImage'].toString(),
-            )
-          : Uri.parse(
-              song['highResImage'].toString(),
-            ),
-      extras: {
-        'url': songUrl,
-        'lowResImage': song['lowResImage'],
-        'ytid': song['ytid'],
-        'isLive': song['isLive'],
-        'isOffline': song['isOffline'],
-        'artWorkPath': song['highResImage'].toString(),
-      },
-    );
+MediaItem mapToMediaItem(Map song) {
+  final ytid = song['ytid']?.toString();
+  final offlineSong = ytid != null
+      ? getOfflineSongByYtid(ytid)
+      : <String, dynamic>{};
+  final isOffline = offlineSong.isNotEmpty;
 
-UriAudioSource createAudioSource(MediaItem mediaItem) => AudioSource.uri(
-      Uri.parse(mediaItem.extras!['url'].toString()),
-      tag: mediaItem,
-    );
+  final artUri = isOffline && offlineSong['artworkPath'] != null
+      ? Uri.file(offlineSong['artworkPath'].toString())
+      : Uri.parse(song['highResImage'].toString());
 
-List<UriAudioSource> createAudioSources(List<MediaItem> mediaItems) {
-  return mediaItems
-      .map(
-        (mediaItem) => AudioSource.uri(
-          Uri.parse(mediaItem.extras!['url'].toString()),
-          tag: mediaItem,
-        ),
-      )
-      .toList();
+  return MediaItem(
+    id: song['id'].toString(),
+    artist: song['artist'].toString().trim(),
+    title: song['title'].toString(),
+    artUri: artUri,
+    duration: song['duration'] != null
+        ? Duration(seconds: song['duration'])
+        : null,
+    extras: {
+      'lowResImage': song['lowResImage'],
+      'ytid': song['ytid'],
+      'isLive': song['isLive'],
+      'highResImage': song['highResImage'],
+      'artWorkPath':
+          (isOffline ? offlineSong['artworkPath'] : song['highResImage'])
+              ?.toString() ??
+          '',
+    },
+  );
+}
+
+/// Compares two Duration objects with tolerance for minor differences.
+///
+/// This prevents unnecessary updates when duration values have minor variations
+/// (e.g., due to buffering or precision differences).
+bool durationEquals(Duration? prev, Duration? curr) {
+  if (prev == curr) return true;
+  if (prev == null || curr == null) return prev == curr;
+
+  // Consider durations equal if they differ by less than 1 second
+  return (prev - curr).abs() < const Duration(seconds: 1);
 }

@@ -1,5 +1,5 @@
 /*
- *     Copyright (C) 2024 Valeri Gokadze
+ *     Copyright (C) 2026 Valeri Gokadze
  *
  *     Musify is free software: you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
@@ -34,77 +34,168 @@ class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(context.l10n!.about),
-      ),
+      appBar: AppBar(title: Text(context.l10n!.about)),
       body: SingleChildScrollView(
+        padding: commonSingleChildScrollViewPadding,
         child: Column(
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.fromLTRB(8, 17, 8, 0),
-              child: Text(
-                'Musify  | $appVersion',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontSize: 24,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: 'paytoneOne',
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            const Divider(
-              color: Colors.white24,
-              thickness: 0.8,
-              height: 50,
-            ),
-            Card(
-              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: ListTile(
-                contentPadding: const EdgeInsets.all(8),
-                leading: Container(
-                  height: 50,
-                  width: 50,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: NetworkImage(
-                        'https://avatars.githubusercontent.com/u/79704324?v=4',
+            const SizedBox(height: 14),
+            Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Musify',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                      fontSize: 36,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'paytoneOne',
+                      letterSpacing: -1.2,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Container(
+                    width: 40,
+                    height: 3,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primary,
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 7,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.secondaryContainer,
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    child: Text(
+                      'v$appVersion',
+                      style: TextStyle(
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onSecondaryContainer,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 0.2,
                       ),
                     ),
                   ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 32),
+            Material(
+              color: Theme.of(context).colorScheme.surfaceContainerLow,
+              borderRadius: BorderRadius.circular(20),
+              clipBehavior: Clip.antiAlias,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 14,
                 ),
-                title: const Text(
-                  'Valeri Gokadze',
-                  style: TextStyle(fontWeight: FontWeight.w600),
-                ),
-                subtitle: const Text('WEB & APP Developer'),
-                trailing: Wrap(
-                  children: <Widget>[
-                    IconButton(
-                      icon: const Icon(FluentIcons.code_24_filled),
-                      tooltip: 'Github',
-                      onPressed: () {
-                        launchURL(
-                          Uri.parse('https://github.com/gokadzev'),
-                        );
-                      },
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(14),
+                      child: Image.network(
+                        'https://avatars.githubusercontent.com/u/79704324?v=4',
+                        width: 52,
+                        height: 52,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                    IconButton(
-                      icon: const Icon(FluentIcons.globe_24_filled),
-                      tooltip: 'Website',
-                      onPressed: () {
-                        launchURL(
-                          Uri.parse('https://gokadzev.github.io'),
-                        );
-                      },
+                    const SizedBox(width: 14),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Valeri Gokadze',
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurface,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15,
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            'WEB & APP Developer',
+                            style: TextStyle(
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.onSurfaceVariant,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _SocialButton(
+                          icon: FluentIcons.code_24_filled,
+                          tooltip: 'Github',
+                          onPressed: () {
+                            launchURL(Uri.parse('https://github.com/gokadzev'));
+                          },
+                        ),
+                        const SizedBox(width: 8),
+                        _SocialButton(
+                          icon: FluentIcons.globe_24_filled,
+                          tooltip: 'Website',
+                          onPressed: () {
+                            launchURL(Uri.parse('https://gokadzev.github.io'));
+                          },
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _SocialButton extends StatelessWidget {
+  const _SocialButton({
+    required this.icon,
+    required this.tooltip,
+    required this.onPressed,
+  });
+
+  final IconData icon;
+  final String tooltip;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return Material(
+      color: colorScheme.primaryContainer,
+      borderRadius: BorderRadius.circular(12),
+      child: InkWell(
+        onTap: onPressed,
+        borderRadius: BorderRadius.circular(12),
+        child: Tooltip(
+          message: tooltip,
+          child: Container(
+            width: 40,
+            height: 40,
+            alignment: Alignment.center,
+            child: Icon(icon, size: 20, color: colorScheme.primary),
+          ),
         ),
       ),
     );

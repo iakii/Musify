@@ -1,5 +1,5 @@
 /*
- *     Copyright (C) 2024 Valeri Gokadze
+ *     Copyright (C) 2026 Valeri Gokadze
  *
  *     Musify is free software: you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
@@ -32,25 +32,63 @@ class ConfirmationDialog extends StatelessWidget {
     required this.submitMessage,
     required this.onCancel,
     required this.onSubmit,
+    this.isDangerous = false,
   });
   final String? confirmationMessage;
   final String submitMessage;
   final VoidCallback? onCancel;
   final VoidCallback? onSubmit;
+  final bool isDangerous;
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return AlertDialog(
-      title: Text(context.l10n!.confirmation),
-      content: confirmationMessage != null ? Text(confirmationMessage!) : null,
+      icon: Icon(
+        isDangerous
+            ? FluentIcons.warning_24_regular
+            : FluentIcons.question_circle_24_regular,
+        color: isDangerous ? colorScheme.error : colorScheme.primary,
+        size: 32,
+      ),
+      title: Text(
+        context.l10n!.confirmation,
+        style: TextStyle(
+          color: colorScheme.onSurface,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+      content: confirmationMessage != null
+          ? Text(
+              confirmationMessage!,
+              style: TextStyle(color: colorScheme.onSurfaceVariant),
+              textAlign: TextAlign.center,
+            )
+          : null,
+      actionsAlignment: MainAxisAlignment.center,
       actions: <Widget>[
-        TextButton(
+        OutlinedButton(
           onPressed: onCancel,
+          style: OutlinedButton.styleFrom(
+            side: BorderSide(color: colorScheme.outline),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
           child: Text(context.l10n!.cancel),
         ),
-        TextButton(
+        FilledButton(
           onPressed: onSubmit,
-          child: Text(context.l10n!.remove),
+          style: FilledButton.styleFrom(
+            backgroundColor: isDangerous
+                ? colorScheme.error
+                : colorScheme.primary,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          child: Text(submitMessage),
         ),
       ],
     );

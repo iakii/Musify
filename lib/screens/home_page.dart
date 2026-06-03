@@ -1,5 +1,5 @@
 /*
- *     Copyright (C) 2024 Valeri Gokadze
+ *     Copyright (C) 2026 Valeri Gokadze
  *
  *     Musify is free software: you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
@@ -27,16 +27,16 @@ import 'package:flutter/material.dart';
 import 'package:musify/API/musify.dart';
 import 'package:musify/extensions/l10n.dart';
 import 'package:musify/main.dart';
-import 'package:musify/screens/playlist_page.dart';
+import 'package:musify/services/common_services.dart';
+import 'package:musify/services/playlists_manager.dart';
 import 'package:musify/services/settings_manager.dart';
-import 'package:musify/utilities/common_variables.dart';
-import 'package:musify/utilities/utils.dart';
+import 'package:musify/utilities/app_utils.dart';
+import 'package:musify/utilities/async_loader.dart';
 import 'package:musify/widgets/announcement_box.dart';
 // import 'package:musify/widgets/carousel.dart';
 import 'package:musify/widgets/playlist_cube.dart';
-import 'package:musify/widgets/section_title.dart';
+import 'package:musify/widgets/section_header.dart';
 import 'package:musify/widgets/song_bar.dart';
-import 'package:musify/widgets/spinner.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -48,51 +48,80 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    final playlistHeight = MediaQuery.sizeOf(context).height * 0.25 / 1.1;
     return Scaffold(
       appBar: AppBar(title: const Text('Musify.')),
       body: SingleChildScrollView(
+        padding: commonSingleChildScrollViewPadding,
         child: Column(
           children: [
             ValueListenableBuilder<String?>(
               valueListenable: announcementURL,
               builder: (_, _url, __) {
                 if (_url == null) return const SizedBox.shrink();
+                final isSponsorshipAnnouncement = isSponsorshipAnnouncementUrl(
+                  _url,
+                );
+                final _message = isSponsorshipAnnouncement
+                    ? context.l10n!.sponsorProject
+                    : context.l10n!.newAnnouncement;
+                final _icon = isSponsorshipAnnouncement
+                    ? FluentIcons.heart_24_filled
+                    : FluentIcons.megaphone_24_filled;
 
                 return AnnouncementBox(
-                  message: context.l10n!.newAnnouncement,
-                  backgroundColor:
-                      Theme.of(context).colorScheme.secondaryContainer,
-                  textColor: Theme.of(context).colorScheme.onSecondaryContainer,
+                  message: _message,
                   url: _url,
+                  icon: _icon,
+                  onDismiss: () async {
+                    announcementURL.value = null;
+                  },
                 );
               },
             ),
-            _buildSuggestedPlaylists(),
-            _buildRecommendedSongsAndArtists(),
+            _buildSuggestedPlaylists(playlistHeight),
+            _buildSuggestedPlaylists(playlistHeight, showOnlyLiked: true),
+            _buildMostPlayedSection(),
+            _buildRecommendedSongsSection(),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildSuggestedPlaylists() {
-    return FutureBuilder<List<dynamic>>(
-      future: getPlaylists(playlistsNum: recommendedCubesNumber),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return _buildLoadingWidget();
-        } else if (snapshot.hasError) {
-          logger.log(
-            'Error in _buildSuggestedPlaylists',
-            snapshot.error,
-            snapshot.stackTrace,
-          );
-          return _buildErrorWidget(context);
-        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return const SizedBox.shrink();
-        }
+  Widget _buildSuggestedPlaylists(
+    double playlistHeight, {
+    bool showOnlyLiked = false,
+  }) {
+    final sectionTitle = showOnlyLiked
+        ? context.l10n!.backToFavorites
+        : context.l10n!.suggestedPlaylists;
+    return AsyncLoader<List<dynamic>>(
+      future: getPlaylists(
+        playlistsNum: recommendedCubesNumber,
+        onlyLiked: showOnlyLiked,
+      ),
 
-        return _buildPlaylistSection(context, snapshot.data!);
+      builder: (context, playlists) {
+        final itemsNumber = playlists.length.clamp(0, recommendedCubesNumber);
+        final isLargeScreen = MediaQuery.of(context).size.width > 480;
+
+        return Column(
+          children: [
+            SectionHeader(
+              title: sectionTitle,
+              icon: showOnlyLiked
+                  ? FluentIcons.heart_24_filled
+                  : FluentIcons.list_24_filled,
+            ),
+            ConstrainedBox(
+              constraints: BoxConstraints(maxHeight: playlistHeight),
+              child: isLargeScreen
+                  ? _buildHorizontalList(playlists, itemsNumber, playlistHeight)
+                  : _buildCarouselView(playlists, itemsNumber, playlistHeight),
+            ),
+          ],
+        );
       },
     );
   }
@@ -137,52 +166,107 @@ class _HomePageState extends State<HomePage> {
               );
             }),
           ),
-        ),
-      ],
+        );
+      },
     );
   }
 
-  Widget _buildRecommendedSongsAndArtists() {
-    return ValueListenableBuilder<bool>(
-      valueListenable: defaultRecommendations,
-      builder: (_, recommendations, __) {
-        return FutureBuilder<dynamic>(
-          future: getRecommendedSongs(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return _buildLoadingWidget();
-            } else if (snapshot.connectionState == ConnectionState.done) {
-              if (snapshot.hasError) {
-                logger.log(
-                  'Error in _buildRecommendedSongsAndArtists',
-                  snapshot.error,
-                  snapshot.stackTrace,
-                );
-                return _buildErrorWidget(context);
-              } else if (!snapshot.hasData) {
-                return const SizedBox.shrink();
-              }
+  Widget _buildCarouselView(
+    List<dynamic> playlists,
+    int itemCount,
+    double height,
+  ) {
+    return CarouselView.weighted(
+      flexWeights: const <int>[3, 2, 1],
+      itemSnapping: true,
+      onTap: (index) =>
+          context.push('/home/playlist/${playlists[index]['ytid']}'),
+      children: List.generate(itemCount, (index) {
+        return PlaylistCube(playlists[index], size: height * 2);
+      }),
+    );
+  }
 
-              return _buildRecommendedContent(
-                context: context,
-                data: snapshot.data,
-                showArtists: !recommendations,
-              );
-            } else {
-              return const SizedBox.shrink();
-            }
+  Widget _buildRecommendedSongsSection() {
+    return ValueListenableBuilder<bool>(
+      valueListenable: externalRecommendations,
+      builder: (_, recommendations, __) {
+        return AsyncLoader<List<dynamic>>(
+          future: getRecommendedSongs(),
+
+          builder: (context, data) {
+            if (data.isEmpty) return const SizedBox.shrink();
+            return _buildRecommendedForYouSection(context, data);
           },
         );
       },
     );
   }
 
-  Widget _buildLoadingWidget() {
-    return const Center(
-      child: Padding(
-        padding: EdgeInsets.all(35),
-        child: Spinner(),
-      ),
+  Widget _buildMostPlayedSection() {
+    final sectionTitle = context.l10n!.mostPlayed;
+
+    return ValueListenableBuilder<int>(
+      valueListenable: currentRecentlyPlayedLength,
+      builder: (_, __, ___) {
+        return ValueListenableBuilder<int>(
+          valueListenable: recentlyPlayedVersion,
+          builder: (_, __, ___) {
+            final mostPlayedSongs = getMostPlayed(limit: 5);
+            if (mostPlayedSongs.isEmpty) {
+              return const SizedBox.shrink();
+            }
+
+            return Column(
+              children: [
+                SectionHeader(
+                  title: sectionTitle,
+                  icon: FluentIcons.music_note_2_24_filled,
+                  actionButton: IconButton(
+                    onPressed: () async {
+                      await audioHandler.playPlaylistSong(
+                        playlist: {
+                          'title': sectionTitle,
+                          'list': mostPlayedSongs,
+                        },
+                        songIndex: 0,
+                      );
+                    },
+                    icon: Icon(
+                      FluentIcons.play_circle_24_filled,
+                      color: Theme.of(context).colorScheme.primary,
+                      size: 30,
+                    ),
+                  ),
+                ),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: mostPlayedSongs.length,
+                  padding: commonListViewBottomPadding,
+                  itemBuilder: (context, index) {
+                    final borderRadius = getItemBorderRadius(
+                      index,
+                      mostPlayedSongs.length,
+                    );
+                    final song = mostPlayedSongs[index];
+
+                    return RepaintBoundary(
+                      key: listItemKey('home_most_played', index, song),
+                      child: SongBar(
+                        song,
+                        true,
+                        borderRadius: borderRadius,
+                        showPlayTime: true,
+                      ),
+                    );
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      },
     );
   }
 
@@ -251,12 +335,11 @@ class _HomePageState extends State<HomePage> {
         _buildSectionHeader(
           title: context.l10n!.recommendedForYou,
           actionButton: IconButton(
-            padding: const EdgeInsets.only(right: 10),
-            onPressed: () {
-              setActivePlaylist({
-                'title': context.l10n!.recommendedForYou,
-                'list': data,
-              });
+            onPressed: () async {
+              await audioHandler.playPlaylistSong(
+                playlist: {'title': recommendedTitle, 'list': data},
+                songIndex: 0,
+              );
             },
             icon: Icon(
               FluentIcons.play_circle_24_filled,
@@ -269,30 +352,15 @@ class _HomePageState extends State<HomePage> {
           shrinkWrap: true,
           physics: const BouncingScrollPhysics(),
           itemCount: data.length,
-          padding: commonListViewBottmomPadding,
+          padding: commonListViewBottomPadding,
           itemBuilder: (context, index) {
             final borderRadius = getItemBorderRadius(index, data.length);
-            return SongBar(
-              data[index],
-              true,
-              borderRadius: borderRadius,
+            return RepaintBoundary(
+              key: listItemKey('home_recommended', index, data[index]),
+              child: SongBar(data[index], true, borderRadius: borderRadius),
             );
           },
         ),
-      ],
-    );
-  }
-
-  Widget _buildSectionHeader({required String title, Widget? actionButton}) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        SectionTitle(
-          title,
-          Theme.of(context).colorScheme.primary,
-          fontSize: 20,
-        ),
-        if (actionButton != null) actionButton,
       ],
     );
   }
