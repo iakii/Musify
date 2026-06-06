@@ -1,5 +1,8 @@
-// Project imports:
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
 import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
 
 /// The translations for Turkish (`tr`).
 class AppLocalizationsTr extends AppLocalizations {
@@ -9,34 +12,49 @@ class AppLocalizationsTr extends AppLocalizations {
   String get about => 'Hakkında';
 
   @override
-  String get accentChangeMsg => 'Vurgu rengi değiştirildi';
+  String get accentChangeMsg => 'Vurgu Rengi Değiştirildi';
 
   @override
-  String get accentColor => 'Vurgu rengi';
+  String get accentColor => 'Vurgu Rengi';
 
   @override
   String get add => 'Ekle';
 
   @override
-  String get addToLikedPlaylists => 'Add to liked playlists';
+  String get addPlaylist => 'Oynatma listesi ekle';
 
   @override
-  String get addToLikedSongs => 'Add to liked songs';
+  String get addToLikedPlaylists => 'Beğenilen çalma listelerine eklendi';
 
   @override
-  String get addToPlaylist => 'Çalma listesine ekle';
+  String get addToLikedSongs => 'Beğenilenlere Ekle';
+
+  @override
+  String get addToPlaylist => 'Çalma Listesine Ekle';
+
+  @override
+  String get addToQueue => 'Sıraya ekle';
+
+  @override
+  String get addedPlaylists => 'Çalma Listesi Ekle';
 
   @override
   String get addedSuccess => 'Başarıyla eklendi';
 
   @override
+  String get addedToLikedSongs => 'Beğenilen şarkılara eklendi';
+
+  @override
   String get album => 'Albüm';
 
   @override
-  String get albums => 'Albums';
+  String get albums => 'Albümler';
 
   @override
-  String get appUpdateIsAvailable => 'Uygulama güncellemesi mevcut';
+  String get alreadyDownloading => 'Hali hazırda indirliyor';
+
+  @override
+  String get appUpdateIsAvailable => 'Yeni bir uygulama güncellemesi var';
 
   @override
   String get artist => 'Sanatçı';
@@ -45,77 +63,149 @@ class AppLocalizationsTr extends AppLocalizations {
   String get audioQuality => 'Ses Kalitesi';
 
   @override
+  String get audioQualityHigh => 'Yüksek';
+
+  @override
+  String get audioQualityLow => 'Düşük';
+
+  @override
+  String get audioQualityMedium => 'Orta';
+
+  @override
   String get audioQualityMsg => 'Ses kalitesi değiştirildi';
 
   @override
-  String get automaticSongPicker => 'Automatic song picker';
+  String get automaticSongPicker => 'Otomatik parça seçici';
 
   @override
-  String get backedupSuccess => 'Başarıyla Yedeklendi';
+  String get automaticSongPickerDescription =>
+      'Mevcut parça bittikten sonra otomatik olarak rastgele bir şarkı çalın.';
 
   @override
-  String get backupError => 'Veri yedekleme sırasında hata oluştu';
+  String get automaticUpdateChecks => 'Otomatik güncelleme kontrollü';
 
   @override
-  String get backupUserData => 'Kullanıcı verilerini yedekle';
+  String get automaticUpdateChecksDescription =>
+      'Başlangıçta uygulama güncellemelerini otomatik olarak kontrol et.';
 
   @override
-  String get becomeSponsor => 'Sponsor Ol';
+  String get back => 'Geri';
 
   @override
-  String get cacheMsg => 'Önbellek temizlendi';
+  String get backToFavorites => 'Favorilere dön';
+
+  @override
+  String get backedupSuccess => 'Veri yedeklendi';
+
+  @override
+  String get backupError => 'Veri yedeklenirken bir hata oluştu';
+
+  @override
+  String get backupUserData => 'Verileri Yedekle';
+
+  @override
+  String get becomeSponsor => 'Destek Ol';
+
+  @override
+  String get cacheMsg => 'Bellek Temizlendi';
 
   @override
   String get cancel => 'İptal';
 
   @override
-  String get chooseBackupDir => 'Yedekleme Dizini Seç';
+  String get checkForUpdates => 'Güncellemeler kontrol edilsin mi?';
 
   @override
-  String get chooseBackupFiles => 'Choose backup files';
+  String get chooseBackupDir => 'Yedeklemek için klasör seç';
+
+  @override
+  String get chooseBackupFiles => 'Yedeklemek için dosyaları seç';
 
   @override
   String get clear => 'Temizle';
 
   @override
-  String get clearCache => 'Önbelleği Temizle';
+  String get clearCache => 'Belleği Temizle';
 
   @override
-  String get clearRecentlyPlayed => 'Yakında Oynatılanları Temizle';
+  String get clearQueue => 'Kuyruğu temizle';
+
+  @override
+  String get clearQueueQuestion =>
+      'Sırayı temizlemek istediğinizden emin misiniz?';
+
+  @override
+  String get clearRecentlyPlayed => 'Son Çalınanları Sil';
 
   @override
   String get clearRecentlyPlayedQuestion =>
-      'Yakında oynatınlanlar temizlensin mi?';
+      'Son çalınanları silmek istiyor musun?';
 
   @override
   String get clearSearchHistory => 'Arama Geçmişini Temizle';
 
   @override
-  String get clearSearchHistoryQuestion => 'Arama geçmişi temizlensin mi?';
+  String get clearSearchHistoryQuestion =>
+      'Arama geçmişini temizlemek istiyor musun?';
 
   @override
   String get confirm => 'Onayla';
 
   @override
-  String get confirmation => 'Onay';
+  String get confirmation => 'Doğrulama';
 
   @override
-  String get copyLogs => 'Logları Kopyala';
+  String get copyLogs => 'Kayıtları Kopyala';
 
   @override
-  String get copyLogsNoLogs => 'Kopyalanacak log bulunamadı';
+  String get copyLogsNoLogs => 'Kopyalanacak kayıt yok';
 
   @override
-  String get copyLogsSuccess => 'Loglar başarıyla kopyalandı.';
+  String get copyLogsSuccess => 'Kayıtlar panoya kopyalandı.';
 
   @override
-  String get customPlaylistImgUrl => 'Özel çalma listesi resim bağlantısı';
+  String get create => 'Oluştur';
 
   @override
-  String get customPlaylistName => 'Özel çalma listesi adı';
+  String get createFolder => 'Klasör oluştur';
 
   @override
-  String get deletePlaylist => 'Delete playlist';
+  String get custom => 'Özel';
+
+  @override
+  String get customPlaylistImgUrl => 'Çalma Listesi Kapağı Linki';
+
+  @override
+  String get customPlaylistName => 'Çalma Listesi İsmi';
+
+  @override
+  String get customPlaylists => 'Kişisel Çalma Listeleri';
+
+  @override
+  String get dateAdded => 'Eklenme Tarihi';
+
+  @override
+  String get default_ => 'Varsayılan';
+
+  @override
+  String get delete => 'Sil';
+
+  @override
+  String get deleteDownloads => 'İndirilenleri sil';
+
+  @override
+  String get deleteDownloadsQuestion =>
+      'Bütün indirmeleri temizlemek istediğinize emin misiniz?';
+
+  @override
+  String get deleteFolder => 'Klasörü sil';
+
+  @override
+  String get deleteFolderQuestion =>
+      'Bu klasörü silmek istediğinizden emin misiniz?\nİçerideki çalma listeleri ana kütüphaneye taşınacak.';
+
+  @override
+  String get deletePlaylist => 'Çalma Listesini Sil';
 
   @override
   String get download => 'İndir';
@@ -124,191 +214,549 @@ class AppLocalizationsTr extends AppLocalizations {
   String get downloadAppUpdate => 'Uygulama Güncellemesini İndir';
 
   @override
-  String get dynamicColor => 'Dinamik vurgu rengi (Android 12+)';
+  String get downloadCancelled => 'İndirme iptal edildi';
 
   @override
-  String get error => 'Bir hata oluştu';
+  String get cancellingDownload => 'Cancelling download...';
+
+  @override
+  String get downloadFailed => 'İndirme başarısız oldu';
+
+  @override
+  String get downloadPlaylist => 'Çalma Listesini İndir';
+
+  @override
+  String get downloadsDeleted => 'İndirilenler başarıyla silindi';
+
+  @override
+  String get dynamicColor => 'Değişken Vurgu Rengi (Android 12+)';
+
+  @override
+  String get editFolder => 'Klasörü düzenle';
+
+  @override
+  String get editPlaylist => 'Çalma listesini düzenle';
+
+  @override
+  String get emptyFolderMsg =>
+      'Bu klasör boş. Müziklerinizi düzenlemek için çalma listeleri ekleyin.';
+
+  @override
+  String get enableUpdateChecksDescription =>
+      'Musify\'ın GitHub sürümlerinden gelen güncellemeleri otomatik olarak kontrol etmesini ister misiniz? Güncellemeleri istediğiniz zaman ayarlardan manuel olarak kontrol edebilirsiniz';
+
+  @override
+  String get enterFolderName => 'Lütfen bir klasör adı girin';
+
+  @override
+  String get equalizer => 'Ekolayzer';
+
+  @override
+  String get equalizerAndroidOnly =>
+      'Ekolayzer yalnızca Android\'de mevcuttur.';
+
+  @override
+  String get equalizerDisabledHint => 'Bant kazancı ayarları geçersiz.';
+
+  @override
+  String get equalizerEnable => 'Ekolayzırı etkinleştir';
+
+  @override
+  String get equalizerEnabledHint => 'Bant kazancı ayarları geçerli.';
+
+  @override
+  String get equalizerInitFailed =>
+      'Ekolayzır şuanda açılamıyor. Bir şarkı açıp bu sayfaya geri dön.';
+
+  @override
+  String get equalizerResetBands => 'Bantları sıfırla';
+
+  @override
+  String get equalizerPresetBalanced => 'Dengeli';
+
+  @override
+  String get equalizerPresetBassBoost => 'Baş artırma';
+
+  @override
+  String get equalizerPresetElectronic => 'Elektronik';
+
+  @override
+  String get equalizerPresetPop => 'Pop';
+
+  @override
+  String get equalizerPresetRock => 'Kaya';
+
+  @override
+  String get equalizerPresetTrebleBoost => 'Tiz güçlendirici';
+
+  @override
+  String get equalizerPresetVocal => 'Vocal';
+
+  @override
+  String get equalizerPresets => 'Presets';
+
+  @override
+  String get equalizerBands => 'Bands';
+
+  @override
+  String get error => 'Bir hata oluştu.';
+
+  @override
+  String get externalRecommendations => 'Dış öneriler';
+
+  @override
+  String get externalRecommendationsDescription =>
+      'Musify\'ın yerleşik öneri algoritması yerine dış bir tanesini kullan.';
+
+  @override
+  String get failedToLoadPlaylist => 'Çalma listesi yüklenemedi';
+
+  @override
+  String get fieldsNotEmpty => 'Tüm alanlar doldurulmalıdır';
+
+  @override
+  String get folderAlreadyExists => 'Bu isimde bir klasör zaten var';
+
+  @override
+  String get folderDeleted => 'Klasör başarıyla silindi';
+
+  @override
+  String get folderName => 'Klasör adı';
 
   @override
   String get folderRestrictions =>
-      'Android üzerindeki yeni kısıtlamalar nedeniyle, farklı dosya türleri için belirli ve uygun klasörleri seçmek önemlidir. Lütfen uygulama yedekleme için \'Belgeler\' veya \'İndirilenler\' klasörlerinden birini seçtiğinizden emin olun.';
+      'Android kısıtlamaları yedeklemeler için belirli dizinleri (Belgeler, İndirilenler gibi) seçmeyi gerektiriyor.';
+
+  @override
+  String get folderUpdated => 'Klasör başarıyla güncellendi';
 
   @override
   String get home => 'Ana Sayfa';
 
   @override
-  String get invalidYouTubePlaylist => 'Invalid Youtube playlist';
+  String get hours => 'Saat';
 
   @override
-  String get language => 'Dil';
+  String get imagePicked => 'Resim seçildi';
 
   @override
-  String get languageMsg => 'Dil değiştirildi';
+  String get invalidYouTubePlaylist => 'Geçersiz Çalma Listesi veya Linki';
 
   @override
-  String get library => 'Library';
+  String get language => 'Dil (Language)';
+
+  @override
+  String get languageDe => 'Almanca';
+
+  @override
+  String get languageEl => 'Yunanca';
+
+  @override
+  String get languageEn => 'İngilizce';
+
+  @override
+  String get languageEs => 'İspanyolca';
+
+  @override
+  String get languageEt => 'Estonca';
+
+  @override
+  String get languageFr => 'Fransızca';
+
+  @override
+  String get languageHe => 'İbranice';
+
+  @override
+  String get languageHi => 'Hintçe';
+
+  @override
+  String get languageHu => 'Macarca';
+
+  @override
+  String get languageId => 'Endonezce';
+
+  @override
+  String get languageIt => 'İtalyanca';
+
+  @override
+  String get languageJa => 'Japonca';
+
+  @override
+  String get languageKo => 'Korece';
+
+  @override
+  String get languageMsg => 'Dil başarıyla değiştirildi';
+
+  @override
+  String get languagePl => 'Lehçe';
+
+  @override
+  String get languagePt => 'Portekizce';
+
+  @override
+  String get languageRu => 'Rusça';
+
+  @override
+  String get languageSv => 'İsveççe';
+
+  @override
+  String get languageTa => 'Tamilce';
+
+  @override
+  String get languageTr => 'Türkçe';
+
+  @override
+  String get languageUk => 'Ukraynaca';
+
+  @override
+  String get languageZh => 'Çince (Basitleştirilmiş)';
+
+  @override
+  String get languageZhHant => 'Çince (Geleneksel)';
+
+  @override
+  String get library => 'Kütüphane';
 
   @override
   String get licenses => 'Lisanslar';
 
   @override
-  String get likedPlaylists => 'Beğenilen oynatma listeleri';
+  String get likedPlaylists => 'Beğenilen Çalma Listeleri';
 
   @override
-  String get likedSongs => 'Beğenilen şarkılar';
+  String get likedSongs => 'Beğenilen Parçalar';
 
   @override
-  String get lyrics => 'Şarkı sözleri';
+  String get loading => 'Yükleniyor';
 
   @override
-  String get lyricsNotAvailable => 'Şarkı sözleri bulunamadı';
+  String get lyrics => 'Sözler';
 
   @override
-  String get makeOffline => 'Make available offline';
+  String get lyricsNotAvailable => 'Sözler kullanılabilir değil';
 
   @override
-  String get name => 'İsim';
+  String get makeOffline => 'Çevrimdışı kullanılabilir yap';
 
   @override
-  String get newAnnouncement => 'New announcement posted';
+  String get minutes => 'Dakika';
 
   @override
-  String get noCustomPlaylists => 'Henüz hiçbir çalma listesi yaratmadınız';
+  String get moreOptions => 'Diğer ayarlar';
 
   @override
-  String get notYTlist => 'Bu bir YouTube çalma listesi kimliği değil';
+  String get mostPlayed => 'En çok oynatılan';
 
   @override
-  String get offlineMode => 'Çevrimdışı mod';
+  String get moveToFolder => 'Klasöre taşı';
 
   @override
-  String get offlineSongs => 'Çevrimdışı şarkılar';
+  String get name => 'İsme göre';
 
   @override
-  String get originalRecommendations => 'Orjinal önerilenler algoritması';
+  String get newAnnouncement => 'Yeni duyuru yayımlandı';
+
+  @override
+  String get newFolder => 'Yeni klasör';
+
+  @override
+  String get no => 'Hayır';
+
+  @override
+  String get noCustomPlaylists => 'Henüz çalma listesi oluşturulmadı.';
+
+  @override
+  String get noFolders => 'Henüz hiç klasör oluşturulmamış';
+
+  @override
+  String get noOfflineLibraryContent =>
+      'Çevrimdışı içerik yok. Kütüphaneyi kullanmak için çevrimiçi modu açın yada oynatma listesi/şarkı indirin.';
+
+  @override
+  String get noPlaylistsAdded => 'Henüz oynatma listesi eklenmedi';
+
+  @override
+  String get noSongsInPlaylist => 'Çalma listesinde şarkı yok';
+
+  @override
+  String get noSongsInQueue => 'Sırada parça yok';
+
+  @override
+  String get notYTlist => 'Geçersiz çalma listesi linki';
+
+  @override
+  String get offlineMode => 'Çevrimdışı Modu';
+
+  @override
+  String get offlineModeDescription =>
+      'Çevrimiçi özellikleri devre dışı bırakın ve Musify\'ı tamamen çevrimdışı kullanın.';
+
+  @override
+  String get offlinePlaylists => 'Çevrimdışı Listeler';
+
+  @override
+  String get offlineSongs => 'Çevrimdışı Parçalar';
 
   @override
   String get others => 'Diğerleri';
 
   @override
-  String get playlist => 'Çalma Listesi';
+  String get pause => 'Durdur';
 
   @override
-  String get playlistAlreadyExists => 'Playlist already exists';
+  String get pickImageFromDevice => 'Cihazdan resim seç';
 
   @override
-  String get playlistUpdated => 'Çalma Listesi Başarıyla Güncellendi';
+  String get play => 'Oynat';
+
+  @override
+  String get playNext => 'Bundan Sonra Oynat';
+
+  @override
+  String get pinnedPlaylists => 'Pinlendi';
+
+  @override
+  String get pinToLibrary => 'Pin to library';
+
+  @override
+  String get unpinFromLibrary => 'Unpin from library';
+
+  @override
+  String get pinnedPlaylistsLimit => 'You can pin up to 5 playlists or albums';
+
+  @override
+  String get playlist => 'Çalma Listeleri';
+
+  @override
+  String get playlistAlreadyDownloaded => 'Çalma listesi zaten indirildi';
+
+  @override
+  String get playlistAlreadyExists => 'Bu çalma listesi zaten var';
+
+  @override
+  String get playlistDownloaded => 'Çalma listesi İndirildi';
+
+  @override
+  String get playlistEmpty => 'Liste boş';
+
+  @override
+  String get playlistFolders => 'Çalma listesi klasörleri';
+
+  @override
+  String get playlistRemovedFromOffline =>
+      'Liste çevrim dışı depolamadan kaldırıldı';
+
+  @override
+  String get playlistUpdated => 'Çalma Listesi başarı ile güncellendi.';
 
   @override
   String get playlists => 'Çalma Listeleri';
 
   @override
-  String get predictiveBack => 'Predictive back animations (Android 14+)';
+  String get predictiveBack =>
+      'Öngörüsel Geri ile daha akıcı animasyonlar (Android 14+)';
 
   @override
   String get preferences => 'Tercihler';
 
   @override
   String get provideIdOrNameError =>
-      'Lütfen ya bir YouTube Kimliği ya da özel çalma listesi adı sağlayın';
+      'Lütfen YouTube bağlantısı veya kişisel çalma listesi ismi girin';
 
   @override
-  String get pureBlackTheme => 'Pure black theme';
+  String get pureBlackTheme => 'Saf Siyah (OLED)';
 
   @override
-  String get recentlyPlayed => 'Son Oynatılanlar';
+  String get queue => 'Kuyruk';
 
   @override
-  String get recentlyPlayedMsg => 'Son oynatılanlar temizlendi';
+  String get recentlyPlayed => 'Son Çalınanlar';
 
   @override
-  String get recommendedForYou => 'Sizin İçin Tavsiye Edilen';
+  String get recentlyPlayedMsg => 'Son çalınanlar temizlendi';
 
   @override
-  String get remove => 'Kaldır';
+  String get recommendedForYou => 'Önerilenler';
 
   @override
-  String get removeFromLikedPlaylists => 'Remove from liked playlists';
+  String get remove => 'Sil';
 
   @override
-  String get removeFromLikedSongs => 'Remove from liked songs';
+  String get removeFromFolder => 'Klasörden kaldır';
 
   @override
-  String get removeFromPlaylist => 'Remove from playlist';
+  String get removeFromLikedPlaylists => 'Beğenilen Çalma Listelerinden Çıkar';
 
   @override
-  String get removeOffline => 'Remove from offline';
+  String get removeFromLikedSongs => 'Beğenilen Parçalardan Çıkar';
 
   @override
-  String get removePlaylistQuestion => 'Bu oynatma listesini kaldır?';
+  String get removeFromPlaylist => 'Çalma Listesinden Çıkar';
 
   @override
-  String get removeSearchQueryQuestion => 'Aramayı sil';
+  String get removeFromRecentlyPlayed => 'Son oynatılanlardan çıkar';
 
   @override
-  String get restartAppMsg =>
-      'Değişikliklerin uygulanması için uygulamayı yeniden başlatın';
+  String get removeOffline => 'Çevrim dışından çıkar';
 
   @override
-  String get restoreError => 'Veri geri yükleme sırasında hata oluştu';
+  String get removeOfflinePlaylist => 'Çevrim Dışı Liste';
+
+  @override
+  String get removeOfflinePlaylistConfirm =>
+      'Bu listeyi depolamadan kaldıracak. Farklı listelerde olan parçalar hâla kullanıllanılabilir olacak.';
+
+  @override
+  String get removePlaylistQuestion =>
+      'Bu parçayı gerçekten çalma listenden çıkaracak mısın?';
+
+  @override
+  String get removeSearchQueryQuestion =>
+      'Bu aramayı gerçekten silmek istiyor musun?';
+
+  @override
+  String get removedFromLikedSongs => 'Beğenilen şarkılardan çıkarıldı';
+
+  @override
+  String get renameSong => 'Şarkıyı yeniden adlandır';
+
+  @override
+  String get repeat => 'Tekrarla';
+
+  @override
+  String get replay => 'Tekrar oynat';
+
+  @override
+  String get restoreError => 'Hata: Veri geri yüklenemedi';
 
   @override
   String get restoreUserData => 'Kullanıcı Verilerini Geri Yükle';
 
   @override
-  String get restoredSuccess => 'Başarıyla Geri Yüklendi';
+  String get restoredSuccess => 'Veri başarıyla yeniden yüklendi';
 
   @override
   String get search => 'Ara';
 
   @override
-  String get searchHistoryMsg => 'Arama Geçmişi Temizlendi';
+  String get searchHistoryMsg => 'Arama geçmişi temizlendi';
 
   @override
-  String get settingChangedMsg => 'Ayar değişti';
+  String get selectDuration => 'Süreyi Belirle';
+
+  @override
+  String get setTimer => 'Zamanlayıcı Ayarla';
+
+  @override
+  String get settingChangedMsg => 'Ayarlar başarıyla güncellendi';
 
   @override
   String get settings => 'Ayarlar';
 
   @override
-  String get songAdded => 'Şarkı Başarıyla Eklendi!';
+  String get share => 'Paylaş';
 
   @override
-  String get songAlreadyInPlaylist => 'Song is already in the playlist';
+  String get linkCopied => 'Oynatma listesi linki panoya kopyalandı';
 
   @override
-  String get songRemoved => 'Şarkı Başarıyla Kaldırıldı!';
+  String get shuffle => 'Karıştır';
 
   @override
-  String get songs => 'Şarkılar';
+  String get skipToNext => 'Sonrakine atla';
 
   @override
-  String get sponsorProject => 'Projeye Sponsor Ol';
+  String get skipToPrevious => 'Skip to previous';
+
+  @override
+  String get sleepTimer => 'Sleep timer';
+
+  @override
+  String get sleepTimerCancelled => 'Uyku zamanlayıcısı iptal edildi';
+
+  @override
+  String get sleepTimerSet => 'Uyku zamanlayıcısı ayarlandı';
+
+  @override
+  String get songAdded => 'Parça Eklendi';
+
+  @override
+  String get songAddedToOffline => 'Parça artık çevrim dışında kullanılabilir';
+
+  @override
+  String get songAlreadyInPlaylist => 'Bu parça zaten listede var';
+
+  @override
+  String get songRemoved => 'Parça kaldırıldı';
+
+  @override
+  String get songRemovedFromOffline =>
+      'Şarkı artık çevrim dışında kullanılamaz';
+
+  @override
+  String get songs => 'Parçalar';
+
+  @override
+  String get sponsorBlockDescription =>
+      'Desteklenen parçalarda sponsorlu bölümleri atla.';
+
+  @override
+  String get sponsorProject => 'Bu Projeyi Destekle';
 
   @override
   String get suggestedArtists => 'Önerilen Sanatçılar';
 
   @override
-  String get suggestedPlaylists => 'Önerilen Çalma Listeleri';
+  String get suggestedPlaylists => 'Önerilen Listeler';
+
+  @override
+  String get tapToView => 'Görüntülemek için dokun';
 
   @override
   String get themeMode => 'Tema Modu';
 
   @override
-  String get tools => 'Araçlar';
+  String get themeModeDark => 'Koyu';
 
   @override
-  String get understand => 'Anladım';
+  String get themeModeLight => 'Açık';
+
+  @override
+  String get themeModeSystem => 'Sistem';
+
+  @override
+  String get tools => 'Aletler';
+
+  @override
+  String get translate => 'Çevir';
+
+  @override
+  String get translateDescription =>
+      'Musify\'ı Crowdin\'de kendi dilinize çevirmeye yardımcı olun.';
+
+  @override
+  String get understand => 'Anlıyorum';
 
   @override
   String get undo => 'Geri Al';
 
   @override
-  String get useSquigglySlider => 'Use squiggly slider';
+  String get update => 'Güncelleme';
 
   @override
-  String get userPlaylists => 'Kullanıcı Çalma Listeleri';
+  String get useProxy => 'Proxy kullan';
 
   @override
-  String get youtubePlaylistLinkOrId => 'YouTube playlist link or ID ';
+  String get useProxyDescription =>
+      'Yalnızca bağlantı sorunları olduğunda proxy kullanın, gereksiz kullanım müzik oynatmayı bir ihtimal bozabilir.';
+
+  @override
+  String get userPlaylists => 'Kullanıcı Listeleri';
+
+  @override
+  String get yes => 'Evet';
+
+  @override
+  String get youtubePlaylistLinkOrId =>
+      'YouTube listesi bağlantısı veya ID\'si';
 }

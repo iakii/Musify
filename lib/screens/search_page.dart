@@ -23,9 +23,6 @@ import 'dart:async';
 
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-
-// Package imports:
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:musify/constants/app_constants.dart';
 import 'package:musify/extensions/l10n.dart';

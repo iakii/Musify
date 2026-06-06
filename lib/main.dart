@@ -19,15 +19,12 @@
  *     please visit: https://github.com/gokadzev/Musify
  */
 
-// Dart imports:
 import 'dart:async';
 
 import 'package:app_links/app_links.dart';
 import 'package:audio_service/audio_service.dart';
 import 'package:dynamic_color/dynamic_color.dart';
-// Flutter imports:
 import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -253,45 +250,14 @@ class _MusifyState extends State<Musify> {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  if (defaultTargetPlatform != TargetPlatform.ohos) {
-    JustAudioMediaKit.ensureInitialized(
-      android:
-          true, // default: false - dependency: media_kit_libs_android_audio
-      iOS: true, // default: false - dependency: media_kit_libs_ios_audio
-      macOS: true, // default: false - dependency: media_kit_libs_macos_audio
-    );
-    JustAudioMediaKit.bufferSize = 12 * 1024 * 1024;
-    JustAudioMediaKit.prefetchPlaylist = true;
-    JustAudioMediaKit.pitch = false;
-    JustAudioMediaKit.protocolWhitelist = const [
-      ...[
-        'udp',
-        'rtp',
-        'tcp',
-        'tls',
-        'data',
-        'file',
-        'http',
-        'https',
-        'crypto',
-      ],
-    ];
-  }
-
-  // JustAudioMediaKit.mpvLogLevel = MPVLogLevel.debug;
   await initialisation();
-
-  ProxyClient.toggle();
 
   runApp(const Musify());
 }
 
 Future<void> initialisation() async {
   try {
-    final dir = await getApplicationSupportDirectory();
-
-    await Hive.initFlutter(dir.path);
+    await Hive.initFlutter();
 
     await Future.wait([
       Hive.openBox('settings'),

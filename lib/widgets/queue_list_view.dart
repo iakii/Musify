@@ -297,7 +297,7 @@ class _QueueWidgetState extends State<QueueWidget> {
       buildDefaultDragHandles: false,
       padding: const EdgeInsets.only(top: 4, bottom: 24, left: 8, right: 8),
       itemCount: _queue.length,
-      onReorderItem: (oldIndex, newIndex) {
+      onReorder: (oldIndex, newIndex) {
         final movingId =
             _queue[oldIndex]['queueEntryId']?.toString() ??
             'legacy_${_queue[oldIndex]['ytid']}_$oldIndex';

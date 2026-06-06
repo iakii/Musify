@@ -53,12 +53,12 @@ dependency_overrides:
     git:
       url: 'https://gitee.com/openharmony-sig/flutter_packages.git'
       path: 'packages/path_provider/path_provider'
+
 flutter:
   generate: true
   uses-material-design: true
   assets:
     - assets/licenses/
-    - 'assets/images/ic_launcher_foreground.png'
   fonts:
     - family: paytoneOne
       fonts:

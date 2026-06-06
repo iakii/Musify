@@ -19,11 +19,10 @@
  *     please visit: https://github.com/gokadzev/Musify
  */
 
-// Flutter imports:
-import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:audio_service/audio_service.dart';
+// Flutter imports:
+import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:musify/screens/playlist_page.dart';
 import 'package:musify/screens/user_songs_page.dart';

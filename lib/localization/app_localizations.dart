@@ -1,33 +1,33 @@
-// Dart imports:
 import 'dart:async';
 
-// Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-
-// Package imports:
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
-// Project imports:
-import 'app_localizations_ar.dart';
 import 'app_localizations_de.dart';
 import 'app_localizations_el.dart';
 import 'app_localizations_en.dart';
 import 'app_localizations_es.dart';
+import 'app_localizations_et.dart';
 import 'app_localizations_fr.dart';
-import 'app_localizations_gl.dart';
+import 'app_localizations_he.dart';
+import 'app_localizations_hi.dart';
+import 'app_localizations_hu.dart';
 import 'app_localizations_id.dart';
 import 'app_localizations_it.dart';
 import 'app_localizations_ja.dart';
-import 'app_localizations_ka.dart';
 import 'app_localizations_ko.dart';
 import 'app_localizations_pl.dart';
 import 'app_localizations_pt.dart';
 import 'app_localizations_ru.dart';
+import 'app_localizations_sv.dart';
+import 'app_localizations_ta.dart';
 import 'app_localizations_tr.dart';
 import 'app_localizations_uk.dart';
 import 'app_localizations_zh.dart';
+
+// ignore_for_file: type=lint
 
 /// Callers can lookup localized strings with an instance of AppLocalizations
 /// returned by `AppLocalizations.of(context)`.
@@ -82,12 +82,12 @@ import 'app_localizations_zh.dart';
 /// property.
 abstract class AppLocalizations {
   AppLocalizations(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
-  static AppLocalizations of(BuildContext context) {
-    return Localizations.of<AppLocalizations>(context, AppLocalizations)!;
+  static AppLocalizations? of(BuildContext context) {
+    return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
   static const LocalizationsDelegate<AppLocalizations> delegate =
@@ -105,32 +105,35 @@ abstract class AppLocalizations {
   /// of delegates is preferred or required.
   static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
       <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
-    Locale('ar'),
     Locale('de'),
     Locale('el'),
     Locale('en'),
     Locale('es'),
+    Locale('et'),
     Locale('fr'),
-    Locale('gl'),
+    Locale('he'),
+    Locale('hi'),
+    Locale('hu'),
     Locale('id'),
     Locale('it'),
     Locale('ja'),
-    Locale('ka'),
     Locale('ko'),
     Locale('pl'),
     Locale('pt'),
     Locale('ru'),
+    Locale('sv'),
+    Locale('ta'),
     Locale('tr'),
     Locale('uk'),
-    Locale('zh')
+    Locale('zh'),
   ];
 
   /// No description provided for @about.
@@ -157,6 +160,12 @@ abstract class AppLocalizations {
   /// **'Add'**
   String get add;
 
+  /// No description provided for @addPlaylist.
+  ///
+  /// In en, this message translates to:
+  /// **'Add playlist'**
+  String get addPlaylist;
+
   /// No description provided for @addToLikedPlaylists.
   ///
   /// In en, this message translates to:
@@ -175,11 +184,29 @@ abstract class AppLocalizations {
   /// **'Add to playlist'**
   String get addToPlaylist;
 
+  /// No description provided for @addToQueue.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to queue'**
+  String get addToQueue;
+
+  /// No description provided for @addedPlaylists.
+  ///
+  /// In en, this message translates to:
+  /// **'Added playlists'**
+  String get addedPlaylists;
+
   /// No description provided for @addedSuccess.
   ///
   /// In en, this message translates to:
   /// **'Added successfully'**
   String get addedSuccess;
+
+  /// No description provided for @addedToLikedSongs.
+  ///
+  /// In en, this message translates to:
+  /// **'Added to liked songs'**
+  String get addedToLikedSongs;
 
   /// No description provided for @album.
   ///
@@ -192,6 +219,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Albums'**
   String get albums;
+
+  /// No description provided for @alreadyDownloading.
+  ///
+  /// In en, this message translates to:
+  /// **'Already downloading'**
+  String get alreadyDownloading;
 
   /// No description provided for @appUpdateIsAvailable.
   ///
@@ -211,6 +244,24 @@ abstract class AppLocalizations {
   /// **'Audio quality'**
   String get audioQuality;
 
+  /// No description provided for @audioQualityHigh.
+  ///
+  /// In en, this message translates to:
+  /// **'High'**
+  String get audioQualityHigh;
+
+  /// No description provided for @audioQualityLow.
+  ///
+  /// In en, this message translates to:
+  /// **'Low'**
+  String get audioQualityLow;
+
+  /// No description provided for @audioQualityMedium.
+  ///
+  /// In en, this message translates to:
+  /// **'Medium'**
+  String get audioQualityMedium;
+
   /// No description provided for @audioQualityMsg.
   ///
   /// In en, this message translates to:
@@ -222,6 +273,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Automatic song picker'**
   String get automaticSongPicker;
+
+  /// No description provided for @automaticSongPickerDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatically play a random song after the current track ends.'**
+  String get automaticSongPickerDescription;
+
+  /// No description provided for @automaticUpdateChecks.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic update checks'**
+  String get automaticUpdateChecks;
+
+  /// No description provided for @automaticUpdateChecksDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatically check for app updates on startup.'**
+  String get automaticUpdateChecksDescription;
+
+  /// No description provided for @back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
+
+  /// No description provided for @backToFavorites.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to favorites'**
+  String get backToFavorites;
 
   /// No description provided for @backedupSuccess.
   ///
@@ -259,6 +340,12 @@ abstract class AppLocalizations {
   /// **'Cancel'**
   String get cancel;
 
+  /// No description provided for @checkForUpdates.
+  ///
+  /// In en, this message translates to:
+  /// **'Check for Updates?'**
+  String get checkForUpdates;
+
   /// No description provided for @chooseBackupDir.
   ///
   /// In en, this message translates to:
@@ -282,6 +369,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Clear cache'**
   String get clearCache;
+
+  /// No description provided for @clearQueue.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear queue'**
+  String get clearQueue;
+
+  /// No description provided for @clearQueueQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to clear the queue?'**
+  String get clearQueueQuestion;
 
   /// No description provided for @clearRecentlyPlayed.
   ///
@@ -337,6 +436,24 @@ abstract class AppLocalizations {
   /// **'Logs copied successfully'**
   String get copyLogsSuccess;
 
+  /// No description provided for @create.
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get create;
+
+  /// No description provided for @createFolder.
+  ///
+  /// In en, this message translates to:
+  /// **'Create folder'**
+  String get createFolder;
+
+  /// No description provided for @custom.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom'**
+  String get custom;
+
   /// No description provided for @customPlaylistImgUrl.
   ///
   /// In en, this message translates to:
@@ -348,6 +465,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Custom playlist name'**
   String get customPlaylistName;
+
+  /// No description provided for @customPlaylists.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom playlists'**
+  String get customPlaylists;
+
+  /// No description provided for @dateAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Date Added'**
+  String get dateAdded;
+
+  /// No description provided for @default_.
+  ///
+  /// In en, this message translates to:
+  /// **'Default'**
+  String get default_;
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
+
+  /// No description provided for @deleteDownloads.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete downloads'**
+  String get deleteDownloads;
+
+  /// No description provided for @deleteDownloadsQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete all downloads?'**
+  String get deleteDownloadsQuestion;
+
+  /// No description provided for @deleteFolder.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete folder'**
+  String get deleteFolder;
+
+  /// No description provided for @deleteFolderQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this folder? Playlists inside will be moved to the main library.'**
+  String get deleteFolderQuestion;
 
   /// No description provided for @deletePlaylist.
   ///
@@ -367,29 +532,245 @@ abstract class AppLocalizations {
   /// **'Download app update'**
   String get downloadAppUpdate;
 
+  /// No description provided for @downloadCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Download cancelled'**
+  String get downloadCancelled;
+
+  /// No description provided for @cancellingDownload.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelling download...'**
+  String get cancellingDownload;
+
+  /// No description provided for @downloadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Download failed'**
+  String get downloadFailed;
+
+  /// No description provided for @downloadPlaylist.
+  ///
+  /// In en, this message translates to:
+  /// **'Download playlist'**
+  String get downloadPlaylist;
+
+  /// No description provided for @downloadsDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloads deleted successfully'**
+  String get downloadsDeleted;
+
   /// No description provided for @dynamicColor.
   ///
   /// In en, this message translates to:
   /// **'Dynamic accent color (Android 12+)'**
   String get dynamicColor;
 
+  /// No description provided for @editFolder.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit folder'**
+  String get editFolder;
+
+  /// No description provided for @editPlaylist.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit playlist'**
+  String get editPlaylist;
+
+  /// No description provided for @emptyFolderMsg.
+  ///
+  /// In en, this message translates to:
+  /// **'This folder is empty. Add playlists to organize your music.'**
+  String get emptyFolderMsg;
+
+  /// No description provided for @enableUpdateChecksDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Would you like Musify to check for updates automatically from GitHub releases? You can always check for updates manually from the settings'**
+  String get enableUpdateChecksDescription;
+
+  /// No description provided for @enterFolderName.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a folder name'**
+  String get enterFolderName;
+
+  /// No description provided for @equalizer.
+  ///
+  /// In en, this message translates to:
+  /// **'Equalizer'**
+  String get equalizer;
+
+  /// No description provided for @equalizerAndroidOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Equalizer is available on Android only.'**
+  String get equalizerAndroidOnly;
+
+  /// No description provided for @equalizerDisabledHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Band gain adjustments are bypassed.'**
+  String get equalizerDisabledHint;
+
+  /// No description provided for @equalizerEnable.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable equalizer'**
+  String get equalizerEnable;
+
+  /// No description provided for @equalizerEnabledHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Band gain adjustments are active.'**
+  String get equalizerEnabledHint;
+
+  /// No description provided for @equalizerInitFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Equalizer could not be initialized right now. Try playing a song and reopen this page.'**
+  String get equalizerInitFailed;
+
+  /// No description provided for @equalizerResetBands.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset bands'**
+  String get equalizerResetBands;
+
+  /// No description provided for @equalizerPresetBalanced.
+  ///
+  /// In en, this message translates to:
+  /// **'Balanced'**
+  String get equalizerPresetBalanced;
+
+  /// No description provided for @equalizerPresetBassBoost.
+  ///
+  /// In en, this message translates to:
+  /// **'Bass Boost'**
+  String get equalizerPresetBassBoost;
+
+  /// No description provided for @equalizerPresetElectronic.
+  ///
+  /// In en, this message translates to:
+  /// **'Electronic'**
+  String get equalizerPresetElectronic;
+
+  /// No description provided for @equalizerPresetPop.
+  ///
+  /// In en, this message translates to:
+  /// **'Pop'**
+  String get equalizerPresetPop;
+
+  /// No description provided for @equalizerPresetRock.
+  ///
+  /// In en, this message translates to:
+  /// **'Rock'**
+  String get equalizerPresetRock;
+
+  /// No description provided for @equalizerPresetTrebleBoost.
+  ///
+  /// In en, this message translates to:
+  /// **'Treble Boost'**
+  String get equalizerPresetTrebleBoost;
+
+  /// No description provided for @equalizerPresetVocal.
+  ///
+  /// In en, this message translates to:
+  /// **'Vocal'**
+  String get equalizerPresetVocal;
+
+  /// No description provided for @equalizerPresets.
+  ///
+  /// In en, this message translates to:
+  /// **'Presets'**
+  String get equalizerPresets;
+
+  /// No description provided for @equalizerBands.
+  ///
+  /// In en, this message translates to:
+  /// **'Bands'**
+  String get equalizerBands;
+
   /// No description provided for @error.
   ///
   /// In en, this message translates to:
-  /// **'An error occurred. Please try again.'**
+  /// **'An error occurred. Check logs or try again.'**
   String get error;
+
+  /// No description provided for @externalRecommendations.
+  ///
+  /// In en, this message translates to:
+  /// **'External recommendations'**
+  String get externalRecommendations;
+
+  /// No description provided for @externalRecommendationsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the external algorithm for recommendations instead of Musify’s own.'**
+  String get externalRecommendationsDescription;
+
+  /// No description provided for @failedToLoadPlaylist.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load playlist'**
+  String get failedToLoadPlaylist;
+
+  /// No description provided for @fieldsNotEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'All fields must be filled'**
+  String get fieldsNotEmpty;
+
+  /// No description provided for @folderAlreadyExists.
+  ///
+  /// In en, this message translates to:
+  /// **'A folder with this name already exists'**
+  String get folderAlreadyExists;
+
+  /// No description provided for @folderDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Folder deleted successfully'**
+  String get folderDeleted;
+
+  /// No description provided for @folderName.
+  ///
+  /// In en, this message translates to:
+  /// **'Folder name'**
+  String get folderName;
 
   /// No description provided for @folderRestrictions.
   ///
   /// In en, this message translates to:
-  /// **'Android restrictions require selecting specific folders (e.g., Documents or Downloads) for backup.'**
+  /// **'Android restrictions require selecting a backup folder from Downloads or Documents'**
   String get folderRestrictions;
+
+  /// No description provided for @folderUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Folder updated successfully'**
+  String get folderUpdated;
 
   /// No description provided for @home.
   ///
   /// In en, this message translates to:
   /// **'Home'**
   String get home;
+
+  /// No description provided for @hours.
+  ///
+  /// In en, this message translates to:
+  /// **'Hours'**
+  String get hours;
+
+  /// No description provided for @imagePicked.
+  ///
+  /// In en, this message translates to:
+  /// **'Image selected'**
+  String get imagePicked;
 
   /// No description provided for @invalidYouTubePlaylist.
   ///
@@ -403,11 +784,143 @@ abstract class AppLocalizations {
   /// **'Language'**
   String get language;
 
+  /// No description provided for @languageDe.
+  ///
+  /// In en, this message translates to:
+  /// **'German'**
+  String get languageDe;
+
+  /// No description provided for @languageEl.
+  ///
+  /// In en, this message translates to:
+  /// **'Greek'**
+  String get languageEl;
+
+  /// No description provided for @languageEn.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get languageEn;
+
+  /// No description provided for @languageEs.
+  ///
+  /// In en, this message translates to:
+  /// **'Spanish'**
+  String get languageEs;
+
+  /// No description provided for @languageEt.
+  ///
+  /// In en, this message translates to:
+  /// **'Estonian'**
+  String get languageEt;
+
+  /// No description provided for @languageFr.
+  ///
+  /// In en, this message translates to:
+  /// **'French'**
+  String get languageFr;
+
+  /// No description provided for @languageHe.
+  ///
+  /// In en, this message translates to:
+  /// **'Hebrew'**
+  String get languageHe;
+
+  /// No description provided for @languageHi.
+  ///
+  /// In en, this message translates to:
+  /// **'Hindi'**
+  String get languageHi;
+
+  /// No description provided for @languageHu.
+  ///
+  /// In en, this message translates to:
+  /// **'Hungarian'**
+  String get languageHu;
+
+  /// No description provided for @languageId.
+  ///
+  /// In en, this message translates to:
+  /// **'Indonesian'**
+  String get languageId;
+
+  /// No description provided for @languageIt.
+  ///
+  /// In en, this message translates to:
+  /// **'Italian'**
+  String get languageIt;
+
+  /// No description provided for @languageJa.
+  ///
+  /// In en, this message translates to:
+  /// **'Japanese'**
+  String get languageJa;
+
+  /// No description provided for @languageKo.
+  ///
+  /// In en, this message translates to:
+  /// **'Korean'**
+  String get languageKo;
+
   /// No description provided for @languageMsg.
   ///
   /// In en, this message translates to:
   /// **'Language updated successfully'**
   String get languageMsg;
+
+  /// No description provided for @languagePl.
+  ///
+  /// In en, this message translates to:
+  /// **'Polish'**
+  String get languagePl;
+
+  /// No description provided for @languagePt.
+  ///
+  /// In en, this message translates to:
+  /// **'Portuguese'**
+  String get languagePt;
+
+  /// No description provided for @languageRu.
+  ///
+  /// In en, this message translates to:
+  /// **'Russian'**
+  String get languageRu;
+
+  /// No description provided for @languageSv.
+  ///
+  /// In en, this message translates to:
+  /// **'Swedish'**
+  String get languageSv;
+
+  /// No description provided for @languageTa.
+  ///
+  /// In en, this message translates to:
+  /// **'Tamil'**
+  String get languageTa;
+
+  /// No description provided for @languageTr.
+  ///
+  /// In en, this message translates to:
+  /// **'Turkish'**
+  String get languageTr;
+
+  /// No description provided for @languageUk.
+  ///
+  /// In en, this message translates to:
+  /// **'Ukrainian'**
+  String get languageUk;
+
+  /// No description provided for @languageZh.
+  ///
+  /// In en, this message translates to:
+  /// **'Chinese (Simplified)'**
+  String get languageZh;
+
+  /// No description provided for @languageZhHant.
+  ///
+  /// In en, this message translates to:
+  /// **'Chinese (Traditional)'**
+  String get languageZhHant;
 
   /// No description provided for @library.
   ///
@@ -433,6 +946,12 @@ abstract class AppLocalizations {
   /// **'Liked songs'**
   String get likedSongs;
 
+  /// No description provided for @loading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading'**
+  String get loading;
+
   /// No description provided for @lyrics.
   ///
   /// In en, this message translates to:
@@ -451,6 +970,30 @@ abstract class AppLocalizations {
   /// **'Make available offline'**
   String get makeOffline;
 
+  /// No description provided for @minutes.
+  ///
+  /// In en, this message translates to:
+  /// **'Minutes'**
+  String get minutes;
+
+  /// No description provided for @moreOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'More options'**
+  String get moreOptions;
+
+  /// No description provided for @mostPlayed.
+  ///
+  /// In en, this message translates to:
+  /// **'Most played'**
+  String get mostPlayed;
+
+  /// No description provided for @moveToFolder.
+  ///
+  /// In en, this message translates to:
+  /// **'Move to folder'**
+  String get moveToFolder;
+
   /// No description provided for @name.
   ///
   /// In en, this message translates to:
@@ -463,11 +1006,53 @@ abstract class AppLocalizations {
   /// **'New announcement posted'**
   String get newAnnouncement;
 
+  /// No description provided for @newFolder.
+  ///
+  /// In en, this message translates to:
+  /// **'New folder'**
+  String get newFolder;
+
+  /// No description provided for @no.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get no;
+
   /// No description provided for @noCustomPlaylists.
   ///
   /// In en, this message translates to:
   /// **'No custom playlists created yet'**
   String get noCustomPlaylists;
+
+  /// No description provided for @noFolders.
+  ///
+  /// In en, this message translates to:
+  /// **'No folders created yet'**
+  String get noFolders;
+
+  /// No description provided for @noOfflineLibraryContent.
+  ///
+  /// In en, this message translates to:
+  /// **'No offline content. Enable online mode or download playlists/songs to use the library.'**
+  String get noOfflineLibraryContent;
+
+  /// No description provided for @noPlaylistsAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'No playlists added yet'**
+  String get noPlaylistsAdded;
+
+  /// No description provided for @noSongsInPlaylist.
+  ///
+  /// In en, this message translates to:
+  /// **'No songs in playlist'**
+  String get noSongsInPlaylist;
+
+  /// No description provided for @noSongsInQueue.
+  ///
+  /// In en, this message translates to:
+  /// **'No songs in queue'**
+  String get noSongsInQueue;
 
   /// No description provided for @notYTlist.
   ///
@@ -481,17 +1066,23 @@ abstract class AppLocalizations {
   /// **'Offline mode'**
   String get offlineMode;
 
+  /// No description provided for @offlineModeDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Disable online features and use Musify completely offline.'**
+  String get offlineModeDescription;
+
+  /// No description provided for @offlinePlaylists.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline playlists'**
+  String get offlinePlaylists;
+
   /// No description provided for @offlineSongs.
   ///
   /// In en, this message translates to:
   /// **'Offline songs'**
   String get offlineSongs;
-
-  /// No description provided for @originalRecommendations.
-  ///
-  /// In en, this message translates to:
-  /// **'Original recommendation algorithm'**
-  String get originalRecommendations;
 
   /// No description provided for @others.
   ///
@@ -499,17 +1090,95 @@ abstract class AppLocalizations {
   /// **'Others'**
   String get others;
 
+  /// No description provided for @pause.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause'**
+  String get pause;
+
+  /// No description provided for @pickImageFromDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick image from device'**
+  String get pickImageFromDevice;
+
+  /// No description provided for @play.
+  ///
+  /// In en, this message translates to:
+  /// **'Play'**
+  String get play;
+
+  /// No description provided for @playNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Play next'**
+  String get playNext;
+
+  /// No description provided for @pinnedPlaylists.
+  ///
+  /// In en, this message translates to:
+  /// **'Pinned'**
+  String get pinnedPlaylists;
+
+  /// No description provided for @pinToLibrary.
+  ///
+  /// In en, this message translates to:
+  /// **'Pin to library'**
+  String get pinToLibrary;
+
+  /// No description provided for @unpinFromLibrary.
+  ///
+  /// In en, this message translates to:
+  /// **'Unpin from library'**
+  String get unpinFromLibrary;
+
+  /// No description provided for @pinnedPlaylistsLimit.
+  ///
+  /// In en, this message translates to:
+  /// **'You can pin up to 5 playlists or albums'**
+  String get pinnedPlaylistsLimit;
+
   /// No description provided for @playlist.
   ///
   /// In en, this message translates to:
   /// **'Playlist'**
   String get playlist;
 
+  /// No description provided for @playlistAlreadyDownloaded.
+  ///
+  /// In en, this message translates to:
+  /// **'Playlist already downloaded'**
+  String get playlistAlreadyDownloaded;
+
   /// No description provided for @playlistAlreadyExists.
   ///
   /// In en, this message translates to:
   /// **'Playlist already exists'**
   String get playlistAlreadyExists;
+
+  /// No description provided for @playlistDownloaded.
+  ///
+  /// In en, this message translates to:
+  /// **'Playlist downloaded'**
+  String get playlistDownloaded;
+
+  /// No description provided for @playlistEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Playlist is empty'**
+  String get playlistEmpty;
+
+  /// No description provided for @playlistFolders.
+  ///
+  /// In en, this message translates to:
+  /// **'Playlist folders'**
+  String get playlistFolders;
+
+  /// No description provided for @playlistRemovedFromOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'Playlist removed from offline storage'**
+  String get playlistRemovedFromOffline;
 
   /// No description provided for @playlistUpdated.
   ///
@@ -547,6 +1216,12 @@ abstract class AppLocalizations {
   /// **'Pure black theme'**
   String get pureBlackTheme;
 
+  /// No description provided for @queue.
+  ///
+  /// In en, this message translates to:
+  /// **'Queue'**
+  String get queue;
+
   /// No description provided for @recentlyPlayed.
   ///
   /// In en, this message translates to:
@@ -571,6 +1246,12 @@ abstract class AppLocalizations {
   /// **'Remove'**
   String get remove;
 
+  /// No description provided for @removeFromFolder.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from folder'**
+  String get removeFromFolder;
+
   /// No description provided for @removeFromLikedPlaylists.
   ///
   /// In en, this message translates to:
@@ -589,11 +1270,29 @@ abstract class AppLocalizations {
   /// **'Remove from playlist'**
   String get removeFromPlaylist;
 
+  /// No description provided for @removeFromRecentlyPlayed.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from recently played'**
+  String get removeFromRecentlyPlayed;
+
   /// No description provided for @removeOffline.
   ///
   /// In en, this message translates to:
   /// **'Remove from offline'**
   String get removeOffline;
+
+  /// No description provided for @removeOfflinePlaylist.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove Offline Playlist'**
+  String get removeOfflinePlaylist;
+
+  /// No description provided for @removeOfflinePlaylistConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'This will remove the playlist from offline storage. Songs that are used in other playlists will still be available.'**
+  String get removeOfflinePlaylistConfirm;
 
   /// No description provided for @removePlaylistQuestion.
   ///
@@ -607,11 +1306,29 @@ abstract class AppLocalizations {
   /// **'Are you sure you want to remove this search query?'**
   String get removeSearchQueryQuestion;
 
-  /// No description provided for @restartAppMsg.
+  /// No description provided for @removedFromLikedSongs.
   ///
   /// In en, this message translates to:
-  /// **'Restart the app to apply changes'**
-  String get restartAppMsg;
+  /// **'Removed from liked songs'**
+  String get removedFromLikedSongs;
+
+  /// No description provided for @renameSong.
+  ///
+  /// In en, this message translates to:
+  /// **'Rename song'**
+  String get renameSong;
+
+  /// No description provided for @repeat.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat'**
+  String get repeat;
+
+  /// No description provided for @replay.
+  ///
+  /// In en, this message translates to:
+  /// **'Replay'**
+  String get replay;
 
   /// No description provided for @restoreError.
   ///
@@ -643,6 +1360,18 @@ abstract class AppLocalizations {
   /// **'Search history cleared'**
   String get searchHistoryMsg;
 
+  /// No description provided for @selectDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'Select duration'**
+  String get selectDuration;
+
+  /// No description provided for @setTimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Set timer'**
+  String get setTimer;
+
   /// No description provided for @settingChangedMsg.
   ///
   /// In en, this message translates to:
@@ -655,11 +1384,65 @@ abstract class AppLocalizations {
   /// **'Settings'**
   String get settings;
 
+  /// No description provided for @share.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get share;
+
+  /// No description provided for @linkCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Playlist link copied to clipboard'**
+  String get linkCopied;
+
+  /// No description provided for @shuffle.
+  ///
+  /// In en, this message translates to:
+  /// **'Shuffle'**
+  String get shuffle;
+
+  /// No description provided for @skipToNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip to next'**
+  String get skipToNext;
+
+  /// No description provided for @skipToPrevious.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip to previous'**
+  String get skipToPrevious;
+
+  /// No description provided for @sleepTimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep timer'**
+  String get sleepTimer;
+
+  /// No description provided for @sleepTimerCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep timer cancelled'**
+  String get sleepTimerCancelled;
+
+  /// No description provided for @sleepTimerSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep timer set'**
+  String get sleepTimerSet;
+
   /// No description provided for @songAdded.
   ///
   /// In en, this message translates to:
   /// **'Song added'**
   String get songAdded;
+
+  /// No description provided for @songAddedToOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'Song is now available offline'**
+  String get songAddedToOffline;
 
   /// No description provided for @songAlreadyInPlaylist.
   ///
@@ -673,11 +1456,23 @@ abstract class AppLocalizations {
   /// **'Song removed'**
   String get songRemoved;
 
+  /// No description provided for @songRemovedFromOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'Song is no longer available offline'**
+  String get songRemovedFromOffline;
+
   /// No description provided for @songs.
   ///
   /// In en, this message translates to:
   /// **'Songs'**
   String get songs;
+
+  /// No description provided for @sponsorBlockDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip sponsored segments in supported tracks.'**
+  String get sponsorBlockDescription;
 
   /// No description provided for @sponsorProject.
   ///
@@ -697,17 +1492,53 @@ abstract class AppLocalizations {
   /// **'Suggested playlists'**
   String get suggestedPlaylists;
 
+  /// No description provided for @tapToView.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to view'**
+  String get tapToView;
+
   /// No description provided for @themeMode.
   ///
   /// In en, this message translates to:
   /// **'Theme mode'**
   String get themeMode;
 
+  /// No description provided for @themeModeDark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get themeModeDark;
+
+  /// No description provided for @themeModeLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get themeModeLight;
+
+  /// No description provided for @themeModeSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get themeModeSystem;
+
   /// No description provided for @tools.
   ///
   /// In en, this message translates to:
   /// **'Tools'**
   String get tools;
+
+  /// No description provided for @translate.
+  ///
+  /// In en, this message translates to:
+  /// **'Translate'**
+  String get translate;
+
+  /// No description provided for @translateDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Help translate Musify into your language on Crowdin.'**
+  String get translateDescription;
 
   /// No description provided for @understand.
   ///
@@ -721,17 +1552,35 @@ abstract class AppLocalizations {
   /// **'Undo'**
   String get undo;
 
-  /// No description provided for @useSquigglySlider.
+  /// No description provided for @update.
   ///
   /// In en, this message translates to:
-  /// **'Squiggly slider'**
-  String get useSquigglySlider;
+  /// **'Update'**
+  String get update;
+
+  /// No description provided for @useProxy.
+  ///
+  /// In en, this message translates to:
+  /// **'Use proxy'**
+  String get useProxy;
+
+  /// No description provided for @useProxyDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the proxy only when streaming fails, unnecessary use may break playback.'**
+  String get useProxyDescription;
 
   /// No description provided for @userPlaylists.
   ///
   /// In en, this message translates to:
   /// **'User playlists'**
   String get userPlaylists;
+
+  /// No description provided for @yes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get yes;
 
   /// No description provided for @youtubePlaylistLinkOrId.
   ///
@@ -751,25 +1600,28 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) => <String>[
-        'ar',
-        'de',
-        'el',
-        'en',
-        'es',
-        'fr',
-        'gl',
-        'id',
-        'it',
-        'ja',
-        'ka',
-        'ko',
-        'pl',
-        'pt',
-        'ru',
-        'tr',
-        'uk',
-        'zh'
-      ].contains(locale.languageCode);
+    'de',
+    'el',
+    'en',
+    'es',
+    'et',
+    'fr',
+    'he',
+    'hi',
+    'hu',
+    'id',
+    'it',
+    'ja',
+    'ko',
+    'pl',
+    'pt',
+    'ru',
+    'sv',
+    'ta',
+    'tr',
+    'uk',
+    'zh',
+  ].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -778,8 +1630,6 @@ class _AppLocalizationsDelegate
 AppLocalizations lookupAppLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'ar':
-      return AppLocalizationsAr();
     case 'de':
       return AppLocalizationsDe();
     case 'el':
@@ -788,18 +1638,22 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
       return AppLocalizationsEn();
     case 'es':
       return AppLocalizationsEs();
+    case 'et':
+      return AppLocalizationsEt();
     case 'fr':
       return AppLocalizationsFr();
-    case 'gl':
-      return AppLocalizationsGl();
+    case 'he':
+      return AppLocalizationsHe();
+    case 'hi':
+      return AppLocalizationsHi();
+    case 'hu':
+      return AppLocalizationsHu();
     case 'id':
       return AppLocalizationsId();
     case 'it':
       return AppLocalizationsIt();
     case 'ja':
       return AppLocalizationsJa();
-    case 'ka':
-      return AppLocalizationsKa();
     case 'ko':
       return AppLocalizationsKo();
     case 'pl':
@@ -808,6 +1662,10 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
       return AppLocalizationsPt();
     case 'ru':
       return AppLocalizationsRu();
+    case 'sv':
+      return AppLocalizationsSv();
+    case 'ta':
+      return AppLocalizationsTa();
     case 'tr':
       return AppLocalizationsTr();
     case 'uk':
@@ -817,8 +1675,9 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   }
 
   throw FlutterError(
-      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.',
+  );
 }

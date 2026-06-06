@@ -124,17 +124,6 @@ class _HomePageState extends State<HomePage> {
     final itemsNumber = playlists.length.clamp(0, recommendedCubesNumber);
     final isLargeScreen = MediaQuery.of(context).size.width > 480;
 
-    final width = MediaQuery.sizeOf(context).width;
-
-    const itemWidth = 156.0;
-
-    final itemCount = (width / itemWidth).floor();
-
-    final flexWeights = List<int>.generate(
-      itemCount,
-      (index) => itemCount - index,
-    );
-
     return Column(
       children: [
         SectionHeader(
@@ -278,17 +267,6 @@ class _HomePageState extends State<HomePage> {
     List<dynamic> data,
   ) {
     final recommendedTitle = context.l10n!.recommendedForYou;
-
-    final width = MediaQuery.sizeOf(context).width;
-
-    const itemWidth = 156.0;
-
-    final itemCount = (width / itemWidth).floor();
-
-    final flexWeights = List<int>.generate(
-      itemCount,
-      (index) => itemCount - index,
-    );
 
     return Column(
       children: [

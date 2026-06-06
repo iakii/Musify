@@ -19,12 +19,11 @@
  *     please visit: https://github.com/gokadzev/Musify
  */
 
-// Flutter imports:
-import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:audio_service/audio_service.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+// Flutter imports:
+import 'package:flutter/material.dart';
 import 'package:flutter_flip_card/flutter_flip_card.dart';
 import 'package:musify/main.dart';
 import 'package:musify/widgets/now_playing/bottom_actions_row.dart';

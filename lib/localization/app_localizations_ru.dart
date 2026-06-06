@@ -1,39 +1,57 @@
-// Project imports:
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
 import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
 
 /// The translations for Russian (`ru`).
 class AppLocalizationsRu extends AppLocalizations {
   AppLocalizationsRu([String locale = 'ru']) : super(locale);
 
   @override
-  String get about => 'О программе';
+  String get about => 'О приложении';
 
   @override
-  String get accentChangeMsg => 'Цветовой акцент изменён';
+  String get accentChangeMsg => 'Цвет акцента успешно изменён';
 
   @override
-  String get accentColor => 'Цветовой акцент';
+  String get accentColor => 'Цвет акцента';
 
   @override
   String get add => 'Добавить';
 
   @override
-  String get addToLikedPlaylists => 'Add to liked playlists';
+  String get addPlaylist => 'Добавить плейлист';
 
   @override
-  String get addToLikedSongs => 'Add to liked songs';
+  String get addToLikedPlaylists => 'Добавить в понравившиеся плейлист';
+
+  @override
+  String get addToLikedSongs => 'Добавить в понравившиеся песни';
 
   @override
   String get addToPlaylist => 'Добавить в плейлист';
 
   @override
+  String get addToQueue => 'Добавить в очередь';
+
+  @override
+  String get addedPlaylists => 'Добавлены плейлисты';
+
+  @override
   String get addedSuccess => 'Успешно добавлено';
+
+  @override
+  String get addedToLikedSongs => 'Добавлено в понравившиеся песни';
 
   @override
   String get album => 'Альбом';
 
   @override
   String get albums => 'Альбомы';
+
+  @override
+  String get alreadyDownloading => 'Уже загружается';
 
   @override
   String get appUpdateIsAvailable => 'Доступно обновление';
@@ -45,19 +63,45 @@ class AppLocalizationsRu extends AppLocalizations {
   String get audioQuality => 'Качество звука';
 
   @override
+  String get audioQualityHigh => 'Высокое';
+
+  @override
+  String get audioQualityLow => 'Низкое';
+
+  @override
+  String get audioQualityMedium => 'Среднее';
+
+  @override
   String get audioQualityMsg => 'Качество звука изменено';
 
   @override
-  String get automaticSongPicker => 'Автовыбор следующего трека';
+  String get automaticSongPicker => 'Авто выбор песен';
 
   @override
-  String get backedupSuccess => 'Резервное копирование успешно выполнено';
+  String get automaticSongPickerDescription =>
+      'Авто воспроизведение случайной песни после окончания текущего трека.';
 
   @override
-  String get backupError => 'Произошла ошибка';
+  String get automaticUpdateChecks => 'Авто проверка обновлений';
 
   @override
-  String get backupUserData => 'Резервное копирование пользовательских данных';
+  String get automaticUpdateChecksDescription =>
+      'Авто проверка обновления приложения при запуске.';
+
+  @override
+  String get back => 'Назад';
+
+  @override
+  String get backToFavorites => 'Вернуться к избранному';
+
+  @override
+  String get backedupSuccess => 'Резервирование данных успешно создано';
+
+  @override
+  String get backupError => 'При резервировании данных произошла ошибка';
+
+  @override
+  String get backupUserData => 'Резервное копирование собственных данных';
 
   @override
   String get becomeSponsor => 'Стать спонсором';
@@ -66,13 +110,16 @@ class AppLocalizationsRu extends AppLocalizations {
   String get cacheMsg => 'Кэш очищен';
 
   @override
-  String get cancel => 'Отмена';
+  String get cancel => 'Отменить';
 
   @override
-  String get chooseBackupDir => 'Выберите каталог для сохранения';
+  String get checkForUpdates => 'Проверить наличие обновлений?';
 
   @override
-  String get chooseBackupFiles => 'Choose backup files';
+  String get chooseBackupDir => 'Выберите папку для резервного копирования';
+
+  @override
+  String get chooseBackupFiles => 'Выберите файлы для резервного копирования';
 
   @override
   String get clear => 'Очистить';
@@ -81,16 +128,24 @@ class AppLocalizationsRu extends AppLocalizations {
   String get clearCache => 'Очистить кэш';
 
   @override
-  String get clearRecentlyPlayed => 'Очистить недавние треки';
+  String get clearQueue => 'Очистить очередь';
 
   @override
-  String get clearRecentlyPlayedQuestion => 'Точно очистить недавние треки?';
+  String get clearQueueQuestion => 'Вы уверены, что хотите очистить очередь?';
+
+  @override
+  String get clearRecentlyPlayed => 'Очистить недавно воспроизведенные';
+
+  @override
+  String get clearRecentlyPlayedQuestion =>
+      'Очистить историю недавно воспроизведенных песен?';
 
   @override
   String get clearSearchHistory => 'Очистить историю поиска';
 
   @override
-  String get clearSearchHistoryQuestion => 'Точно очистить историю поиска?';
+  String get clearSearchHistoryQuestion =>
+      'Вы уверены, что хотите очистить историю поиска?';
 
   @override
   String get confirm => 'Подтвердить';
@@ -99,42 +154,190 @@ class AppLocalizationsRu extends AppLocalizations {
   String get confirmation => 'Подтверждение';
 
   @override
-  String get copyLogs => 'Скопировать логи';
+  String get copyLogs => 'Копировать журналы';
 
   @override
-  String get copyLogsNoLogs => 'Отсутствуют логи для копирования';
+  String get copyLogsNoLogs => 'Нет журналов для копирования';
 
   @override
-  String get copyLogsSuccess => 'Логи успешно скопированы. ';
+  String get copyLogsSuccess => 'Журналы успешно скопированы';
+
+  @override
+  String get create => 'Создать';
+
+  @override
+  String get createFolder => 'Создать папку';
+
+  @override
+  String get custom => 'Собственный';
 
   @override
   String get customPlaylistImgUrl =>
-      'Обложка плейлиста (ссылка на изображение)';
+      'URL изображения для собственного плейлиста';
 
   @override
-  String get customPlaylistName => 'Название плейлиста';
+  String get customPlaylistName => 'Название собственного плейлиста';
 
   @override
-  String get deletePlaylist => 'Delete playlist';
+  String get customPlaylists => 'Собственные плейлисты';
+
+  @override
+  String get dateAdded => 'Дата добавления';
+
+  @override
+  String get default_ => 'По умолчанию';
+
+  @override
+  String get delete => 'Удалить';
+
+  @override
+  String get deleteDownloads => 'Удалить загрузки';
+
+  @override
+  String get deleteDownloadsQuestion =>
+      'Вы уверены, что хотите удалить все загрузки?';
+
+  @override
+  String get deleteFolder => 'Удалить папку';
+
+  @override
+  String get deleteFolderQuestion =>
+      'Вы действительно хотите удалить эту папку? Плейлисты, сохраненные в этой папке, будут перемещены в основную библиотеку.';
+
+  @override
+  String get deletePlaylist => 'Удалить плейлист';
 
   @override
   String get download => 'Загрузить';
 
   @override
-  String get downloadAppUpdate => 'Скачать обновление';
+  String get downloadAppUpdate => 'Загрузить обновление приложения';
 
   @override
-  String get dynamicColor => 'Динамический цветовой акцент (Android 12+)';
+  String get downloadCancelled => 'Загрузка отменена';
 
   @override
-  String get error => 'Что-то пошло не так';
+  String get cancellingDownload => 'Отмена загрузки...';
+
+  @override
+  String get downloadFailed => 'Загрузка не удалась';
+
+  @override
+  String get downloadPlaylist => 'Загрузить плейлист';
+
+  @override
+  String get downloadsDeleted => 'Загрузки успешно удалены';
+
+  @override
+  String get dynamicColor => 'Динамический цвет акцента (Android 12+)';
+
+  @override
+  String get editFolder => 'Редактировать папку';
+
+  @override
+  String get editPlaylist => 'Редактировать плейлист';
+
+  @override
+  String get emptyFolderMsg =>
+      'Эта папка пуста. Добавьте плейлисты, чтобы упорядочить музыку.';
+
+  @override
+  String get enableUpdateChecksDescription =>
+      'Хотите, чтобы Musify автоматически проверял наличие обновлений для релизов из GitHub? Вы всегда можете проверить наличие обновлений вручную в настройках';
+
+  @override
+  String get enterFolderName => 'Пожалуйста, введите имя папки';
+
+  @override
+  String get equalizer => 'Эквалайзер';
+
+  @override
+  String get equalizerAndroidOnly => 'Эквалайзер доступен только на Android.';
+
+  @override
+  String get equalizerDisabledHint => 'Регулировка усиления полос отключена.';
+
+  @override
+  String get equalizerEnable => 'Включить эквалайзер';
+
+  @override
+  String get equalizerEnabledHint => 'Регулировка усиления полос включена.';
+
+  @override
+  String get equalizerInitFailed =>
+      'Не удалось инициализировать эквалайзер. Попробуйте включить трек и открыть эту страницу снова.';
+
+  @override
+  String get equalizerResetBands => 'Сбросить диапазоны';
+
+  @override
+  String get equalizerPresetBalanced => 'Сбалансированный';
+
+  @override
+  String get equalizerPresetBassBoost => 'Усиление Басов';
+
+  @override
+  String get equalizerPresetElectronic => 'Электронный';
+
+  @override
+  String get equalizerPresetPop => 'Поп';
+
+  @override
+  String get equalizerPresetRock => 'Рок';
+
+  @override
+  String get equalizerPresetTrebleBoost => 'Усиление Высоких частот';
+
+  @override
+  String get equalizerPresetVocal => 'Вокал';
+
+  @override
+  String get equalizerPresets => 'Предустановленные';
+
+  @override
+  String get equalizerBands => 'Группы';
+
+  @override
+  String get error =>
+      'Произошла ошибка. Проверьте журналы или попробуйте снова.';
+
+  @override
+  String get externalRecommendations => 'Внешние рекомендации';
+
+  @override
+  String get externalRecommendationsDescription =>
+      'Использовать внешний алгоритм рекомендаций вместо алгоритма Musify.';
+
+  @override
+  String get failedToLoadPlaylist => 'Не удалось загрузить плейлист';
+
+  @override
+  String get fieldsNotEmpty => 'Все поля должны быть заполнены';
+
+  @override
+  String get folderAlreadyExists => 'Папка с таким именем уже существует';
+
+  @override
+  String get folderDeleted => 'Папка успешно удалена';
+
+  @override
+  String get folderName => 'Имя папки';
 
   @override
   String get folderRestrictions =>
-      'Ввиду ограничений Android, необходимо выбрать определённые папки для разных типов файлов. Пожалуйста убедитесь в том, что вы выбрали папку \'Документы\' или \'Скачанные\' для файлов восстановления.';
+      'Ограничения Android требуют выбора папки резервного копирования из раздела \"Загрузка\" или \"Документы\"';
+
+  @override
+  String get folderUpdated => 'Папка успешно обновлена';
 
   @override
   String get home => 'Главная';
+
+  @override
+  String get hours => 'Часы';
+
+  @override
+  String get imagePicked => 'Изображение выбрано';
 
   @override
   String get invalidYouTubePlaylist => 'Недействительный плейлист YouTube';
@@ -143,7 +346,73 @@ class AppLocalizationsRu extends AppLocalizations {
   String get language => 'Язык';
 
   @override
-  String get languageMsg => 'Язык изменён';
+  String get languageDe => 'Немецкий';
+
+  @override
+  String get languageEl => 'Греческий';
+
+  @override
+  String get languageEn => 'Английский';
+
+  @override
+  String get languageEs => 'Испанский';
+
+  @override
+  String get languageEt => 'Эстонский';
+
+  @override
+  String get languageFr => 'Французский';
+
+  @override
+  String get languageHe => 'Иврит';
+
+  @override
+  String get languageHi => 'Хинди';
+
+  @override
+  String get languageHu => 'Венгерский';
+
+  @override
+  String get languageId => 'Индонезийский';
+
+  @override
+  String get languageIt => 'Итальянский';
+
+  @override
+  String get languageJa => 'Японский';
+
+  @override
+  String get languageKo => 'Корейский';
+
+  @override
+  String get languageMsg => 'Язык успешно изменен';
+
+  @override
+  String get languagePl => 'Польский';
+
+  @override
+  String get languagePt => 'Португальский';
+
+  @override
+  String get languageRu => 'Русский';
+
+  @override
+  String get languageSv => 'Шведский';
+
+  @override
+  String get languageTa => 'Тамильский';
+
+  @override
+  String get languageTr => 'Турецкий';
+
+  @override
+  String get languageUk => 'Украинский';
+
+  @override
+  String get languageZh => 'Китайский (Упрощённый)';
+
+  @override
+  String get languageZhHant => 'Китайский (Традиционный)';
 
   @override
   String get library => 'Библиотека';
@@ -152,52 +421,134 @@ class AppLocalizationsRu extends AppLocalizations {
   String get licenses => 'Лицензии';
 
   @override
-  String get likedPlaylists => 'Избранные плейлисты';
+  String get likedPlaylists => 'Понравившиеся плейлисты';
 
   @override
-  String get likedSongs => 'Избранные треки';
+  String get likedSongs => 'Понравившиеся песни';
 
   @override
-  String get lyrics => 'Текст трека';
+  String get loading => 'Загрузка';
 
   @override
-  String get lyricsNotAvailable => 'Текст трека недоступен';
+  String get lyrics => 'Текст песни';
 
   @override
-  String get makeOffline => 'Make available offline';
+  String get lyricsNotAvailable => 'Текст песни недоступен';
+
+  @override
+  String get makeOffline => 'Сделать доступным офлайн';
+
+  @override
+  String get minutes => 'Минуты';
+
+  @override
+  String get moreOptions => 'Больше опций';
+
+  @override
+  String get mostPlayed => 'Самые популярные';
+
+  @override
+  String get moveToFolder => 'Переместить в папку';
 
   @override
   String get name => 'Имя';
 
   @override
-  String get newAnnouncement => 'New announcement posted';
+  String get newAnnouncement => 'Опубликовано новое объявление';
 
   @override
-  String get noCustomPlaylists => 'Вы ещё не создали свои плейлисты';
+  String get newFolder => 'Новая папка';
 
   @override
-  String get notYTlist => 'Неверный ID плейлиста YouTube';
+  String get no => 'Нет';
 
   @override
-  String get offlineMode => 'Режим без интернета';
+  String get noCustomPlaylists => 'Собственные плейлисты еще не созданы';
 
   @override
-  String get offlineSongs => 'Треки без интернета';
+  String get noFolders => 'Папок еще не создано';
 
   @override
-  String get originalRecommendations => 'Оригинальный алгоритм рекомендаций';
+  String get noOfflineLibraryContent =>
+      'Нет офлайн контента. Включите режим онлайн или загрузите плейлисты/песни для использования библиотеки.';
 
   @override
-  String get others => 'Ещё';
+  String get noPlaylistsAdded => 'Плейлисты ещё не добавлены';
 
   @override
-  String get playlist => 'Плейлист';
+  String get noSongsInPlaylist => 'Нет песен в плейлисте';
+
+  @override
+  String get noSongsInQueue => 'Нет песен в очереди';
+
+  @override
+  String get notYTlist => 'Неверный ID плейлист YouTube';
+
+  @override
+  String get offlineMode => 'Офлайн режим';
+
+  @override
+  String get offlineModeDescription =>
+      'Отключить онлайн функцию и использовать Musify полностью офлайн.';
+
+  @override
+  String get offlinePlaylists => 'Офлайн плейлисты';
+
+  @override
+  String get offlineSongs => 'Офлайн песни';
+
+  @override
+  String get others => 'Другое';
+
+  @override
+  String get pause => 'Пауза';
+
+  @override
+  String get pickImageFromDevice => 'Выбрать изображение из устройства';
+
+  @override
+  String get play => 'Играть';
+
+  @override
+  String get playNext => 'Играть следующим';
+
+  @override
+  String get pinnedPlaylists => 'Закреплено';
+
+  @override
+  String get pinToLibrary => 'Закрепить в библиотеке';
+
+  @override
+  String get unpinFromLibrary => 'Открепить из библиотеки';
+
+  @override
+  String get pinnedPlaylistsLimit =>
+      'Вы можете закрепить до 5 плейлистов или альбомов';
+
+  @override
+  String get playlist => 'Плейлисты';
+
+  @override
+  String get playlistAlreadyDownloaded => 'Плейлисты уже загружен';
 
   @override
   String get playlistAlreadyExists => 'Плейлист уже существует';
 
   @override
-  String get playlistUpdated => 'Плейлист успешно обновлён';
+  String get playlistDownloaded => 'Плейлист загружен';
+
+  @override
+  String get playlistEmpty => 'Плейлист пуст';
+
+  @override
+  String get playlistFolders => 'Папки плейлистов';
+
+  @override
+  String get playlistRemovedFromOffline =>
+      'Плейлист удален из офлайн хранилища';
+
+  @override
+  String get playlistUpdated => 'Плейлист успешно обновлен';
 
   @override
   String get playlists => 'Плейлисты';
@@ -207,54 +558,80 @@ class AppLocalizationsRu extends AppLocalizations {
       'Анимация подсказки жеста \"Назад\" (Android 14+)';
 
   @override
-  String get preferences => 'Настройки';
+  String get preferences => 'Настройка';
 
   @override
   String get provideIdOrNameError =>
-      'Пожалуйста введите ID плейлиста YouTube или имя пользовательского плейлиста';
+      'Пожалуйста, предоставьте YouTube ID или имя собственного плейлиста';
 
   @override
-  String get pureBlackTheme => 'Ночная тема';
+  String get pureBlackTheme => 'Чисто черная тема';
 
   @override
-  String get recentlyPlayed => 'Недавние треки';
+  String get queue => 'Очередь';
 
   @override
-  String get recentlyPlayedMsg => 'Недавние треки очищены';
+  String get recentlyPlayed => 'Недавно проиграны';
 
   @override
-  String get recommendedForYou => 'Рекомендовано вам';
+  String get recentlyPlayedMsg => 'История недавно проигранных очищена';
+
+  @override
+  String get recommendedForYou => 'Рекомендовано для вас';
 
   @override
   String get remove => 'Удалить';
 
   @override
-  String get removeFromLikedPlaylists => 'Remove from liked playlists';
+  String get removeFromFolder => 'Удалить из папки';
 
   @override
-  String get removeFromLikedSongs => 'Remove from liked songs';
+  String get removeFromLikedPlaylists => 'Удалить из понравившихся плейлистов';
 
   @override
-  String get removeFromPlaylist => 'Remove from playlist';
+  String get removeFromLikedSongs => 'Удалить из понравившихся песен';
 
   @override
-  String get removeOffline => 'Remove from offline';
+  String get removeFromPlaylist => 'Удалить з плейлиста';
 
   @override
-  String get removePlaylistQuestion => 'Удалить этот плейлист?';
+  String get removeFromRecentlyPlayed => 'Удалить из недавних треков';
 
   @override
-  String get removeSearchQueryQuestion => 'Удалить этот поисковый запрос?';
+  String get removeOffline => 'Удалить з офлайн';
 
   @override
-  String get restartAppMsg =>
-      'Перезапустите приложение для применения изменений';
+  String get removeOfflinePlaylist => 'Удалить Офлайн Плейлист';
 
   @override
-  String get restoreError => 'Ошибка при восстановлении данных';
+  String get removeOfflinePlaylistConfirm =>
+      'Это удалит плейлист из офлайн хранилища. Песни, используемые другими плейлистами, останутся доступными.';
 
   @override
-  String get restoreUserData => 'Восстановить пользовательские данные';
+  String get removePlaylistQuestion =>
+      'Вы уверены, что хотите удалить этот плейлист?';
+
+  @override
+  String get removeSearchQueryQuestion =>
+      'Вы уверены, что хотите удалить этот поисковый запрос?';
+
+  @override
+  String get removedFromLikedSongs => 'Удалено из понравившихся песен';
+
+  @override
+  String get renameSong => 'Переименовать песню';
+
+  @override
+  String get repeat => 'Повторить';
+
+  @override
+  String get replay => 'Повтор';
+
+  @override
+  String get restoreError => 'Ошибка восстановления данных';
+
+  @override
+  String get restoreUserData => 'Восстановление собственных данных';
 
   @override
   String get restoredSuccess => 'Данные успешно восстановлены';
@@ -266,25 +643,65 @@ class AppLocalizationsRu extends AppLocalizations {
   String get searchHistoryMsg => 'История поиска очищена';
 
   @override
-  String get settingChangedMsg => 'Параметр изменён';
+  String get selectDuration => 'Выберите продолжительность';
+
+  @override
+  String get setTimer => 'Установить таймер';
+
+  @override
+  String get settingChangedMsg => 'Настройки успешно изменены';
 
   @override
   String get settings => 'Настройки';
 
   @override
-  String get songAdded => 'Трек успешно добавлен!';
+  String get share => 'Поделиться';
 
   @override
-  String get songAlreadyInPlaylist => 'Song is already in the playlist';
+  String get linkCopied => 'Ссылка на плейлист скопировано в буфер обмена';
 
   @override
-  String get songRemoved => 'Трек успешно удалён!';
+  String get shuffle => 'Перемешать';
 
   @override
-  String get songs => 'треки';
+  String get skipToNext => 'Перейти к следующему';
 
   @override
-  String get sponsorProject => 'Поддержать проект';
+  String get skipToPrevious => 'Перейти к предыдущему';
+
+  @override
+  String get sleepTimer => 'Таймер сна';
+
+  @override
+  String get sleepTimerCancelled => 'Таймер сна отменен';
+
+  @override
+  String get sleepTimerSet => 'Таймер сна установлен';
+
+  @override
+  String get songAdded => 'Песню добавлено';
+
+  @override
+  String get songAddedToOffline => 'Песня теперь доступна офлайн';
+
+  @override
+  String get songAlreadyInPlaylist => 'Песня уже в плейлисте';
+
+  @override
+  String get songRemoved => 'Песня удалена';
+
+  @override
+  String get songRemovedFromOffline => 'Песня больше недоступна в офлайн';
+
+  @override
+  String get songs => 'Песни';
+
+  @override
+  String get sponsorBlockDescription =>
+      'Пропускать спонсорские сегменты в поддерживаемых треках.';
+
+  @override
+  String get sponsorProject => 'Поддержите проект';
 
   @override
   String get suggestedArtists => 'Рекомендуемые исполнители';
@@ -293,24 +710,52 @@ class AppLocalizationsRu extends AppLocalizations {
   String get suggestedPlaylists => 'Рекомендуемые плейлисты';
 
   @override
+  String get tapToView => 'Нажмите для просмотра';
+
+  @override
   String get themeMode => 'Тема приложения';
+
+  @override
+  String get themeModeDark => 'Темная';
+
+  @override
+  String get themeModeLight => 'Светлая';
+
+  @override
+  String get themeModeSystem => 'Системная';
 
   @override
   String get tools => 'Инструменты';
 
   @override
+  String get translate => 'Перевести';
+
+  @override
+  String get translateDescription =>
+      'Помогите перевести Musify на ваш язык на Crowdin.';
+
+  @override
   String get understand => 'Я понимаю';
 
   @override
-  String get undo => 'отменить';
+  String get undo => 'Отменить';
 
   @override
-  String get useSquigglySlider => 'Волнистая полоса прокрутки';
+  String get update => 'Обновление';
 
   @override
-  String get userPlaylists => 'Ваши плейлисты';
+  String get useProxy => 'Использовать прокси';
 
   @override
-  String get youtubePlaylistLinkOrId =>
-      'ID плейлиста YouTube или ссылка на него ';
+  String get useProxyDescription =>
+      'Используйте прокси только в случае сбоя потоковой передачи, ненужное использование может прервать воспроизведение.';
+
+  @override
+  String get userPlaylists => 'Собственные плейлисты';
+
+  @override
+  String get yes => 'Да';
+
+  @override
+  String get youtubePlaylistLinkOrId => 'YouTube URL или ID плейлиста';
 }

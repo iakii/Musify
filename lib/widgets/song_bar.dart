@@ -22,10 +22,6 @@
 import 'dart:async';
 import 'dart:io';
 
-// Flutter imports:
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
@@ -670,49 +666,6 @@ class _OfflineArtwork extends StatelessWidget {
       width: size,
       height: size,
       child: ClipRRect(
-<<<<<<< HEAD
-        borderRadius: commonBarRadius,
-        child: Image.file(
-          File(artworkPath),
-          fit: BoxFit.cover,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildOnlineArtwork(
-    String lowResImageUrl,
-    double size,
-    bool isDurationAvailable,
-    Color primaryColor,
-  ) {
-    return Stack(
-      alignment: Alignment.center,
-      children: <Widget>[
-        CachedNetworkImage(
-          key: Key(song['ytid'].toString()),
-          width: size,
-          height: size,
-          imageUrl: lowResImageUrl,
-          progressIndicatorBuilder: (context, url, progress) =>
-              const CupertinoActivityIndicator(),
-          imageBuilder: (context, imageProvider) => SizedBox(
-            width: size,
-            height: size,
-            child: ClipRRect(
-              borderRadius: commonBarRadius,
-              child: Image(
-                color: isDurationAvailable
-                    ? Theme.of(context).colorScheme.primaryContainer
-                    : null,
-                colorBlendMode: isDurationAvailable ? BlendMode.multiply : null,
-                opacity: isDurationAvailable
-                    ? const AlwaysStoppedAnimation(0.45)
-                    : null,
-                image: imageProvider,
-                centerSlice: const Rect.fromLTRB(1, 1, 1, 1),
-              ),
-=======
         borderRadius: BorderRadius.circular(10),
         child: Stack(
           children: [
@@ -723,7 +676,6 @@ class _OfflineArtwork extends StatelessWidget {
               fit: BoxFit.cover,
               errorBuilder: (_, __, ___) =>
                   const NullArtworkWidget(iconSize: 30),
->>>>>>> a971086e31318bdf7e5e49d35f5fa074a205bb54
             ),
             Positioned(
               top: 3,
