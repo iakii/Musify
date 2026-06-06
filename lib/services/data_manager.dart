@@ -1,5 +1,5 @@
 /*
- *     Copyright (C) 2024 Valeri Gokadze
+ *     Copyright (C) 2026 Valeri Gokadze
  *
  *     Musify is free software: you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
@@ -31,55 +31,184 @@ import 'package:hive/hive.dart';
 
 // Project imports:
 import 'package:musify/extensions/l10n.dart';
-import 'package:musify/main.dart';
+import 'package:musify/main.dart' show logger;
 
-void addOrUpdateData(String category, String key, dynamic value) async {
-  final _box = await _openBox(category);
-  await _box.put(key, value);
-  if (category == 'cache') {
-    await _box.put('${key}_date', DateTime.now());
+// Cache durations for different types of data
+const Duration songCacheDuration = Duration(hours: 1, minutes: 30);
+const Duration playlistCacheDuration = Duration(hours: 5);
+const Duration searchCacheDuration = Duration(days: 4);
+const Duration defaultCacheDuration = Duration(days: 7);
+
+// In-memory cache for frequently accessed items
+final _memoryCache = <String, _CacheEntry>{};
+
+class _CacheEntry {
+  _CacheEntry(this.data, this.timestamp);
+  final dynamic data;
+  final DateTime timestamp;
+
+  bool isValid(Duration cacheDuration) {
+    return DateTime.now().difference(timestamp) < cacheDuration;
   }
 }
 
-Future getData(
+// Maximum number of entries allowed in the memory cache
+const int _maxMemoryCacheSize = 500;
+const int _memoryCacheTrimSize = 100;
+
+void _setMemoryCacheEntry(String key, _CacheEntry entry) {
+  _memoryCache
+    ..remove(key)
+    ..[key] = entry;
+  _trimMemoryCacheIfNeeded();
+}
+
+void _touchMemoryCacheEntry(String key) {
+  final entry = _memoryCache.remove(key);
+  if (entry != null) {
+    _memoryCache[key] = entry;
+  }
+}
+
+void _trimMemoryCacheIfNeeded() {
+  if (_memoryCache.length > _maxMemoryCacheSize) {
+    final keysToRemove = _memoryCache.keys.take(_memoryCacheTrimSize).toList();
+    for (final key in keysToRemove) {
+      _memoryCache.remove(key);
+    }
+  }
+}
+
+Future<void> addOrUpdateData<T>(String category, String key, T value) async {
+  final _box = await _openBox(category);
+  await _box.put(key, value);
+
+  if (category == 'cache') {
+    await _box.put('${key}_date', DateTime.now());
+
+    // Update memory cache too
+    final cacheKey = '${category}_$key';
+    _setMemoryCacheEntry(cacheKey, _CacheEntry(value, DateTime.now()));
+  }
+}
+
+Future<dynamic> getData(
   String category,
   String key, {
   dynamic defaultValue,
-  Duration cachingDuration = const Duration(days: 30),
+  Duration? cachingDuration,
 }) async {
+  // Set appropriate cache duration based on key
+  cachingDuration ??= _getCacheDurationForKey(key);
+
+  // Check memory cache first
+  final cacheKey = '${category}_$key';
+  final memCacheEntry = _memoryCache[cacheKey];
+  if (memCacheEntry != null && memCacheEntry.isValid(cachingDuration)) {
+    _touchMemoryCacheEntry(cacheKey);
+    return memCacheEntry.data;
+  }
+  _trimMemoryCacheIfNeeded();
+
   final _box = await _openBox(category);
   if (category == 'cache') {
-    final cacheIsValid = await isCacheValid(_box, key, cachingDuration);
+    final cacheIsValid = isCacheValid(_box, key, cachingDuration);
     if (!cacheIsValid) {
-      deleteData(category, key);
-      deleteData(category, '${key}_date');
-      return null;
+      await deleteData(category, key);
+      await deleteData(category, '${key}_date');
+      return defaultValue;
     }
   }
-  return await _box.get(key, defaultValue: defaultValue);
+
+  final data = await _box.get(key, defaultValue: defaultValue);
+
+  // Store in memory cache for faster access next time
+  if (data != null && category == 'cache') {
+    final timestamp = await _box.get('${key}_date') ?? DateTime.now();
+    _setMemoryCacheEntry(cacheKey, _CacheEntry(data, timestamp));
+  }
+
+  return data;
 }
 
-void deleteData(String category, String key) async {
+Future<void> deleteData(String category, String key) async {
+  _memoryCache
+    ..remove('${category}_$key')
+    ..remove('${category}_${key}_date');
+
   final _box = await _openBox(category);
   await _box.delete(key);
 }
 
-void clearCache() async {
-  final _cacheBox = await _openBox('cache');
-  await _cacheBox.clear();
+Future<bool> clearCache() async {
+  try {
+    // Clear memory cache
+    _memoryCache.clear();
+
+    final cacheBox = await _openBox('cache');
+    await cacheBox.clear();
+    return true;
+  } catch (e, stackTrace) {
+    logger.log('Failed to clear cache', error: e, stackTrace: stackTrace);
+    return false;
+  }
 }
 
-Future<bool> isCacheValid(
-  Box box,
-  String key,
-  Duration cachingDuration,
-) async {
+// Clean up old cache entries to prevent excessive storage usage
+Future<void> cleanupOldCacheEntries() async {
+  try {
+    final cacheBox = await _openBox('cache');
+    final now = DateTime.now();
+
+    // Get all keys except the ones with _date suffix
+    final keys = cacheBox.keys
+        .where((k) => !k.toString().endsWith('_date'))
+        .toList();
+
+    for (final key in keys) {
+      final dateKey = '${key}_date';
+      final date = cacheBox.get(dateKey);
+
+      if (date == null) {
+        await cacheBox.delete(key);
+        continue;
+      }
+
+      final age = now.difference(date);
+      // Very old cache entries (older than 30 days) should be removed
+      if (age > const Duration(days: 30)) {
+        await cacheBox.delete(key);
+        await cacheBox.delete(dateKey);
+      }
+    }
+  } catch (e, stackTrace) {
+    logger.log(
+      'Error cleaning up old cache entries',
+      error: e,
+      stackTrace: stackTrace,
+    );
+  }
+}
+
+// Check if the cache is still valid based on the caching duration
+bool isCacheValid(Box box, String key, Duration cachingDuration) {
   final date = box.get('${key}_date');
   if (date == null) {
     return false;
   }
   final age = DateTime.now().difference(date);
   return age < cachingDuration;
+}
+
+Duration _getCacheDurationForKey(String key) {
+  if (key.startsWith('song_') || key.contains('manifest_')) {
+    return songCacheDuration;
+  } else if (key.startsWith('playlist_') || key.contains('playlistSongs')) {
+    return playlistCacheDuration;
+  } else if (key.startsWith('search_')) {
+    return searchCacheDuration;
+  }
+  return defaultCacheDuration;
 }
 
 Future<Box> _openBox(String category) async {
@@ -90,75 +219,183 @@ Future<Box> _openBox(String category) async {
   }
 }
 
-Future<String> backupData(BuildContext context) async {
+Future<({String message, bool success})> backupData(
+  BuildContext context,
+) async {
   final boxNames = ['user', 'settings'];
-  final dlPath = await FilePicker.platform.getDirectoryPath();
+  final dlPath = await FilePicker.getDirectoryPath();
 
   if (dlPath == null) {
-    return '${context.l10n!.chooseBackupDir}!';
+    return (message: '${context.l10n!.chooseBackupDir}!', success: false);
+  }
+
+  if (!dlPath.contains('Documents') && !dlPath.contains('Download')) {
+    return (message: context.l10n!.folderRestrictions, success: false);
   }
 
   try {
     for (final boxName in boxNames) {
-      final sourceFile = File('$dlPath/$boxName.hive');
       final box = await _openBox(boxName);
 
-      if (await sourceFile.exists()) {
-        await sourceFile.delete();
+      if (box.path == null) {
+        logger.log('Box path is null for $boxName');
+        continue;
       }
 
-      await box.compact();
-      await File(box.path!).copy(sourceFile.path);
-    }
-    return '${context.l10n!.backedupSuccess}!';
-  } catch (e, stackTrace) {
-    return '${context.l10n!.backupError}: $e\n$stackTrace';
-  }
-}
+      final sourceFile = File(box.path!);
+      final targetFile = File('$dlPath/$boxName.hive');
 
-Future<String> restoreData(BuildContext context) async {
-  final boxNames = ['user', 'settings'];
-  final backupFiles = await FilePicker.platform.pickFiles(
-    allowMultiple: true,
-  );
+      // Ensure the target directory exists
+      await targetFile.parent.create(recursive: true);
 
-  if (backupFiles == null || backupFiles.files.isEmpty) {
-    return '${context.l10n!.chooseBackupFiles}!';
-  }
-
-  try {
-    for (final boxName in boxNames) {
-      final _file = backupFiles.files.firstWhere(
-        (file) => file.name == '$boxName.hive',
-        orElse: () => PlatformFile(
-          name: '',
-          size: 0,
-        ), // Create a PlatformFile with null path if not found
-      );
-
-      if (_file.path != null && _file.path!.isNotEmpty && _file.size != 0) {
-        final sourceFilePath = _file.path!;
-        final sourceFile = File(sourceFilePath);
-
-        final box = await _openBox(boxName);
-        final boxPath = box.path;
-        await box.close();
-
-        if (boxPath != null) {
-          await sourceFile.copy(boxPath);
+      // Safely handle existing backup file
+      if (await targetFile.exists()) {
+        try {
+          await targetFile.delete();
+        } catch (e) {
+          // If delete fails, try with a timestamp suffix
+          final timestamp = DateTime.now().millisecondsSinceEpoch;
+          final newTargetFile = File('$dlPath/${boxName}_$timestamp.hive');
+          await sourceFile.copy(newTargetFile.path);
+          continue;
         }
+      }
+
+      // Compact the box before copying
+      try {
+        await box.compact();
+      } catch (e, stackTrace) {
+        logger.log(
+          'Failed to compact box $boxName',
+          error: e,
+          stackTrace: stackTrace,
+        );
+      }
+
+      // Copy the box file to backup location
+      if (await sourceFile.exists()) {
+        await sourceFile.copy(targetFile.path);
       } else {
         logger.log(
-          'Source file for $boxName not found while restoring data.',
-          null,
-          null,
+          'Source file does not exist for $boxName at ${sourceFile.path}',
         );
       }
     }
 
-    return '${context.l10n!.restoredSuccess}!';
+    return (message: '${context.l10n!.backedupSuccess}!', success: true);
   } catch (e, stackTrace) {
-    logger.log('${context.l10n!.restoreError}:', e, stackTrace);
-    return '${context.l10n!.restoreError}: $e\n$stackTrace';
+    logger.log('Backup error', error: e, stackTrace: stackTrace);
+    return (message: '${context.l10n!.backupError}: $e', success: false);
+  }
+}
+
+Future<({String message, bool success})> restoreData(
+  BuildContext context,
+) async {
+  final boxNames = ['user', 'settings'];
+  final result = await FilePicker.pickFiles(allowMultiple: true);
+
+  if (result == null || result.files.isEmpty) {
+    return (message: '${context.l10n!.chooseBackupFiles}!', success: false);
+  }
+
+  try {
+    // Close all boxes before restoring to avoid conflicts
+    for (final boxName in boxNames) {
+      if (Hive.isBoxOpen(boxName)) {
+        try {
+          await Hive.box(boxName).close();
+        } catch (e, stackTrace) {
+          logger.log(
+            'Failed to close box $boxName',
+            error: e,
+            stackTrace: stackTrace,
+          );
+        }
+      }
+    }
+
+    // Small delay to ensure boxes are properly closed
+    await Future.delayed(const Duration(milliseconds: 100));
+
+    for (final boxName in boxNames) {
+      final backupFile = result.files
+          .where(
+            (file) =>
+                file.name == '$boxName.hive' ||
+                file.name.startsWith('${boxName}_'),
+          )
+          .firstOrNull;
+
+      if (backupFile?.path != null) {
+        final sourceFile = File(backupFile!.path!);
+
+        if (await sourceFile.exists()) {
+          try {
+            // Get the original box path by temporarily opening the box
+            final tempBox = await Hive.openBox(boxName);
+            final boxPath = tempBox.path;
+            await tempBox.close();
+
+            if (boxPath != null) {
+              final targetFile = File(boxPath);
+
+              // Ensure target directory exists
+              await targetFile.parent.create(recursive: true);
+
+              // Delete existing file if it exists
+              if (await targetFile.exists()) {
+                try {
+                  await targetFile.delete();
+                } catch (e, stackTrace) {
+                  logger.log(
+                    'Failed to delete existing file',
+                    error: e,
+                    stackTrace: stackTrace,
+                  );
+                }
+              }
+
+              // Copy backup file to original location
+              await sourceFile.copy(targetFile.path);
+              logger.log(
+                'Restored $boxName from ${sourceFile.path} to ${targetFile.path}',
+              );
+            }
+          } catch (e, stackTrace) {
+            logger.log(
+              'Failed to restore $boxName',
+              error: e,
+              stackTrace: stackTrace,
+            );
+          }
+        } else {
+          logger.log('Backup file does not exist: ${sourceFile.path}');
+        }
+      } else {
+        logger.log('Backup file for $boxName not found in selection');
+      }
+    }
+
+    // Small delay before reopening boxes
+    await Future.delayed(const Duration(milliseconds: 100));
+
+    // Reopen boxes after restore
+    for (final boxName in boxNames) {
+      try {
+        await _openBox(boxName);
+      } catch (e, stackTrace) {
+        logger.log(
+          'Failed to reopen box $boxName',
+          error: e,
+          stackTrace: stackTrace,
+        );
+      }
+    }
+
+    return (message: '${context.l10n!.restoredSuccess}!', success: true);
+  } catch (e, stackTrace) {
+    logger.log('Restore error', error: e, stackTrace: stackTrace);
+    return (message: '${context.l10n!.restoreError}: $e', success: false);
   }
 }

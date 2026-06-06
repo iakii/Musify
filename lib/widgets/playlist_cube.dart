@@ -1,5 +1,5 @@
 /*
- *     Copyright (C) 2024 Valeri Gokadze
+ *     Copyright (C) 2026 Valeri Gokadze
  *
  *     Musify is free software: you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
@@ -19,58 +19,45 @@
  *     please visit: https://github.com/gokadzev/Musify
  */
 
-// Flutter imports:
-import 'package:flutter/material.dart';
-
-// Package imports:
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
-
-// Project imports:
-import 'package:musify/API/musify.dart';
+import 'package:flutter/material.dart';
 import 'package:musify/extensions/l10n.dart';
-import 'package:musify/widgets/no_artwork_cube.dart';
+import 'package:musify/widgets/playlist_artwork.dart';
 
 class PlaylistCube extends StatelessWidget {
-  PlaylistCube(
+  const PlaylistCube(
     this.playlist, {
     super.key,
     this.playlistData,
-    this.cubeIcon = FluentIcons.music_note_1_24_regular,
+    this.cubeIcon = FluentIcons.text_bullet_list_24_filled,
     this.size = 220,
-    this.borderRadius = 13,
-  }) : playlistLikeStatus = ValueNotifier<bool>(
-          isPlaylistAlreadyLiked(playlist['ytid']),
-        );
+    this.borderRadius = 16,
+    this.showTypeLabel = true,
+  });
 
   final Map? playlistData;
   final Map playlist;
   final IconData cubeIcon;
   final double size;
   final double borderRadius;
+  final bool showTypeLabel;
 
-  static const double paddingValue = 4;
   static const double typeLabelOffset = 10;
-  static const double iconSize = 30;
-
-  final ValueNotifier<bool> playlistLikeStatus;
-
-  static const likeStatusToIconMapper = {
-    true: FluentIcons.heart_24_filled,
-    false: FluentIcons.heart_24_regular,
-  };
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      elevation: 4,
       borderRadius: BorderRadius.circular(borderRadius),
       clipBehavior: Clip.antiAlias,
       child: Stack(
         fit: StackFit.expand,
         children: [
-          _buildImage(context),
-          if (borderRadius == 13 && playlist['image'] != null)
+          PlaylistArtwork(
+            playlistArtwork: playlist['image'],
+            size: size,
+            cubeIcon: cubeIcon,
+          ),
+          if (showTypeLabel && playlist['image'] != null)
             Positioned(
               top: typeLabelOffset,
               right: typeLabelOffset,
@@ -81,45 +68,23 @@ class PlaylistCube extends StatelessWidget {
     );
   }
 
-  Widget _buildImage(BuildContext context) {
-    print(playlist['image']);
-    return playlist['image'] != null
-        ? CachedNetworkImage(
-            key: Key(playlist['image'].toString()),
-            imageUrl: playlist['image'].toString(),
-            height: size,
-            width: size,
-            fit: BoxFit.cover,
-            errorWidget: (context, url, error) => NullArtworkWidget(
-              icon: cubeIcon,
-              iconSize: iconSize,
-              size: size,
-              title: playlist['title'],
-            ),
-          )
-        : NullArtworkWidget(
-            icon: cubeIcon,
-            iconSize: iconSize,
-            size: size,
-            title: playlist['title'],
-          );
-  }
-
   Widget _buildLabel(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final isAlbum = playlist['isAlbum'] == true;
     return Container(
       decoration: BoxDecoration(
-        color: colorScheme.secondaryContainer,
-        borderRadius: BorderRadius.circular(paddingValue),
+        color: colorScheme.primaryContainer.withValues(alpha: 0.92),
+        borderRadius: BorderRadius.circular(20),
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: Text(
-        playlist['isAlbum'] != null && playlist['isAlbum'] == true
-            ? context.l10n!.album
-            : context.l10n!.playlist,
-        style: Theme.of(context).textTheme.labelSmall?.copyWith(
-              color: colorScheme.onSecondaryContainer,
-            ),
+        isAlbum ? context.l10n!.album : context.l10n!.playlist,
+        style: TextStyle(
+          color: colorScheme.onPrimaryContainer,
+          fontSize: 11,
+          fontWeight: FontWeight.w700,
+          letterSpacing: 0.4,
+        ),
       ),
     );
   }

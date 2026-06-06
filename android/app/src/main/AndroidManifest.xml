@@ -41,12 +41,10 @@
         <activity
             android:name="com.ryanheise.audioservice.AudioServiceActivity"
             android:exported="true"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:allowCrossUidActivitySwitchFromBelow="false"
-            android:taskAffinity=""
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-            android:screenOrientation="portrait"
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize">
 
@@ -58,11 +56,46 @@
                 android:name="io.flutter.embedding.android.NormalTheme"
                 android:resource="@style/NormalTheme" />
 
+
+            <meta-data android:name="flutter_deeplinking_enabled" android:value="false" />
+
             <!-- Main activity intent filter -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:scheme="musify"
+                    android:host="playlist"
+                    android:pathPattern="/custom/.*" />
+            </intent-filter>
+            <!-- Intent filter for handling text sharing -->
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/*" />
+            </intent-filter>
+
+            <!-- Intent filter for handling YouTube links -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" android:host="www.youtube.com" />
+                <data android:scheme="https" android:host="www.youtube.com" />
+                <data android:scheme="http" android:host="m.youtube.com" />
+                <data android:scheme="https" android:host="m.youtube.com" />
+                <data android:scheme="http" android:host="youtube.com" />
+                <data android:scheme="https" android:host="youtube.com" />
+                <data android:scheme="http" android:host="youtu.be" />
+                <data android:scheme="https" android:host="youtu.be" />
+            </intent-filter>
+
         </activity>
 
         <!-- Flutter embedding meta-data -->
@@ -73,7 +106,8 @@
         <!-- AudioService -->
         <service android:name="com.ryanheise.audioservice.AudioService"
             android:foregroundServiceType="mediaPlayback"
-            android:exported="true">
+            android:exported="true"
+            tools:ignore="Instantiatable">
             <intent-filter>
                 <action android:name="android.media.browse.MediaBrowserService" />
             </intent-filter>
@@ -81,7 +115,8 @@
 
         <!-- MediaButtonReceiver -->
         <receiver android:name="com.ryanheise.audioservice.MediaButtonReceiver"
-            android:exported="true">
+            android:exported="true"
+            tools:ignore="Instantiatable">
             <intent-filter>
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
             </intent-filter>

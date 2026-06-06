@@ -1,5 +1,5 @@
 /*
- *     Copyright (C) 2024 Valeri Gokadze
+ *     Copyright (C) 2026 Valeri Gokadze
  *
  *     Musify is free software: you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
@@ -19,35 +19,31 @@
  *     please visit: https://github.com/gokadzev/Musify
  */
 
-// Dart imports:
-import 'dart:io';
-
-// Flutter imports:
-import 'package:flutter/material.dart';
-
-// Package imports:
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
-
-// Project imports:
-import 'package:musify/API/musify.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:musify/constants/app_constants.dart';
 import 'package:musify/extensions/l10n.dart';
 import 'package:musify/main.dart';
 import 'package:musify/screens/search_page.dart';
+import 'package:musify/services/common_services.dart';
 import 'package:musify/services/data_manager.dart';
+import 'package:musify/services/playlist_download_service.dart';
 import 'package:musify/services/router_service.dart';
 import 'package:musify/services/settings_manager.dart';
 import 'package:musify/services/update_manager.dart';
-import 'package:musify/style/app_colors.dart';
-import 'package:musify/style/app_themes.dart';
-import 'package:musify/utilities/common_variables.dart';
+import 'package:musify/theme/app_colors.dart';
+import 'package:musify/theme/app_themes.dart';
 import 'package:musify/utilities/flutter_bottom_sheet.dart';
 import 'package:musify/utilities/flutter_toast.dart';
+import 'package:musify/utilities/language_utils.dart';
 import 'package:musify/utilities/url_launcher.dart';
-import 'package:musify/utilities/utils.dart';
 import 'package:musify/widgets/bottom_sheet_bar.dart';
 import 'package:musify/widgets/confirmation_dialog.dart';
 import 'package:musify/widgets/custom_bar.dart';
-import 'package:musify/widgets/section_title.dart';
+import 'package:musify/widgets/mini_player_bottom_space.dart';
+import 'package:musify/widgets/section_header.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -61,586 +57,748 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text(context.l10n!.settings)),
       body: SingleChildScrollView(
+        padding: commonSingleChildScrollViewPadding,
         child: Column(
           children: <Widget>[
-            // CATEGORY: PREFERENCES
-            SectionTitle(
-              context.l10n!.preferences,
+            _buildPreferencesSection(
+              context,
               primaryColor,
+              activatedColor,
+              inactivatedColor,
             ),
-            CustomBar(
-              context.l10n!.accentColor,
-              FluentIcons.color_24_filled,
-              borderRadius: commonCustomBarRadiusFirst,
-              onTap: () => showCustomBottomSheet(
-                context,
-                GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 5,
-                  ),
-                  shrinkWrap: true,
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: availableColors.length,
-                  itemBuilder: (context, index) {
-                    final color = availableColors[index];
-                    final isSelected = color == primaryColorSetting;
-
-                    return GestureDetector(
-                      onTap: () {
-                        //TODO: migrate this
-                        addOrUpdateData(
-                          'settings',
-                          'accentColor',
-                          // ignore: deprecated_member_use
-                          color.value,
-                        );
-                        Musify.updateAppState(
-                          context,
-                          newAccentColor: color,
-                          useSystemColor: false,
-                        );
-                        showToast(
-                          context,
-                          context.l10n!.accentChangeMsg,
-                        );
-                        Navigator.pop(context);
-                      },
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          CircleAvatar(
-                            radius: 25,
-                            backgroundColor: themeMode == ThemeMode.light
-                                ? color.withAlpha(150)
-                                : color,
-                          ),
-                          if (isSelected)
-                            Icon(
-                              Icons.check,
-                              color: Theme.of(context).colorScheme.onPrimary,
-                            ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
-            CustomBar(
-              context.l10n!.themeMode,
-              FluentIcons.weather_sunny_28_filled,
-              onTap: () {
-                final availableModes = [
-                  ThemeMode.system,
-                  ThemeMode.light,
-                  ThemeMode.dark,
-                ];
-                showCustomBottomSheet(
-                  context,
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: const BouncingScrollPhysics(),
-                    padding: commonListViewBottmomPadding,
-                    itemCount: availableModes.length,
-                    itemBuilder: (context, index) {
-                      final mode = availableModes[index];
-
-                      final borderRadius = getItemBorderRadius(
-                        index,
-                        availableModes.length,
-                      );
-
-                      return BottomSheetBar(
-                        mode.name,
-                        () {
-                          addOrUpdateData(
-                            'settings',
-                            'themeMode',
-                            mode.name,
-                          );
-                          Musify.updateAppState(
-                            context,
-                            newThemeMode: mode,
-                          );
-
-                          Navigator.pop(context);
-                        },
-                        themeMode == mode ? activatedColor : inactivatedColor,
-                        borderRadius: borderRadius,
-                      );
-                    },
-                  ),
-                );
-              },
-            ),
-            CustomBar(
-              context.l10n!.language,
-              FluentIcons.translate_24_filled,
-              onTap: () {
-                final availableLanguages = appLanguages.keys.toList();
-                final activeLanguageCode =
-                    Localizations.localeOf(context).languageCode;
-                showCustomBottomSheet(
-                  context,
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: const BouncingScrollPhysics(),
-                    padding: commonListViewBottmomPadding,
-                    itemCount: availableLanguages.length,
-                    itemBuilder: (context, index) {
-                      final language = availableLanguages[index];
-                      final languageCode = appLanguages[language] ?? 'en';
-
-                      final borderRadius = getItemBorderRadius(
-                        index,
-                        availableLanguages.length,
-                      );
-
-                      return BottomSheetBar(
-                        language,
-                        () {
-                          addOrUpdateData(
-                            'settings',
-                            'language',
-                            language,
-                          );
-                          Musify.updateAppState(
-                            context,
-                            newLocale: Locale(
-                              languageCode,
-                            ),
-                          );
-                          WidgetsBinding.instance.addPostFrameCallback(
-                            (_) {
-                              showToast(
-                                context,
-                                context.l10n!.languageMsg,
-                              );
-                              Navigator.pop(context);
-                            },
-                          );
-                        },
-                        activeLanguageCode == languageCode
-                            ? activatedColor
-                            : inactivatedColor,
-                        borderRadius: borderRadius,
-                      );
-                    },
-                  ),
-                );
-              },
-            ),
-            CustomBar(
-              context.l10n!.audioQuality,
-              Icons.music_note,
-              onTap: () {
-                final availableQualities = ['low', 'medium', 'high'];
-
-                showCustomBottomSheet(
-                  context,
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: const BouncingScrollPhysics(),
-                    padding: commonListViewBottmomPadding,
-                    itemCount: availableQualities.length,
-                    itemBuilder: (context, index) {
-                      final quality = availableQualities[index];
-                      final isCurrentQuality =
-                          audioQualitySetting.value == quality;
-
-                      final borderRadius = getItemBorderRadius(
-                        index,
-                        availableQualities.length,
-                      );
-
-                      return BottomSheetBar(
-                        quality,
-                        () {
-                          addOrUpdateData(
-                            'settings',
-                            'audioQuality',
-                            quality,
-                          );
-                          audioQualitySetting.value = quality;
-
-                          showToast(
-                            context,
-                            context.l10n!.audioQualityMsg,
-                          );
-                          Navigator.pop(context);
-                        },
-                        isCurrentQuality ? activatedColor : inactivatedColor,
-                        borderRadius: borderRadius,
-                      );
-                    },
-                  ),
-                );
-              },
-            ),
-            if (Platform.isAndroid)
-              CustomBar(
-                context.l10n!.dynamicColor,
-                FluentIcons.toggle_left_24_filled,
-                trailing: Switch(
-                  value: useSystemColor.value,
-                  onChanged: (value) {
-                    addOrUpdateData(
-                      'settings',
-                      'useSystemColor',
-                      value,
-                    );
-                    useSystemColor.value = value;
-                    Musify.updateAppState(
-                      context,
-                      newAccentColor: primaryColorSetting,
-                      useSystemColor: value,
-                    );
-                    showToast(
-                      context,
-                      context.l10n!.settingChangedMsg,
-                    );
-                  },
-                ),
-              ),
-            if (themeMode == ThemeMode.dark)
-              CustomBar(
-                context.l10n!.pureBlackTheme,
-                FluentIcons.color_background_24_filled,
-                trailing: Switch(
-                  value: usePureBlackColor.value,
-                  onChanged: (value) {
-                    addOrUpdateData(
-                      'settings',
-                      'usePureBlackColor',
-                      value,
-                    );
-                    usePureBlackColor.value = value;
-                    Musify.updateAppState(context);
-                    showToast(
-                      context,
-                      context.l10n!.settingChangedMsg,
-                    );
-                  },
-                ),
-              ),
-
-            if (Platform.isAndroid)
-              ValueListenableBuilder<bool>(
-                valueListenable: predictiveBack,
-                builder: (_, value, __) {
-                  return CustomBar(
-                    context.l10n!.predictiveBack,
-                    FluentIcons.position_backward_24_filled,
-                    trailing: Switch(
-                      value: predictiveBack.value,
-                      onChanged: (value) {
-                        addOrUpdateData(
-                          'settings',
-                          'predictiveBack',
-                          value,
-                        );
-                        predictiveBack.value = value;
-                        transitionsBuilder = value
-                            ? const PredictiveBackPageTransitionsBuilder()
-                            : const CupertinoPageTransitionsBuilder();
-                        Musify.updateAppState(context);
-                        showToast(
-                          context,
-                          context.l10n!.settingChangedMsg,
-                        );
-                      },
-                    ),
-                  );
-                },
-              ),
-            ValueListenableBuilder<bool>(
-              valueListenable: useSquigglySlider,
-              builder: (_, value, __) {
-                return CustomBar(
-                  context.l10n!.useSquigglySlider,
-                  FluentIcons.options_24_filled,
-                  trailing: Switch(
-                    value: useSquigglySlider.value,
-                    onChanged: (value) {
-                      addOrUpdateData(
-                        'settings',
-                        'useSquigglySlider',
-                        value,
-                      );
-                      useSquigglySlider.value = value;
-                      showToast(
-                        context,
-                        context.l10n!.settingChangedMsg,
-                      );
-                    },
-                  ),
-                );
-              },
-            ),
-            ValueListenableBuilder<bool>(
-              valueListenable: offlineMode,
-              builder: (_, value, __) {
-                return CustomBar(
-                  context.l10n!.offlineMode,
-                  FluentIcons.cellular_off_24_regular,
-                  trailing: Switch(
-                    value: value,
-                    onChanged: (value) {
-                      addOrUpdateData(
-                        'settings',
-                        'offlineMode',
-                        value,
-                      );
-                      offlineMode.value = value;
-                      showToast(
-                        context,
-                        context.l10n!.restartAppMsg,
-                      );
-                    },
-                  ),
-                );
-              },
-            ),
-            if (!offlineMode.value)
-              Column(
-                children: [
-                  ValueListenableBuilder<bool>(
-                    valueListenable: sponsorBlockSupport,
-                    builder: (_, value, __) {
-                      return CustomBar(
-                        'SponsorBlock',
-                        FluentIcons.presence_blocked_24_regular,
-                        trailing: Switch(
-                          value: value,
-                          onChanged: (value) {
-                            addOrUpdateData(
-                              'settings',
-                              'sponsorBlockSupport',
-                              value,
-                            );
-                            sponsorBlockSupport.value = value;
-                            showToast(
-                              context,
-                              context.l10n!.settingChangedMsg,
-                            );
-                          },
-                        ),
-                      );
-                    },
-                  ),
-                  ValueListenableBuilder<bool>(
-                    valueListenable: playNextSongAutomatically,
-                    builder: (_, value, __) {
-                      return CustomBar(
-                        context.l10n!.automaticSongPicker,
-                        FluentIcons.music_note_2_play_20_filled,
-                        trailing: Switch(
-                          value: value,
-                          onChanged: (value) {
-                            audioHandler.changeAutoPlayNextStatus();
-                            showToast(
-                              context,
-                              context.l10n!.settingChangedMsg,
-                            );
-                          },
-                        ),
-                      );
-                    },
-                  ),
-                  ValueListenableBuilder<bool>(
-                    valueListenable: defaultRecommendations,
-                    builder: (_, value, __) {
-                      return CustomBar(
-                        context.l10n!.originalRecommendations,
-                        FluentIcons.channel_share_24_regular,
-                        borderRadius: commonCustomBarRadiusLast,
-                        trailing: Switch(
-                          value: value,
-                          onChanged: (value) {
-                            addOrUpdateData(
-                              'settings',
-                              'defaultRecommendations',
-                              value,
-                            );
-                            defaultRecommendations.value = value;
-                            showToast(
-                              context,
-                              context.l10n!.settingChangedMsg,
-                            );
-                          },
-                        ),
-                      );
-                    },
-                  ),
-
-                  // CATEGORY: TOOLS
-                  SectionTitle(
-                    context.l10n!.tools,
-                    primaryColor,
-                  ),
-                  CustomBar(
-                    context.l10n!.clearCache,
-                    FluentIcons.broom_24_filled,
-                    borderRadius: commonCustomBarRadiusFirst,
-                    onTap: () {
-                      clearCache();
-                      showToast(
-                        context,
-                        '${context.l10n!.cacheMsg}!',
-                      );
-                    },
-                  ),
-                  CustomBar(
-                    context.l10n!.clearSearchHistory,
-                    FluentIcons.history_24_filled,
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return ConfirmationDialog(
-                            submitMessage: context.l10n!.clear,
-                            confirmationMessage:
-                                context.l10n!.clearSearchHistoryQuestion,
-                            onCancel: () => {Navigator.of(context).pop()},
-                            onSubmit: () => {
-                              Navigator.of(context).pop(),
-                              searchHistory = [],
-                              deleteData('user', 'searchHistory'),
-                              showToast(
-                                context,
-                                '${context.l10n!.searchHistoryMsg}!',
-                              ),
-                            },
-                          );
-                        },
-                      );
-                    },
-                  ),
-                  CustomBar(
-                    context.l10n!.clearRecentlyPlayed,
-                    FluentIcons.receipt_play_24_filled,
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return ConfirmationDialog(
-                            submitMessage: context.l10n!.clear,
-                            confirmationMessage:
-                                context.l10n!.clearRecentlyPlayedQuestion,
-                            onCancel: () => {Navigator.of(context).pop()},
-                            onSubmit: () => {
-                              Navigator.of(context).pop(),
-                              userRecentlyPlayed = [],
-                              deleteData('user', 'recentlyPlayedSongs'),
-                              showToast(
-                                context,
-                                '${context.l10n!.recentlyPlayedMsg}!',
-                              ),
-                            },
-                          );
-                        },
-                      );
-                    },
-                  ),
-                  CustomBar(
-                    context.l10n!.backupUserData,
-                    FluentIcons.cloud_sync_24_filled,
-                    onTap: () async {
-                      await showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            content: Text(context.l10n!.folderRestrictions),
-                            actions: <Widget>[
-                              TextButton(
-                                child: Text(
-                                  context.l10n!.understand.toUpperCase(),
-                                ),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                      final response = await backupData(context);
-                      showToast(context, response);
-                    },
-                  ),
-
-                  CustomBar(
-                    context.l10n!.restoreUserData,
-                    FluentIcons.cloud_add_24_filled,
-                    onTap: () async {
-                      final response = await restoreData(context);
-                      showToast(context, response);
-                    },
-                  ),
-
-                  if (!isFdroidBuild)
-                    CustomBar(
-                      context.l10n!.downloadAppUpdate,
-                      FluentIcons.arrow_download_24_filled,
-                      borderRadius: commonCustomBarRadiusLast,
-                      onTap: checkAppUpdates,
-                    ),
-                  // CATEGORY: BECOME A SPONSOR
-
-                  SectionTitle(
-                    context.l10n!.becomeSponsor,
-                    primaryColor,
-                  ),
-
-                  CustomBar(
-                    context.l10n!.sponsorProject,
-                    FluentIcons.heart_24_filled,
-                    backgroundColor: primaryColor,
-                    iconColor: Colors.white,
-                    textColor: Colors.white,
-                    borderRadius: commonCustomBarRadius,
-                    onTap: () => {
-                      launchURL(
-                        Uri.parse('https://ko-fi.com/gokadzev'),
-                      ),
-                    },
-                  ),
-                ],
-              ),
-            // CATEGORY: OTHERS
-            SectionTitle(
-              context.l10n!.others,
-              primaryColor,
-            ),
-
-            CustomBar(
-              context.l10n!.licenses,
-              FluentIcons.document_24_filled,
-              borderRadius: commonCustomBarRadiusFirst,
-              onTap: () => NavigationManager.router.go(
-                '/settings/license',
-              ),
-            ),
-            CustomBar(
-              '${context.l10n!.copyLogs} (${logger.getLogCount()})',
-              FluentIcons.error_circle_24_filled,
-              onTap: () async =>
-                  showToast(context, await logger.copyLogs(context)),
-            ),
-            CustomBar(
-              context.l10n!.about,
-              FluentIcons.book_information_24_filled,
-              borderRadius: commonCustomBarRadiusLast,
-              onTap: () => NavigationManager.router.go(
-                '/settings/about',
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
+            if (!offlineMode.value) _buildOnlineFeaturesSection(context),
+            _buildOthersSection(context),
+            const SizedBox(height: 20),
+            const MiniPlayerBottomSpace(),
           ],
         ),
       ),
     );
+  }
+
+  Widget _buildPreferencesSection(
+    BuildContext context,
+    Color primaryColor,
+    Color activatedColor,
+    Color inactivatedColor,
+  ) {
+    final isOffline = offlineMode.value;
+
+    return Column(
+      children: [
+        SectionHeader(
+          title: context.l10n!.preferences,
+          icon: FluentIcons.options_24_filled,
+        ),
+        CustomBar(
+          context.l10n!.accentColor,
+          FluentIcons.color_24_regular,
+          borderRadius: commonCustomBarRadiusFirst,
+          onTap: () => _showAccentColorPicker(context),
+        ),
+        CustomBar(
+          context.l10n!.themeMode,
+          FluentIcons.weather_sunny_28_regular,
+          onTap: () => _showThemeModePicker(context),
+        ),
+        CustomBar(
+          context.l10n!.language,
+          FluentIcons.translate_24_regular,
+          onTap: () => _showLanguagePicker(context),
+        ),
+        CustomBar(
+          context.l10n!.audioQuality,
+          FluentIcons.music_note_1_24_regular,
+          onTap: () => _showAudioQualityPicker(context),
+        ),
+        CustomBar(
+          context.l10n!.equalizer,
+          FluentIcons.data_histogram_24_regular,
+          onTap: () => context.push('/settings/equalizer'),
+        ),
+        CustomBar(
+          context.l10n!.dynamicColor,
+          FluentIcons.toggle_left_24_regular,
+          trailing: Switch(
+            value: useSystemColor.value,
+            onChanged: (value) => _toggleSystemColor(context, value),
+          ),
+        ),
+        if (themeMode == ThemeMode.dark)
+          CustomBar(
+            context.l10n!.pureBlackTheme,
+            FluentIcons.color_background_24_regular,
+            trailing: Switch(
+              value: usePureBlackColor.value,
+              onChanged: (value) => _togglePureBlack(context, value),
+            ),
+          ),
+        ValueListenableBuilder<bool>(
+          valueListenable: predictiveBack,
+          builder: (_, value, __) {
+            return CustomBar(
+              context.l10n!.predictiveBack,
+              FluentIcons.position_backward_24_regular,
+              trailing: Switch(
+                value: value,
+                onChanged: (value) => _togglePredictiveBack(context, value),
+              ),
+            );
+          },
+        ),
+        ValueListenableBuilder<bool>(
+          valueListenable: useProxy,
+          builder: (_, value, __) {
+            return CustomBar(
+              context.l10n!.useProxy,
+              FluentIcons.shield_24_regular,
+              description: context.l10n!.useProxyDescription,
+              trailing: Switch(
+                value: value,
+                onChanged: (value) {
+                  useProxy.value = value;
+                  addOrUpdateData<bool>('settings', 'useProxy', value);
+                  showToast(context, context.l10n!.settingChangedMsg);
+                },
+              ),
+            );
+          },
+        ),
+        ValueListenableBuilder<bool>(
+          valueListenable: offlineMode,
+          builder: (_, value, __) {
+            return CustomBar(
+              context.l10n!.offlineMode,
+              FluentIcons.cloud_off_24_regular,
+              description: context.l10n!.offlineModeDescription,
+              borderRadius: isOffline && isFdroidBuild
+                  ? commonCustomBarRadiusLast
+                  : BorderRadius.zero,
+              trailing: Switch(
+                value: value,
+                onChanged: (value) => _toggleOfflineMode(context, value),
+              ),
+            );
+          },
+        ),
+        if (!isFdroidBuild)
+          ValueListenableBuilder<bool?>(
+            valueListenable: shouldWeCheckUpdates,
+            builder: (_, value, __) {
+              return CustomBar(
+                context.l10n!.automaticUpdateChecks,
+                FluentIcons.arrow_sync_24_regular,
+                description: context.l10n!.automaticUpdateChecksDescription,
+                borderRadius: offlineMode.value
+                    ? commonCustomBarRadiusLast
+                    : BorderRadius.zero,
+                trailing: Switch(
+                  value: value ?? false,
+                  onChanged: (value) =>
+                      _toggleAutomaticUpdateChecks(context, value),
+                ),
+              );
+            },
+          ),
+      ],
+    );
+  }
+
+  Widget _buildOnlineFeaturesSection(BuildContext context) {
+    return Column(
+      children: [
+        ValueListenableBuilder<bool>(
+          valueListenable: sponsorBlockSupport,
+          builder: (_, value, __) {
+            return CustomBar(
+              'SponsorBlock',
+              FluentIcons.cut_24_regular,
+              description: context.l10n!.sponsorBlockDescription,
+              trailing: Switch(
+                value: value,
+                onChanged: (value) => _toggleSponsorBlock(context, value),
+              ),
+            );
+          },
+        ),
+        ValueListenableBuilder<bool>(
+          valueListenable: playNextSongAutomatically,
+          builder: (_, value, __) {
+            return CustomBar(
+              context.l10n!.automaticSongPicker,
+              FluentIcons.music_note_2_play_20_regular,
+              description: context.l10n!.automaticSongPickerDescription,
+              trailing: Switch(
+                value: value,
+                onChanged: (value) {
+                  audioHandler.changeAutoPlayNextStatus();
+                  showToast(context, context.l10n!.settingChangedMsg);
+                },
+              ),
+            );
+          },
+        ),
+        ValueListenableBuilder<bool>(
+          valueListenable: externalRecommendations,
+          builder: (_, value, __) {
+            return CustomBar(
+              context.l10n!.externalRecommendations,
+              FluentIcons.channel_share_24_regular,
+              description: context.l10n!.externalRecommendationsDescription,
+              borderRadius: commonCustomBarRadiusLast,
+              trailing: Switch(
+                value: value,
+                onChanged: (value) =>
+                    _toggleExternalRecommendations(context, value),
+              ),
+            );
+          },
+        ),
+
+        _buildToolsSection(context),
+        _buildSponsorSection(context),
+      ],
+    );
+  }
+
+  Widget _buildToolsSection(BuildContext context) {
+    return Column(
+      children: [
+        SectionHeader(
+          title: context.l10n!.tools,
+          icon: FluentIcons.toolbox_24_filled,
+        ),
+        CustomBar(
+          context.l10n!.clearCache,
+          FluentIcons.broom_24_regular,
+          borderRadius: commonCustomBarRadiusFirst,
+          onTap: () async {
+            final cleared = await clearCache();
+            showToast(
+              context,
+              cleared ? '${context.l10n!.cacheMsg}!' : context.l10n!.error,
+            );
+          },
+        ),
+        CustomBar(
+          context.l10n!.clearSearchHistory,
+          FluentIcons.history_24_regular,
+          onTap: () => _showConfirmationDialog(
+            context: context,
+            confirmationMessage: context.l10n!.clearSearchHistoryQuestion,
+            onSubmit: () {
+              searchHistoryNotifier.value = [];
+              deleteData('user', 'searchHistory');
+              showToast(context, '${context.l10n!.searchHistoryMsg}!');
+            },
+          ),
+        ),
+        CustomBar(
+          context.l10n!.clearRecentlyPlayed,
+          FluentIcons.receipt_play_24_regular,
+          onTap: () => _showConfirmationDialog(
+            context: context,
+            confirmationMessage: context.l10n!.clearRecentlyPlayedQuestion,
+            onSubmit: () {
+              userRecentlyPlayed.value = [];
+              deleteData('user', 'recentlyPlayedSongs');
+              showToast(context, '${context.l10n!.recentlyPlayedMsg}!');
+            },
+          ),
+        ),
+        CustomBar(
+          context.l10n!.deleteDownloads,
+          FluentIcons.delete_24_regular,
+          onTap: () => _showConfirmationDialog(
+            context: context,
+            confirmationMessage: context.l10n!.deleteDownloadsQuestion,
+            submitMessage: context.l10n!.delete,
+            isDangerous: true,
+            onSubmit: () async {
+              try {
+                await offlinePlaylistService.deleteAllDownloads();
+                if (context.mounted) {
+                  showToast(context, context.l10n!.downloadsDeleted);
+                }
+              } catch (e) {
+                if (context.mounted) {
+                  showToast(context, context.l10n!.error);
+                }
+              }
+            },
+          ),
+        ),
+        CustomBar(
+          context.l10n!.backupUserData,
+          FluentIcons.cloud_sync_24_regular,
+          onTap: () => _backupUserData(context),
+        ),
+        CustomBar(
+          context.l10n!.restoreUserData,
+          FluentIcons.cloud_add_24_regular,
+          onTap: () async {
+            try {
+              final result = await restoreData(context);
+              if (context.mounted) {
+                showToast(
+                  context,
+                  result.message,
+                  icon: result.success
+                      ? null
+                      : FluentIcons.error_circle_24_regular,
+                );
+              }
+            } catch (e, str) {
+              logger.log('Error restoring data', error: e, stackTrace: str);
+              if (context.mounted) {
+                showToast(
+                  context,
+                  context.l10n!.error,
+                  icon: FluentIcons.error_circle_24_regular,
+                );
+              }
+            }
+          },
+        ),
+        if (!isFdroidBuild)
+          CustomBar(
+            context.l10n!.downloadAppUpdate,
+            FluentIcons.arrow_download_24_regular,
+            borderRadius: commonCustomBarRadiusLast,
+            onTap: checkAppUpdates,
+          ),
+      ],
+    );
+  }
+
+  Widget _buildSponsorSection(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Column(
+      children: [
+        SectionHeader(
+          title: context.l10n!.becomeSponsor,
+          icon: FluentIcons.heart_24_filled,
+        ),
+        Padding(
+          padding: commonBarPadding,
+          child: Card(
+            margin: const EdgeInsets.only(bottom: 3),
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Material(
+                color: colorScheme.primaryContainer,
+                borderRadius: BorderRadius.circular(15),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(15),
+                  onTap: () =>
+                      launchURL(Uri.parse('https://ko-fi.com/gokadzev')),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 12,
+                      horizontal: 16,
+                    ),
+                    child: SizedBox(
+                      height: 45,
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: colorScheme.onPrimaryContainer.withValues(
+                                alpha: 0.15,
+                              ),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Icon(
+                              FluentIcons.heart_24_regular,
+                              color: colorScheme.onPrimaryContainer,
+                              size: 24,
+                            ),
+                          ),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: Text(
+                              context.l10n!.sponsorProject,
+                              style: TextStyle(
+                                color: colorScheme.onPrimaryContainer,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                              color: colorScheme.onPrimaryContainer.withValues(
+                                alpha: 0.1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Icon(
+                              FluentIcons.arrow_right_24_regular,
+                              color: colorScheme.onPrimaryContainer,
+                              size: 16,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildOthersSection(BuildContext context) {
+    return Column(
+      children: [
+        SectionHeader(
+          title: context.l10n!.others,
+          icon: FluentIcons.more_circle_24_filled,
+        ),
+        CustomBar(
+          context.l10n!.licenses,
+          FluentIcons.document_24_regular,
+          borderRadius: commonCustomBarRadiusFirst,
+          onTap: () => NavigationManager.router.go('/settings/license'),
+        ),
+        CustomBar(
+          context.l10n!.translate,
+          FluentIcons.translate_24_regular,
+          description: context.l10n!.translateDescription,
+          onTap: () =>
+              launchURL(Uri.parse('https://crowdin.com/project/musify')),
+        ),
+        CustomBar(
+          '${context.l10n!.copyLogs} (${logger.getLogCount()})',
+          FluentIcons.error_circle_24_regular,
+          onTap: () async => showToast(context, await logger.copyLogs(context)),
+        ),
+        CustomBar(
+          context.l10n!.about,
+          FluentIcons.book_information_24_regular,
+          borderRadius: commonCustomBarRadiusLast,
+          onTap: () => NavigationManager.router.go('/settings/about'),
+        ),
+      ],
+    );
+  }
+
+  void _showAccentColorPicker(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    showCustomBottomSheet(
+      context,
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        child: GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 5,
+            mainAxisSpacing: 12,
+            crossAxisSpacing: 12,
+          ),
+          shrinkWrap: true,
+          physics: const BouncingScrollPhysics(),
+          itemCount: availableColors.length,
+          itemBuilder: (context, index) {
+            final color = availableColors[index];
+            final isSelected = color == primaryColorSetting;
+
+            return GestureDetector(
+              onTap: () {
+                addOrUpdateData<int>(
+                  'settings',
+                  'accentColor',
+                  color.toARGB32(),
+                );
+                Musify.updateAppState(
+                  context,
+                  newAccentColor: color,
+                  useSystemColor: false,
+                );
+                showToast(context, context.l10n!.accentChangeMsg);
+                Navigator.pop(context);
+              },
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
+                  border: isSelected
+                      ? Border.all(color: colorScheme.onSurface, width: 3)
+                      : null,
+                ),
+                child: isSelected
+                    ? Icon(
+                        FluentIcons.checkmark_20_filled,
+                        color: color.computeLuminance() > 0.5
+                            ? Colors.black
+                            : Colors.white,
+                        size: 24,
+                      )
+                    : null,
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  void _showThemeModePicker(BuildContext context) {
+    final availableModes = [ThemeMode.system, ThemeMode.light, ThemeMode.dark];
+    const modeIcons = [
+      FluentIcons.phone_24_regular,
+      FluentIcons.weather_sunny_24_regular,
+      FluentIcons.weather_moon_24_regular,
+    ];
+
+    showCustomBottomSheet(
+      context,
+      ListView.builder(
+        shrinkWrap: true,
+        physics: const BouncingScrollPhysics(),
+        padding: commonListViewBottomPadding,
+        itemCount: availableModes.length,
+        itemBuilder: (context, index) {
+          final mode = availableModes[index];
+          final modeNames = [
+            context.l10n!.themeModeSystem,
+            context.l10n!.themeModeLight,
+            context.l10n!.themeModeDark,
+          ];
+
+          return BottomSheetBar(
+            modeNames[mode.index],
+            () {
+              addOrUpdateData<int>('settings', 'themeIndex', mode.index);
+              Musify.updateAppState(context, newThemeMode: mode);
+              Navigator.pop(context);
+            },
+            themeMode == mode,
+            icon: modeIcons[mode.index],
+          );
+        },
+      ),
+    );
+  }
+
+  void _showLanguagePicker(BuildContext context) {
+    final availableLanguages = appLanguages.toList();
+    final activeLanguageCode = Localizations.localeOf(context).languageCode;
+    final activeScriptCode = Localizations.localeOf(context).scriptCode;
+    final activeLanguageFullCode = activeScriptCode != null
+        ? '$activeLanguageCode-$activeScriptCode'
+        : activeLanguageCode;
+
+    showCustomBottomSheet(
+      context,
+      ListView.builder(
+        shrinkWrap: true,
+        physics: const BouncingScrollPhysics(),
+        padding: commonListViewBottomPadding,
+        itemCount: availableLanguages.length,
+        itemBuilder: (context, index) {
+          final language = availableLanguages[index];
+          final newLocale = getLocaleFromLanguageCode(language);
+          final newLocaleFullCode = newLocale.scriptCode != null
+              ? '${newLocale.languageCode}-${newLocale.scriptCode}'
+              : newLocale.languageCode;
+
+          return BottomSheetBar(
+            getLanguageDisplayName(context, language),
+            () {
+              addOrUpdateData<String>(
+                'settings',
+                'languageCode',
+                newLocaleFullCode,
+              );
+              Musify.updateAppState(context, newLocale: newLocale);
+              showToast(context, context.l10n!.languageMsg);
+              Navigator.pop(context);
+            },
+            activeLanguageFullCode == newLocaleFullCode,
+          );
+        },
+      ),
+    );
+  }
+
+  void _showAudioQualityPicker(BuildContext context) {
+    final availableQualities = ['low', 'medium', 'high'];
+    final qualityNames = [
+      context.l10n!.audioQualityLow,
+      context.l10n!.audioQualityMedium,
+      context.l10n!.audioQualityHigh,
+    ];
+    const qualityIcons = [
+      FluentIcons.speaker_1_24_regular,
+      FluentIcons.speaker_2_24_regular,
+      FluentIcons.speaker_2_24_filled,
+    ];
+
+    showCustomBottomSheet(
+      context,
+      ListView.builder(
+        shrinkWrap: true,
+        physics: const BouncingScrollPhysics(),
+        padding: commonListViewBottomPadding,
+        itemCount: availableQualities.length,
+        itemBuilder: (context, index) {
+          final quality = availableQualities[index];
+
+          return BottomSheetBar(
+            qualityNames[index],
+            () {
+              addOrUpdateData<String>('settings', 'audioQuality', quality);
+              audioQualitySetting.value = quality;
+              showToast(context, context.l10n!.audioQualityMsg);
+              Navigator.pop(context);
+            },
+            audioQualitySetting.value == quality,
+            icon: qualityIcons[index],
+          );
+        },
+      ),
+    );
+  }
+
+  void _toggleSystemColor(BuildContext context, bool value) {
+    addOrUpdateData<bool>('settings', 'useSystemColor', value);
+    useSystemColor.value = value;
+    Musify.updateAppState(
+      context,
+      newAccentColor: primaryColorSetting,
+      useSystemColor: value,
+    );
+    showToast(context, context.l10n!.settingChangedMsg);
+  }
+
+  void _togglePureBlack(BuildContext context, bool value) {
+    addOrUpdateData<bool>('settings', 'usePureBlackColor', value);
+    usePureBlackColor.value = value;
+    Musify.updateAppState(context);
+    showToast(context, context.l10n!.settingChangedMsg);
+  }
+
+  void _togglePredictiveBack(BuildContext context, bool value) {
+    addOrUpdateData<bool>('settings', 'predictiveBack', value);
+    predictiveBack.value = value;
+    transitionsBuilder = value
+        ? const PredictiveBackPageTransitionsBuilder()
+        : const CupertinoPageTransitionsBuilder();
+    Musify.updateAppState(context);
+    showToast(context, context.l10n!.settingChangedMsg);
+  }
+
+  void _toggleOfflineMode(BuildContext context, bool value) {
+    addOrUpdateData<bool>('settings', 'offlineMode', value);
+    offlineMode.value = value;
+
+    // Trigger router refresh and notify about the change
+    NavigationManager.refreshRouter();
+
+    showToast(context, context.l10n!.settingChangedMsg);
+  }
+
+  void _toggleSponsorBlock(BuildContext context, bool value) {
+    addOrUpdateData<bool>('settings', 'sponsorBlockSupport', value);
+    sponsorBlockSupport.value = value;
+    showToast(context, context.l10n!.settingChangedMsg);
+  }
+
+  void _toggleAutomaticUpdateChecks(BuildContext context, bool value) {
+    addOrUpdateData<bool>('settings', 'shouldWeCheckUpdates', value);
+    shouldWeCheckUpdates.value = value;
+    showToast(context, context.l10n!.settingChangedMsg);
+  }
+
+  void _toggleExternalRecommendations(BuildContext context, bool value) {
+    addOrUpdateData<bool>('settings', 'externalRecommendations', value);
+    externalRecommendations.value = value;
+    showToast(context, context.l10n!.settingChangedMsg);
+  }
+
+  void _showConfirmationDialog({
+    required BuildContext context,
+    required String confirmationMessage,
+    required VoidCallback onSubmit,
+    String? submitMessage,
+    bool isDangerous = false,
+  }) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return ConfirmationDialog(
+          submitMessage: submitMessage ?? context.l10n!.clear,
+          confirmationMessage: confirmationMessage,
+          isDangerous: isDangerous,
+          onCancel: () => Navigator.of(context).pop(),
+          onSubmit: () {
+            Navigator.of(context).pop();
+            onSubmit();
+          },
+        );
+      },
+    );
+  }
+
+  Future<void> _backupUserData(BuildContext context) async {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    try {
+      await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            icon: Icon(
+              FluentIcons.info_24_regular,
+              color: colorScheme.primary,
+              size: 32,
+            ),
+            content: Text(
+              context.l10n!.folderRestrictions,
+              style: TextStyle(color: colorScheme.onSurfaceVariant),
+              textAlign: TextAlign.center,
+            ),
+            actionsAlignment: MainAxisAlignment.center,
+            actions: <Widget>[
+              FilledButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text(context.l10n!.understand),
+              ),
+            ],
+          );
+        },
+      );
+      final result = await backupData(context);
+      if (context.mounted) {
+        showToast(
+          context,
+          result.message,
+          icon: result.success ? null : FluentIcons.error_circle_24_regular,
+        );
+      }
+    } catch (e, stackTrace) {
+      logger.log('Error backing up data', error: e, stackTrace: stackTrace);
+      if (context.mounted) {
+        showToast(
+          context,
+          context.l10n!.error,
+          icon: FluentIcons.error_circle_24_regular,
+        );
+      }
+    }
   }
 }

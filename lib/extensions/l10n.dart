@@ -1,5 +1,5 @@
 /*
- *     Copyright (C) 2024 Valeri Gokadze
+ *     Copyright (C) 2026 Valeri Gokadze
  *
  *     Musify is free software: you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
@@ -24,19 +24,14 @@
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-
-// Project imports:
 import 'package:musify/localization/app_localizations.dart';
-
-// Package imports:
-// import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 extension ContextX on BuildContext {
   AppLocalizations? get l10n => AppLocalizations.of(this);
 
   bool get isDesktop => [
-        TargetPlatform.windows,
-        TargetPlatform.linux,
-        TargetPlatform.macOS
-      ].contains(defaultTargetPlatform);
+    TargetPlatform.windows,
+    TargetPlatform.linux,
+    TargetPlatform.macOS,
+  ].contains(defaultTargetPlatform);
 }

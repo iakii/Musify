@@ -1,79 +1,49 @@
 name: musify
-version: '9.0.4+111'
-homepage: 'https://github.com/gokadzev/Musify'
-publish_to: none
+description: Music Streaming app made in Flutter!
+homepage: https://github.com/gokadzev/Musify
+repository: https://github.com/gokadzev/Musify
+issue_tracker: https://github.com/gokadzev/Musify/issues
+
+publish_to: 'none'
+version: 10.0.9+173 # run update.sh after changing the version
+
 environment:
-  sdk: '>=3.4.0 <4.0.0'
-description: 'Music Streaming app made in Flutter!'
+  sdk: '>=3.11.0 <4.0.0'
+
 dependencies:
-  audio_service:
-    git:
-      url: 'https://gitee.com/openharmony-sig/fluttertpc_audio_service.git'
-      ref: master
-      path: 'audio_service'
-  audio_session:
-    git:
-      url: 'https://gitee.com/openharmony-sig/flutter_audio_session.git'
-      ref: master
-  bili_music_api:
-    path: '../bili_music_api'
-  cached_network_image: '^3.4.1'
-  collection: '^1.18.0'
-  dynamic_color: '^1.7.0'
-  extended_image: '^9.1.0'
-  file_picker_ohos:
-    git:
-      url: 'https://gitee.com/openharmony-sig/fluttertpc_file_picker.git'
-      ref: master
-      path: ohos
-  fluentui_system_icons: '^1.1.270'
+  app_links: 7.0.0
+  audio_service: ^0.18.18
+  audio_session: ^0.2.3
+  cached_network_image: ^3.4.1
+  dynamic_color: ^1.8.1
+  file_picker: ^11.0.2
+  fluentui_system_icons: ^1.1.273
   flutter:
     sdk: flutter
   flutter_flip_card: '^0.0.6'
   flutter_localizations:
     sdk: flutter
-  flutter_lyric: '^2.0.4+6'
-  go_router:
-    git:
-      url: 'https://gitee.com/openharmony-sig/flutter_packages.git'
-      ref: master
-      path: 'packages/go_router'
-  hive: '^2.2.3'
-  hive_flutter: '^1.1.0'
-  html: '^0.15.4'
-  http: '^1.2.2'
-  http_proxy: '^1.2.2'
-  intl: '^0.19.0'
-  just_audio: '^0.9.42'
-  just_audio_media_kit: '^2.0.6'
-  just_audio_ohos:
-    git:
-      url: 'https://gitee.com/openharmony-sig/fluttertpc_just_audio.git'
-      ref: master
-      path: 'just_audio/ohos'
-  media_kit_libs_linux: any
-  media_kit_libs_macos_audio: any
-  media_kit_libs_windows_audio: '^1.0.9'
-  path_provider:
-    git:
-      url: 'https://gitee.com/openharmony-sig/flutter_packages.git'
-      path: 'packages/path_provider/path_provider'
-  rxdart: '^0.27.7'
-  url_launcher:
-    git:
-      url: 'https://gitee.com/openharmony-sig/flutter_packages.git'
-      path: 'packages/url_launcher/url_launcher'
-  window_manager: '^0.4.3'
-  youtube_explode_dart: '^2.3.6'
+  go_router: ^17.2.3
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  html: ^0.15.6
+  http: ^1.6.0
+  intl: ^0.20.2
+  just_audio: 0.10.5
+  path_provider: ^2.1.5
+  receive_sharing_intent:
+    path: ./packages/receive_sharing_intent
+  rxdart: ^0.27.7
+  url_launcher: ^6.3.2
+  youtube_explode_dart:
+    path: ./packages/youtube_explode_dart
+
 dev_dependencies:
-  flutter_launcher_icons: '^0.14.2'
-  flutter_lints: '^4.0.0'
-  flutter_native_splash: '^2.2.19'
   flutter_test:
     sdk: flutter
-  import_sorter: '^4.6.0'
-  pubspec_dependency_sorter: '^1.0.5'
-  translations_cleaner: '^0.0.5'
+
+  # flutter_lints: ^2.0.0
+
 dependency_overrides:
   audio_session:
     git:
@@ -83,8 +53,6 @@ dependency_overrides:
     git:
       url: 'https://gitee.com/openharmony-sig/flutter_packages.git'
       path: 'packages/path_provider/path_provider'
-repository: 'https://github.com/gokadzev/Musify'
-issue_tracker: 'https://github.com/gokadzev/Musify/issues'
 flutter:
   generate: true
   uses-material-design: true
@@ -94,26 +62,4 @@ flutter:
   fonts:
     - family: paytoneOne
       fonts:
-        - asset: fonts/paytone/PaytoneOne-Regular.ttf
-flutter_native_splash:
-  color: '#f9fafd'
-  image: 'assets/images/ic_splash.png'
-  color_dark: '#151515'
-  image_dark: 'assets/images/ic_splash.png'
-  android_12:
-    image: 'assets/images/ic_splash.png'
-    image_dark: 'assets/images/ic_splash.png'
-flutter_launcher_icons:
-  android: true
-  adaptive_icon_background: '#191919'
-  adaptive_icon_foreground: 'assets/images/ic_launcher_foreground.png'
-  adaptive_icon_round: 'assets/images/ic_launcher_round.png'
-  adaptive_icon_monochrome: 'assets/images/ic_launcher_foreground.png'
-  image_path: 'assets/images/ic_launcher.png'
-  windows:
-    generate: true
-    image_path: 'assets/images/ic_launcher_round.png'
-    icon_size: 256
-  macos:
-    generate: true
-    image_path: 'assets/images/ic_launcher_round.png'
+        - asset: assets/fonts/paytone/PaytoneOne-Regular.ttf

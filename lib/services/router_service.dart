@@ -1,5 +1,5 @@
 /*
- *     Copyright (C) 2024 Valeri Gokadze
+ *     Copyright (C) 2026 Valeri Gokadze
  *
  *     Musify is free software: you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
@@ -19,22 +19,24 @@
  *     please visit: https://github.com/gokadzev/Musify
  */
 
-// Flutter imports:
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:go_router/go_router.dart';
-
-// Project imports:
-import 'package:musify/API/version.dart';
+import 'package:musify/constants/version.dart';
 import 'package:musify/screens/about_page.dart';
 import 'package:musify/screens/bottom_navigation_page.dart';
+import 'package:musify/screens/equalizer_page.dart';
 import 'package:musify/screens/home_page.dart';
 import 'package:musify/screens/library_page.dart';
+import 'package:musify/screens/playlist_folder_page.dart';
+import 'package:musify/screens/playlist_page.dart';
 import 'package:musify/screens/search_page.dart';
 import 'package:musify/screens/settings_page.dart';
 import 'package:musify/screens/user_songs_page.dart';
 import 'package:musify/services/settings_manager.dart';
+import 'package:musify/widgets/offline_search_placeholder.dart';
 
 class NavigationManager {
   factory NavigationManager() {
@@ -42,19 +44,17 @@ class NavigationManager {
   }
 
   NavigationManager._internal() {
+    _setupRouter();
+  }
+
+  void _setupRouter() {
     final routes = [
       StatefulShellRoute.indexedStack(
         parentNavigatorKey: parentNavigatorKey,
-        branches: !offlineMode.value ? _onlineRoutes() : _offlineRoutes(),
-        pageBuilder: (
-          BuildContext context,
-          GoRouterState state,
-          StatefulNavigationShell navigationShell,
-        ) {
+        branches: _getRouteBranches(),
+        pageBuilder: (context, state, navigationShell) {
           return getPage(
-            child: BottomNavigationPage(
-              child: navigationShell,
-            ),
+            child: BottomNavigationPage(child: navigationShell),
             state: state,
           );
         },
@@ -65,8 +65,24 @@ class NavigationManager {
       navigatorKey: parentNavigatorKey,
       initialLocation: homePath,
       routes: routes,
+      restorationScopeId: 'router',
+      debugLogDiagnostics: kDebugMode,
+      routerNeglect: true,
+      redirect: (context, state) {
+        // Handle offline mode redirects
+        final isOffline = offlineMode.value;
+        final currentPath = state.matchedLocation;
+
+        if (isOffline && currentPath == searchPath) {
+          // Redirect search to home in offline mode
+          return homePath;
+        }
+
+        return null; // No redirect needed
+      },
     );
   }
+
   static final NavigationManager _instance = NavigationManager._internal();
 
   static NavigationManager get instance => _instance;
@@ -84,8 +100,15 @@ class NavigationManager {
   static final GlobalKey<NavigatorState> settingsTabNavigatorKey =
       GlobalKey<NavigatorState>();
 
-  BuildContext get context =>
-      router.routerDelegate.navigatorKey.currentContext!;
+  BuildContext get context {
+    final ctx = router.routerDelegate.navigatorKey.currentContext;
+    if (ctx == null) {
+      throw StateError(
+        'NavigationManager.context was accessed before the navigator context was available.',
+      );
+    }
+    return ctx;
+  }
 
   GoRouterDelegate get routerDelegate => router.routerDelegate;
 
@@ -97,8 +120,16 @@ class NavigationManager {
   static const String searchPath = '/search';
   static const String libraryPath = '/library';
 
-  List<StatefulShellBranch> _onlineRoutes() {
+  /// Refresh the router configuration when offline mode changes
+  static void refreshRouter() {
+    // Force router to re-evaluate redirect logic
+    router.refresh();
+  }
+
+  List<StatefulShellBranch> _getRouteBranches() {
+    // Always return all branches, but handle visibility in the UI
     return [
+      // Branch 0: Home
       StatefulShellBranch(
         navigatorKey: homeTabNavigatorKey,
         routes: [
@@ -106,19 +137,47 @@ class NavigationManager {
             path: homePath,
             pageBuilder: (context, GoRouterState state) {
               return getPage(
-                child: const HomePage(),
+                child: ValueListenableBuilder<bool>(
+                  valueListenable: offlineMode,
+                  builder: (context, isOffline, _) {
+                    return isOffline
+                        ? const UserSongsPage(page: 'offline')
+                        : const HomePage();
+                  },
+                ),
                 state: state,
               );
             },
             routes: [
               GoRoute(
                 path: 'library',
-                builder: (context, state) => const LibraryPage(),
+                pageBuilder: (context, state) =>
+                    _pushPage(child: const LibraryPage(), state: state),
+              ),
+              GoRoute(
+                path: 'playlist/:playlistId',
+                pageBuilder: (context, state) => _pushPage(
+                  child: PlaylistPage(
+                    playlistId: state.pathParameters['playlistId'],
+                  ),
+                  state: state,
+                ),
+              ),
+              GoRoute(
+                path: 'folder/:folderId/:folderName',
+                pageBuilder: (context, state) => _pushPage(
+                  child: PlaylistFolderPage(
+                    folderId: state.pathParameters['folderId'] ?? '',
+                    folderName: state.pathParameters['folderName'] ?? '',
+                  ),
+                  state: state,
+                ),
               ),
             ],
           ),
         ],
       ),
+      // Branch 1: Search
       StatefulShellBranch(
         navigatorKey: searchTabNavigatorKey,
         routes: [
@@ -126,57 +185,72 @@ class NavigationManager {
             path: searchPath,
             pageBuilder: (context, GoRouterState state) {
               return getPage(
-                child: const SearchPage(),
+                child: ValueListenableBuilder<bool>(
+                  valueListenable: offlineMode,
+                  builder: (context, isOffline, _) {
+                    return isOffline
+                        ? const OfflineSearchPlaceholder()
+                        : const SearchPage();
+                  },
+                ),
                 state: state,
               );
             },
           ),
         ],
       ),
+      // Branch 2: Library
       StatefulShellBranch(
         navigatorKey: libraryTabNavigatorKey,
         routes: [
           GoRoute(
             path: libraryPath,
             pageBuilder: (context, GoRouterState state) {
-              return getPage(
-                child: const LibraryPage(),
-                state: state,
-              );
+              return getPage(child: const LibraryPage(), state: state);
             },
             routes: [
               GoRoute(
                 path: 'userSongs/:page',
-                builder: (context, state) => UserSongsPage(
-                  page: state.pathParameters['page'] ?? 'liked',
+                pageBuilder: (context, state) => _pushPage(
+                  child: UserSongsPage(
+                    page: state.pathParameters['page'] ?? 'liked',
+                  ),
+                  state: state,
                 ),
               ),
             ],
           ),
         ],
       ),
+      // Branch 3: Settings
       StatefulShellBranch(
         navigatorKey: settingsTabNavigatorKey,
         routes: [
           GoRoute(
             path: settingsPath,
             pageBuilder: (context, state) {
-              return getPage(
-                child: const SettingsPage(),
-                state: state,
-              );
+              return getPage(child: const SettingsPage(), state: state);
             },
             routes: [
               GoRoute(
                 path: 'license',
-                builder: (context, state) => const LicensePage(
-                  applicationName: 'Musify',
-                  applicationVersion: appVersion,
+                pageBuilder: (context, state) => _pushPage(
+                  child: const LicensePage(
+                    applicationName: 'Musify',
+                    applicationVersion: appVersion,
+                  ),
+                  state: state,
                 ),
               ),
               GoRoute(
                 path: 'about',
-                builder: (context, state) => const AboutPage(),
+                pageBuilder: (context, state) =>
+                    _pushPage(child: const AboutPage(), state: state),
+              ),
+              GoRoute(
+                path: 'equalizer',
+                pageBuilder: (context, state) =>
+                    _pushPage(child: const EqualizerPage(), state: state),
               ),
             ],
           ),
@@ -185,59 +259,50 @@ class NavigationManager {
     ];
   }
 
-  List<StatefulShellBranch> _offlineRoutes() {
-    return [
-      StatefulShellBranch(
-        navigatorKey: homeTabNavigatorKey,
-        routes: [
-          GoRoute(
-            path: homePath,
-            pageBuilder: (context, GoRouterState state) {
-              return getPage(
-                child: const UserSongsPage(page: 'offline'),
-                state: state,
-              );
-            },
-          ),
-        ],
-      ),
-      StatefulShellBranch(
-        navigatorKey: settingsTabNavigatorKey,
-        routes: [
-          GoRoute(
-            path: settingsPath,
-            pageBuilder: (context, state) {
-              return getPage(
-                child: const SettingsPage(),
-                state: state,
-              );
-            },
-            routes: [
-              GoRoute(
-                path: 'license',
-                builder: (context, state) => const LicensePage(
-                  applicationName: 'Musify',
-                  applicationVersion: appVersion,
-                ),
-              ),
-              GoRoute(
-                path: 'about',
-                builder: (context, state) => const AboutPage(),
-              ),
-            ],
-          ),
-        ],
-      ),
-    ];
-  }
-
-  static Page getPage({
+  static Page<void> getPage({
     required Widget child,
     required GoRouterState state,
   }) {
-    return MaterialPage(
+    return CustomTransitionPage<void>(
       key: state.pageKey,
       child: child,
+      transitionDuration: const Duration(milliseconds: 180),
+      reverseTransitionDuration: const Duration(milliseconds: 150),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(
+          opacity: CurvedAnimation(parent: animation, curve: Curves.easeOut),
+          child: child,
+        );
+      },
+    );
+  }
+
+  static Page<void> _pushPage({
+    required Widget child,
+    required GoRouterState state,
+  }) {
+    return CustomTransitionPage<void>(
+      key: state.pageKey,
+      child: child,
+      transitionDuration: const Duration(milliseconds: 220),
+      reverseTransitionDuration: const Duration(milliseconds: 180),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        final curvedAnimation = CurvedAnimation(
+          parent: animation,
+          curve: Curves.easeOutCubic,
+          reverseCurve: Curves.easeInCubic,
+        );
+        return FadeTransition(
+          opacity: CurvedAnimation(parent: animation, curve: Curves.easeOut),
+          child: SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(0.06, 0),
+              end: Offset.zero,
+            ).animate(curvedAnimation),
+            child: child,
+          ),
+        );
+      },
     );
   }
 }

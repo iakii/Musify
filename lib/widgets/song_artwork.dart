@@ -1,5 +1,5 @@
 /*
- *     Copyright (C) 2024 Valeri Gokadze
+ *     Copyright (C) 2026 Valeri Gokadze
  *
  *     Musify is free software: you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
@@ -66,15 +66,11 @@ class SongArtworkWidget extends StatelessWidget {
             imageUrl: metadata.artUri.toString(),
             imageBuilder: (context, imageProvider) => ClipRRect(
               borderRadius: BorderRadius.circular(borderRadius),
-              child: Image(
-                image: imageProvider,
-                fit: BoxFit.cover,
-              ),
+              child: Image(image: imageProvider, fit: BoxFit.cover),
             ),
             placeholder: (context, url) => const Spinner(),
-            errorWidget: (context, url, error) => NullArtworkWidget(
-              iconSize: errorWidgetIconSize,
-            ),
+            errorWidget: (context, url, error) =>
+                NullArtworkWidget(iconSize: errorWidgetIconSize),
           );
   }
 }

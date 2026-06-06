@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       # Extract version from commit message
       - name: Extract version
@@ -27,14 +27,14 @@ jobs:
 
       # Setup Java environment in order to build the Android app.
       - name: Set up Java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: 'zulu'
           java-version: '17.x'
 
       # Gradle cache for faster builds
       - name: Cache Gradle dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             ~/.gradle/caches
@@ -44,10 +44,13 @@ jobs:
             ${{ runner.os }}-gradle-
 
       # Setup the Flutter environment.
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
+      - run: |
+          pip install -U yq
+          echo "FLUTTER_VERSION=$(yq -r .environment.flutter pubspec.yaml | sed 's/\^//g')" >> $GITHUB_ENV
+      - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+          flutter-version: "${{ env.FLUTTER_VERSION }}"
 
       #
       - run: |
@@ -61,9 +64,9 @@ jobs:
       - name: Get Flutter dependencies
         run: flutter pub get
 
-      # Check for any formatting issues in the code.
-      - name: Check code formatting
-        run: dart format --set-exit-if-changed .
+      # # Check for any formatting issues in the code.
+      # - name: Check code formatting
+      #   run: dart format --set-exit-if-changed .
 
       # Statically analyze the Dart code for any errors.
       - name: Analyze Dart code

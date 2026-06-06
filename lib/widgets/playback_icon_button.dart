@@ -1,5 +1,5 @@
 /*
- *     Copyright (C) 2024 Valeri Gokadze
+ *     Copyright (C) 2026 Valeri Gokadze
  *
  *     Musify is free software: you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
@@ -25,68 +25,102 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:audio_service/audio_service.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
-
-// Project imports:
+import 'package:flutter/material.dart';
+import 'package:musify/extensions/l10n.dart';
 import 'package:musify/main.dart';
 
 Widget buildPlaybackIconButton(
-  PlaybackState? playerState,
   double iconSize,
   Color iconColor,
   Color backgroundColor, {
-  double elevation = 2,
-  EdgeInsets padding = const EdgeInsets.all(15),
+  EdgeInsets? padding,
 }) {
-  final processingState = playerState?.processingState;
-  final isPlaying = playerState?.playing ?? false;
+  return StreamBuilder<PlaybackState>(
+    stream: audioHandler.playbackState.distinct((previous, current) {
+      // Only rebuild if relevant state changes
+      return previous.playing == current.playing &&
+          previous.processingState == current.processingState;
+    }),
+    builder: (context, snapshot) {
+      final playbackState = snapshot.data;
+      final processingState = playbackState?.processingState;
+      final isPlaying = playbackState?.playing ?? false;
 
-  final iconDataAndAction = getIconFromState(processingState, isPlaying);
+      Widget iconWidget;
+      VoidCallback? onPressed;
+      String? semanticLabel;
 
-  return RawMaterialButton(
-    elevation: elevation,
-    onPressed: iconDataAndAction.onPressed,
-    fillColor: backgroundColor,
-    splashColor: Colors.transparent,
-    padding: padding,
-    shape: const CircleBorder(),
-    child: Icon(
-      iconDataAndAction.iconData,
-      color: iconColor,
-      size: iconSize,
-    ),
+      if (processingState == AudioProcessingState.loading ||
+          processingState == AudioProcessingState.buffering) {
+        iconWidget = SizedBox(
+          width: iconSize,
+          height: iconSize,
+          child: CircularProgressIndicator(
+            strokeWidth: 2.5,
+            valueColor: AlwaysStoppedAnimation<Color>(iconColor),
+          ),
+        );
+        onPressed = null;
+        semanticLabel = context.l10n!.loading;
+      } else if (processingState == AudioProcessingState.completed) {
+        iconWidget = Icon(
+          FluentIcons.arrow_counterclockwise_24_regular,
+          color: iconColor,
+          size: iconSize,
+        );
+        onPressed = () => audioHandler.playAgain();
+        semanticLabel = context.l10n!.replay;
+      } else {
+        iconWidget = Icon(
+          isPlaying
+              ? FluentIcons.pause_24_regular
+              : FluentIcons.play_24_regular,
+          color: iconColor,
+          size: iconSize,
+        );
+        onPressed = isPlaying ? audioHandler.pause : audioHandler.play;
+        semanticLabel = isPlaying ? context.l10n!.pause : context.l10n!.play;
+      }
+
+      return RawMaterialButton(
+        elevation: 0,
+        onPressed: onPressed,
+        fillColor: backgroundColor,
+        splashColor: Colors.transparent,
+        padding: padding ?? EdgeInsets.all(iconSize * 0.35),
+        shape: const CircleBorder(),
+        constraints: BoxConstraints.tightFor(
+          width: iconSize * 2,
+          height: iconSize * 2,
+        ),
+        materialTapTargetSize: MaterialTapTargetSize.padded,
+        child: Semantics(label: semanticLabel, button: true, child: iconWidget),
+      );
+    },
   );
 }
 
-_IconDataAndAction getIconFromState(
-  AudioProcessingState? processingState,
-  bool isPlaying,
-) {
-  switch (processingState) {
-    case AudioProcessingState.buffering:
-    case AudioProcessingState.loading:
-      return _IconDataAndAction(
-        iconData: FluentIcons.spinner_ios_16_filled,
-      );
-    case AudioProcessingState.completed:
-      return _IconDataAndAction(
-        iconData: FluentIcons.arrow_counterclockwise_24_filled,
-        onPressed: () => audioHandler.seek(Duration.zero),
-      );
-    default:
-      return _IconDataAndAction(
-        iconData: isPlaying
-            ? FluentIcons.pause_24_filled
-            : FluentIcons.play_24_filled,
-        onPressed: isPlaying ? audioHandler.pause : audioHandler.play,
-      );
-  }
-}
-
-class _IconDataAndAction {
-  _IconDataAndAction({
-    required this.iconData,
-    this.onPressed,
+class PlaybackIconButton extends StatelessWidget {
+  const PlaybackIconButton({
+    super.key,
+    required this.iconSize,
+    required this.iconColor,
+    required this.backgroundColor,
+    this.padding,
   });
-  final IconData iconData;
-  final VoidCallback? onPressed;
+
+  final double iconSize;
+  final Color iconColor;
+  final Color backgroundColor;
+  final EdgeInsets? padding;
+
+  @override
+  Widget build(BuildContext context) {
+    return buildPlaybackIconButton(
+      iconSize,
+      iconColor,
+      backgroundColor,
+      padding: padding,
+    );
+  }
 }
