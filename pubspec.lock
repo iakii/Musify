@@ -9,6 +9,39 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
+  app_links:
+    dependency: "direct main"
+    description:
+      path: app_links
+      ref: master
+      resolved-ref: "62f82573fea9e4af95e22cceab2408ce1d5f3621"
+      url: "https://gitcode.com/CPF-Flutter/fluttertpc_app_links"
+    source: git
+    version: "6.3.2"
+  app_links_linux:
+    dependency: transitive
+    description:
+      name: app_links_linux
+      sha256: f5f7173a78609f3dfd4c2ff2c95bd559ab43c80a87dc6a095921d96c05688c81
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.3"
+  app_links_platform_interface:
+    dependency: transitive
+    description:
+      name: app_links_platform_interface
+      sha256: "05f5379577c513b534a29ddea68176a4d4802c46180ee8e2e966257158772a3f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.2"
+  app_links_web:
+    dependency: transitive
+    description:
+      name: app_links_web
+      sha256: af060ed76183f9e2b87510a9480e56a5352b6c249778d07bd2c95fc35632a555
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.4"
   archive:
     dependency: transitive
     description:
@@ -38,8 +71,8 @@ packages:
     description:
       path: audio_service
       ref: master
-      resolved-ref: "43be9f21aa33cde5a7855691a00ce52aa06014a7"
-      url: "https://gitcode.com/openharmony-sig/fluttertpc_audio_service.git"
+      resolved-ref: d2b7a6b79c0ed957570bdf516426e8b4fbd2fcf4
+      url: "https://gitcode.com/CPF-Flutter/fluttertpc_audio_service.git"
     source: git
     version: "0.18.13"
   audio_service_ohos:
@@ -72,17 +105,10 @@ packages:
     description:
       path: "."
       ref: "br_v0.1.21_ohos"
-      resolved-ref: "868d3bcb6a8ca3728c753e59a2e3d49dfed64935"
-      url: "https://gitcode.com/openharmony-sig/flutter_audio_session.git"
+      resolved-ref: "7cfbe71d6e1cca0db11f8996048aff5ba8ac6328"
+      url: "https://gitcode.com/CPF-Flutter/flutter_audio_session.git"
     source: git
     version: "0.1.21"
-  bili_music_api:
-    dependency: "direct main"
-    description:
-      path: "../bili_music_api"
-      relative: true
-    source: path
-    version: "0.0.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -156,7 +182,7 @@ packages:
     source: hosted
     version: "1.2.1"
   collection:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: collection
       sha256: "2f5709ae4d3d59dd8f7cd309b4e023046b57d8a6c82130785d2b0e5868084e76"
@@ -187,22 +213,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.2"
-  dio:
-    dependency: transitive
-    description:
-      name: dio
-      sha256: aff32c08f92787a557dd5c0145ac91536481831a01b4648136373cddb0e64f8c
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.9.2"
-  dio_web_adapter:
-    dependency: transitive
-    description:
-      name: dio_web_adapter
-      sha256: "2f9e64323a7c3c7ef69567d5c800424a11f8337b8b228bad02524c9fb3c1f340"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.2"
   dynamic_color:
     dependency: "direct main"
     description:
@@ -211,22 +221,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.1"
-  extended_image:
-    dependency: "direct main"
-    description:
-      name: extended_image
-      sha256: "85199f9233e03abc2ce2e68cbb2991648666af4a527ae4e6250935be8edfddae"
-      url: "https://pub.dev"
-    source: hosted
-    version: "9.1.0"
-  extended_image_library:
-    dependency: transitive
-    description:
-      name: extended_image_library
-      sha256: e61dafd94400fff6ef7ed1523d445ff3af137f198f3228e4a3107bc5b4bec5d1
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.0.6"
   fake_async:
     dependency: transitive
     description:
@@ -236,7 +230,7 @@ packages:
     source: hosted
     version: "1.3.3"
   ffi:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: ffi
       sha256: "6d7fd89431262d8f3125e81b50d3847a091d846eafcd4fdb88dd06f36d705a45"
@@ -251,47 +245,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.1"
-  file_picker_ohos:
+  file_picker:
     dependency: "direct main"
     description:
-      path: ohos
+      path: "."
       ref: master
-      resolved-ref: "36af1e4c06ef9a3d60c5acfe579da3e48cad5b8e"
-      url: "https://gitcode.com/openharmony-sig/fluttertpc_file_picker.git"
+      resolved-ref: b936b93d25b730c43dcc8bb6fa287fa682da872b
+      url: "https://gitcode.com/CPF-Flutter/fluttertpc_file_picker.git"
     source: git
-    version: "1.0.1"
-  file_selector_linux:
-    dependency: transitive
-    description:
-      name: file_selector_linux
-      sha256: "2567f398e06ac72dcf2e98a0c95df2a9edd03c2c2e0cacd4780f20cdf56263a0"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.9.4"
-  file_selector_macos:
-    dependency: transitive
-    description:
-      name: file_selector_macos
-      sha256: "5e0bbe9c312416f1787a68259ea1505b52f258c587f12920422671807c4d618a"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.9.5"
-  file_selector_platform_interface:
-    dependency: transitive
-    description:
-      name: file_selector_platform_interface
-      sha256: "35e0bd61ebcdb91a3505813b055b09b79dfdc7d0aee9c09a7ba59ae4bb13dc85"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.7.0"
-  file_selector_windows:
-    dependency: transitive
-    description:
-      name: file_selector_windows
-      sha256: "62197474ae75893a62df75939c777763d39c2bc5f73ce5b88497208bc269abfd"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.9.3+5"
+    version: "8.0.6"
   fixnum:
     dependency: transitive
     description:
@@ -350,14 +312,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_lyric:
-    dependency: "direct main"
-    description:
-      name: flutter_lyric
-      sha256: "5d7e6c46c07b96842a05d5d8af385cb9d715feb7e0f1db1983bc128813c420d7"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.4+6"
   flutter_native_splash:
     dependency: "direct dev"
     description:
@@ -379,14 +333,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_user_certificates_android:
-    dependency: transitive
-    description:
-      name: flutter_user_certificates_android
-      sha256: "084b44d1a1bed7fce7b39873d7ab67cbc3892677840899ef495d8827ef0422e9"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.1"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -413,10 +359,18 @@ packages:
     description:
       path: "packages/go_router"
       ref: master
-      resolved-ref: fd78c67350d1443409322719a0b33b29cc44f972
-      url: "https://gitcode.com/openharmony-sig/flutter_packages.git"
+      resolved-ref: abe263023cbc77d95ee0a8a2511e8e02903b7a6c
+      url: "https://gitcode.com/openharmony-tpc/flutter_packages.git"
     source: git
     version: "10.1.2"
+  gtk:
+    dependency: transitive
+    description:
+      name: gtk
+      sha256: "4ff85b2a16724029dd9e5bbb5a94b6918f9973f74ba571c949d2002801879cf5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.0"
   hive:
     dependency: "direct main"
     description:
@@ -457,14 +411,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.6.0"
-  http_client_helper:
-    dependency: transitive
-    description:
-      name: http_client_helper
-      sha256: "8a9127650734da86b5c73760de2b404494c968a3fd55602045ffec789dac3cb1"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.0"
   http_parser:
     dependency: transitive
     description:
@@ -473,14 +419,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.2"
-  http_proxy:
-    dependency: "direct main"
-    description:
-      name: http_proxy
-      sha256: "1fd2f5357e018a20a2ba7b0c97d83dea65b19e1a793ea0ee7c0fbade8768843a"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.2.3"
   image:
     dependency: transitive
     description:
@@ -489,70 +427,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.8.0"
-  image_picker:
-    dependency: transitive
-    description:
-      name: image_picker
-      sha256: "91c025426c2881c551100bce834e201c835a170151545f58d17da5180ca7d9ac"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.2.2"
-  image_picker_android:
-    dependency: transitive
-    description:
-      name: image_picker_android
-      sha256: d5b3e1774af29c9ab00103afb0d4614070f924d2e0057ac867ec98800114793f
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.8.13+17"
-  image_picker_for_web:
-    dependency: transitive
-    description:
-      name: image_picker_for_web
-      sha256: "66257a3191ab360d23a55c8241c91a6e329d31e94efa7be9cf7a212e65850214"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.1.1"
-  image_picker_ios:
-    dependency: transitive
-    description:
-      name: image_picker_ios
-      sha256: b9c4a438a9ff4f60808c9cf0039b93a42bb6c2211ef6ebb647394b2b3fa84588
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.8.13+6"
-  image_picker_linux:
-    dependency: transitive
-    description:
-      name: image_picker_linux
-      sha256: "1f81c5f2046b9ab724f85523e4af65be1d47b038160a8c8deed909762c308ed4"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.2"
-  image_picker_macos:
-    dependency: transitive
-    description:
-      name: image_picker_macos
-      sha256: "86f0f15a309de7e1a552c12df9ce5b59fe927e71385329355aec4776c6a8ec91"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.2+1"
-  image_picker_platform_interface:
-    dependency: transitive
-    description:
-      name: image_picker_platform_interface
-      sha256: "567e056716333a1647c64bb6bd873cff7622233a5c3f694be28a583d4715690c"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.11.1"
-  image_picker_windows:
-    dependency: transitive
-    description:
-      name: image_picker_windows
-      sha256: d248c86554a72b5495a31c56f060cf73a41c7ff541689327b1a7dbccc33adfae
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.2"
   import_sorter:
     dependency: "direct dev"
     description:
@@ -609,21 +483,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.10.5"
-  just_audio_media_kit:
-    dependency: "direct main"
-    description:
-      name: just_audio_media_kit
-      sha256: f3cf04c3a50339709e87e90b4e841eef4364ab4be2bdbac0c54cc48679f84d23
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.0"
   just_audio_ohos:
     dependency: "direct main"
     description:
       path: "just_audio/ohos"
       ref: "br_just_audio-v0.9.41_ohos"
-      resolved-ref: b3d5c98a88cfad1003a13c795832d96a099aa8da
-      url: "https://gitcode.com/openharmony-sig/fluttertpc_just_audio.git"
+      resolved-ref: "0db3f70f88e6f241313ce8b2c0541adea2027216"
+      url: "https://gitcode.com/CPF-Flutter/fluttertpc_just_audio.git"
     source: git
     version: "1.0.0"
   just_audio_platform_interface:
@@ -706,38 +572,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.13.0"
-  media_kit:
-    dependency: transitive
-    description:
-      name: media_kit
-      sha256: ae9e79597500c7ad6083a3c7b7b7544ddabfceacce7ae5c9709b0ec16a5d6643
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.2.6"
-  media_kit_libs_linux:
-    dependency: "direct main"
-    description:
-      name: media_kit_libs_linux
-      sha256: "2b473399a49ec94452c4d4ae51cfc0f6585074398d74216092bf3d54aac37ecf"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.2.1"
-  media_kit_libs_macos_audio:
-    dependency: "direct main"
-    description:
-      name: media_kit_libs_macos_audio
-      sha256: "3be21844df98f286de32808592835073cdef2c1a10078bac135da790badca950"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.4"
-  media_kit_libs_windows_audio:
-    dependency: "direct main"
-    description:
-      name: media_kit_libs_windows_audio
-      sha256: c2fd558cc87b9d89a801141fcdffe02e338a3b21a41a18fbd63d5b221a1b8e53
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.9"
   meta:
     dependency: transitive
     description:
@@ -746,14 +580,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.17.0"
-  mime:
-    dependency: transitive
-    description:
-      name: mime
-      sha256: "41a20518f0cb1256669420fdba0cd90d21561e560ac240f26ef8322e45bb7ed6"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.0"
   objective_c:
     dependency: transitive
     description:
@@ -791,8 +617,8 @@ packages:
     description:
       path: "packages/path_provider/path_provider"
       ref: HEAD
-      resolved-ref: fd78c67350d1443409322719a0b33b29cc44f972
-      url: "https://gitcode.com/openharmony-sig/flutter_packages.git"
+      resolved-ref: abe263023cbc77d95ee0a8a2511e8e02903b7a6c
+      url: "https://gitcode.com/openharmony-tpc/flutter_packages.git"
     source: git
     version: "2.1.0"
   path_provider_android:
@@ -908,6 +734,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.2"
+  receive_sharing_intent:
+    dependency: "direct main"
+    description:
+      path: "packages/receive_sharing_intent"
+      relative: true
+    source: path
+    version: "1.4.5"
   record_use:
     dependency: transitive
     description:
@@ -924,54 +757,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.27.7"
-  safe_local_storage:
-    dependency: transitive
-    description:
-      name: safe_local_storage
-      sha256: "287ea1f667c0b93cdc127dccc707158e2d81ee59fba0459c31a0c7da4d09c755"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.3"
-  screen_retriever:
-    dependency: transitive
-    description:
-      name: screen_retriever
-      sha256: "570dbc8e4f70bac451e0efc9c9bb19fa2d6799a11e6ef04f946d7886d2e23d0c"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.0"
-  screen_retriever_linux:
-    dependency: transitive
-    description:
-      name: screen_retriever_linux
-      sha256: f7f8120c92ef0784e58491ab664d01efda79a922b025ff286e29aa123ea3dd18
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.0"
-  screen_retriever_macos:
-    dependency: transitive
-    description:
-      name: screen_retriever_macos
-      sha256: "71f956e65c97315dd661d71f828708bd97b6d358e776f1a30d5aa7d22d78a149"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.0"
-  screen_retriever_platform_interface:
-    dependency: transitive
-    description:
-      name: screen_retriever_platform_interface
-      sha256: ee197f4581ff0d5608587819af40490748e1e39e648d7680ecf95c05197240c0
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.0"
-  screen_retriever_windows:
-    dependency: transitive
-    description:
-      name: screen_retriever_windows
-      sha256: "449ee257f03ca98a57288ee526a301a430a344a161f9202b4fcc38576716fe13"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.0"
   simple_sparse_list:
     dependency: transitive
     description:
@@ -1121,14 +906,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.1"
-  universal_platform:
-    dependency: transitive
-    description:
-      name: universal_platform
-      sha256: "64e16458a0ea9b99260ceb5467a214c1f298d647c659af1bff6d3bf82536b1ec"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.0"
   uri:
     dependency: transitive
     description:
@@ -1137,21 +914,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
-  uri_parser:
-    dependency: transitive
-    description:
-      name: uri_parser
-      sha256: "051c62e5f693de98ca9f130ee707f8916e2266945565926be3ff20659f7853ce"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.2"
   url_launcher:
     dependency: "direct main"
     description:
       path: "packages/url_launcher/url_launcher"
       ref: HEAD
-      resolved-ref: fd78c67350d1443409322719a0b33b29cc44f972
-      url: "https://gitcode.com/openharmony-sig/flutter_packages.git"
+      resolved-ref: abe263023cbc77d95ee0a8a2511e8e02903b7a6c
+      url: "https://gitcode.com/openharmony-tpc/flutter_packages.git"
     source: git
     version: "6.1.12"
   url_launcher_android:
@@ -1190,8 +959,8 @@ packages:
     dependency: transitive
     description:
       path: "packages/url_launcher/url_launcher_ohos"
-      ref: HEAD
-      resolved-ref: fd78c67350d1443409322719a0b33b29cc44f972
+      ref: master
+      resolved-ref: abe263023cbc77d95ee0a8a2511e8e02903b7a6c
       url: "https://gitcode.com/openharmony-tpc/flutter_packages.git"
     source: git
     version: "6.0.38"
@@ -1259,14 +1028,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.10.1"
-  window_manager:
-    dependency: "direct main"
-    description:
-      name: window_manager
-      sha256: "7eb6d6c4164ec08e1bf978d6e733f3cebe792e2a23fb07cbca25c2872bfdbdcd"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.5.1"
   xdg_directories:
     dependency: transitive
     description:
@@ -1302,11 +1063,10 @@ packages:
   youtube_explode_dart:
     dependency: "direct main"
     description:
-      name: youtube_explode_dart
-      sha256: "947ba05e0c4f050743e480e7bca3575ff6427d86cc898c1a69f5e1d188cdc9e0"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.5.3"
+      path: "packages/youtube_explode_dart"
+      relative: true
+    source: path
+    version: "3.1.0"
 sdks:
   dart: ">=3.11.5 <4.0.0"
-  flutter: ">=3.38.4"
+  flutter: ">=3.41.1"

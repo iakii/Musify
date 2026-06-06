@@ -19,12 +19,10 @@
  *     please visit: https://github.com/gokadzev/Musify
  */
 
-// Package imports:
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
-// Flutter imports:
 import 'package:flutter/material.dart';
-// Project imports:
-import 'package:musify/API/musify.dart';
+import 'package:go_router/go_router.dart';
+import 'package:musify/constants/app_constants.dart';
 import 'package:musify/extensions/l10n.dart';
 import 'package:musify/main.dart';
 import 'package:musify/services/common_services.dart';
@@ -33,7 +31,7 @@ import 'package:musify/services/settings_manager.dart';
 import 'package:musify/utilities/app_utils.dart';
 import 'package:musify/utilities/async_loader.dart';
 import 'package:musify/widgets/announcement_box.dart';
-// import 'package:musify/widgets/carousel.dart';
+import 'package:musify/widgets/mini_player_bottom_space.dart';
 import 'package:musify/widgets/playlist_cube.dart';
 import 'package:musify/widgets/section_header.dart';
 import 'package:musify/widgets/song_bar.dart';
@@ -83,6 +81,7 @@ class _HomePageState extends State<HomePage> {
             _buildSuggestedPlaylists(playlistHeight, showOnlyLiked: true),
             _buildMostPlayedSection(),
             _buildRecommendedSongsSection(),
+            const MiniPlayerBottomSpace(),
           ],
         ),
       ),
@@ -93,78 +92,70 @@ class _HomePageState extends State<HomePage> {
     double playlistHeight, {
     bool showOnlyLiked = false,
   }) {
-    final sectionTitle = showOnlyLiked
-        ? context.l10n!.backToFavorites
-        : context.l10n!.suggestedPlaylists;
+    if (showOnlyLiked) {
+      return ValueListenableBuilder<List<Map>>(
+        valueListenable: userLikedPlaylists,
+        builder: (_, likedPlaylists, __) => _buildSuggestedPlaylistsSection(
+          playlistHeight,
+          likedPlaylists.take(recommendedCubesNumber).toList(),
+          showOnlyLiked: true,
+        ),
+      );
+    }
+
     return AsyncLoader<List<dynamic>>(
-      future: getPlaylists(
-        playlistsNum: recommendedCubesNumber,
-        onlyLiked: showOnlyLiked,
-      ),
-
-      builder: (context, playlists) {
-        final itemsNumber = playlists.length.clamp(0, recommendedCubesNumber);
-        final isLargeScreen = MediaQuery.of(context).size.width > 480;
-
-        return Column(
-          children: [
-            SectionHeader(
-              title: sectionTitle,
-              icon: showOnlyLiked
-                  ? FluentIcons.heart_24_filled
-                  : FluentIcons.list_24_filled,
-            ),
-            ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: playlistHeight),
-              child: isLargeScreen
-                  ? _buildHorizontalList(playlists, itemsNumber, playlistHeight)
-                  : _buildCarouselView(playlists, itemsNumber, playlistHeight),
-            ),
-          ],
-        );
-      },
+      future: getPlaylists(playlistsNum: recommendedCubesNumber),
+      builder: (context, playlists) =>
+          _buildSuggestedPlaylistsSection(playlistHeight, playlists),
     );
   }
 
-  Widget _buildPlaylistSection(BuildContext context, List<dynamic> playlists) {
-    const playlistHeight = 200.0;
+  Widget _buildSuggestedPlaylistsSection(
+    double playlistHeight,
+    List<dynamic> playlists, {
+    bool showOnlyLiked = false,
+  }) {
+    if (playlists.isEmpty) return const SizedBox.shrink();
 
-    final itemsNumber = playlists.length > recommendedCubesNumber
-        ? recommendedCubesNumber
-        : playlists.length;
-
-    final width = MediaQuery.sizeOf(context).width;
-
-    const itemWidth = 156.0;
-
-    final itemCount = (width / itemWidth).floor();
-
-    final flexWeights =
-        List<int>.generate(itemCount, (index) => itemCount - index);
+    final sectionTitle = showOnlyLiked
+        ? context.l10n!.backToFavorites
+        : context.l10n!.suggestedPlaylists;
+    final itemsNumber = playlists.length.clamp(0, recommendedCubesNumber);
+    final isLargeScreen = MediaQuery.of(context).size.width > 480;
 
     return Column(
       children: [
-        _buildSectionHeader(title: context.l10n!.suggestedPlaylists),
+        SectionHeader(
+          title: sectionTitle,
+          icon: showOnlyLiked
+              ? FluentIcons.heart_24_filled
+              : FluentIcons.list_24_filled,
+        ),
         ConstrainedBox(
-          constraints: const BoxConstraints(maxHeight: playlistHeight),
-          child: CarouselView.weighted(
-            flexWeights: flexWeights,
-            itemSnapping: true,
-            onTap: (index) => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => PlaylistPage(
-                  playlistId: playlists[index]['ytid'],
-                ),
-              ),
-            ),
-            children: List.generate(itemsNumber, (index) {
-              final playlist = playlists[index];
-              return PlaylistCube(
-                playlist,
-                size: playlistHeight,
-              );
-            }),
+          constraints: BoxConstraints(maxHeight: playlistHeight),
+          child: isLargeScreen
+              ? _buildHorizontalList(playlists, itemsNumber, playlistHeight)
+              : _buildCarouselView(playlists, itemsNumber, playlistHeight),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildHorizontalList(
+    List<dynamic> playlists,
+    int itemCount,
+    double height,
+  ) {
+    return ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: itemCount,
+      itemBuilder: (context, index) {
+        final playlist = playlists[index];
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: GestureDetector(
+            onTap: () => context.push('/home/playlist/${playlist['ytid']}'),
+            child: PlaylistCube(playlist, size: height),
           ),
         );
       },
@@ -206,8 +197,8 @@ class _HomePageState extends State<HomePage> {
   Widget _buildMostPlayedSection() {
     final sectionTitle = context.l10n!.mostPlayed;
 
-    return ValueListenableBuilder<int>(
-      valueListenable: currentRecentlyPlayedLength,
+    return ValueListenableBuilder<List>(
+      valueListenable: userRecentlyPlayed,
       builder: (_, __, ___) {
         return ValueListenableBuilder<int>(
           valueListenable: recentlyPlayedVersion,
@@ -270,70 +261,17 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildErrorWidget(BuildContext context) {
-    return Center(
-      child: Text(
-        '${context.l10n!.error}!',
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.primary,
-          fontSize: 18,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildRecommendedContent({
-    required BuildContext context,
-    required List<dynamic> data,
-    bool showArtists = true,
-  }) {
-    const contentHeight = 200.0;
-
-    final itemsNumber = data.length > recommendedCubesNumber
-        ? recommendedCubesNumber
-        : data.length;
-
-    final width = MediaQuery.sizeOf(context).width;
-
-    const itemWidth = 156.0;
-
-    final itemCount = (width / itemWidth).floor();
-
-    final flexWeights =
-        List<int>.generate(itemCount, (index) => itemCount - index);
+  Widget _buildRecommendedForYouSection(
+    BuildContext context,
+    List<dynamic> data,
+  ) {
+    final recommendedTitle = context.l10n!.recommendedForYou;
 
     return Column(
       children: [
-        if (showArtists)
-          _buildSectionHeader(title: context.l10n!.suggestedArtists),
-        if (showArtists)
-          ConstrainedBox(
-            constraints: const BoxConstraints(maxHeight: contentHeight),
-            child: CarouselView.weighted(
-              flexWeights: flexWeights,
-              // itemSnapping: true,
-              onTap: (index) => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PlaylistPage(
-                    cubeIcon: FluentIcons.mic_sparkle_24_regular,
-                    playlistId: data[index]['artist'].split('~')[0],
-                    isArtist: true,
-                  ),
-                ),
-              ),
-              children: List.generate(itemsNumber, (index) {
-                final artist = data[index]['artist'].split('~')[0];
-                return PlaylistCube(
-                  {'title': artist},
-                  // size: itemWidth,
-                  cubeIcon: FluentIcons.mic_sparkle_24_regular,
-                );
-              }),
-            ),
-          ),
-        _buildSectionHeader(
-          title: context.l10n!.recommendedForYou,
+        SectionHeader(
+          title: recommendedTitle,
+          icon: FluentIcons.sparkle_24_filled,
           actionButton: IconButton(
             onPressed: () async {
               await audioHandler.playPlaylistSong(

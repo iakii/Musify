@@ -19,12 +19,11 @@
  *     please visit: https://github.com/gokadzev/Musify
  */
 
-// Package imports:
+import 'dart:async';
+
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
-// Flutter imports:
 import 'package:flutter/material.dart';
-// Project imports:
-import 'package:musify/API/musify.dart';
+import 'package:musify/constants/app_constants.dart';
 import 'package:musify/extensions/l10n.dart';
 import 'package:musify/main.dart' show logger;
 import 'package:musify/services/common_services.dart';
@@ -39,6 +38,7 @@ import 'package:musify/utilities/offline_playlist_dialogs.dart';
 import 'package:musify/utilities/playlist_dialogs.dart';
 import 'package:musify/utilities/playlist_utils.dart';
 import 'package:musify/widgets/confirmation_dialog.dart';
+import 'package:musify/widgets/mini_player_bottom_space.dart';
 import 'package:musify/widgets/playlist_bar.dart';
 import 'package:musify/widgets/section_header.dart';
 
@@ -62,7 +62,7 @@ class _LibraryPageState extends State<LibraryPage> {
           userCustomPlaylists.value.isNotEmpty;
       final hasOfflinePlaylists =
           offlinePlaylistService.offlinePlaylists.value.isNotEmpty;
-      final hasOfflineSongs = currentOfflineSongsLength.value > 0;
+      final hasOfflineSongs = userOfflineSongs.value.isNotEmpty;
 
       if (!hasUserContent && !hasOfflinePlaylists && !hasOfflineSongs) {
         final colorScheme = Theme.of(context).colorScheme;
@@ -120,7 +120,7 @@ class _LibraryPageState extends State<LibraryPage> {
           userCustomPlaylists,
           userPlaylistFolders,
           offlinePlaylistService.offlinePlaylists,
-          currentLikedPlaylistsLength,
+          userLikedPlaylists,
           onlinePlaylists,
           userPlaylists,
         ]),
@@ -133,6 +133,7 @@ class _LibraryPageState extends State<LibraryPage> {
                 ..._buildUserPlaylistsSlivers(primaryColor),
                 if (!offlineMode.value)
                   ..._buildLikedPlaylistsSlivers(primaryColor),
+                const SliverMiniPlayerBottomSpace(),
               ],
             ),
           );
@@ -337,7 +338,7 @@ class _LibraryPageState extends State<LibraryPage> {
   }
 
   List<Widget> _buildLikedPlaylistsSlivers(Color primaryColor) {
-    if (userLikedPlaylists.isEmpty) return [];
+    if (userLikedPlaylists.value.isEmpty) return [];
     return [
       SliverToBoxAdapter(
         child: SectionHeader(
@@ -345,7 +346,7 @@ class _LibraryPageState extends State<LibraryPage> {
           icon: FluentIcons.heart_24_filled,
         ),
       ),
-      _buildSliverPlaylistList(userLikedPlaylists),
+      _buildSliverPlaylistList(userLikedPlaylists.value),
     ];
   }
 

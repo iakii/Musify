@@ -34,7 +34,7 @@ import 'package:musify/services/settings_manager.dart';
 import 'package:musify/utilities/flutter_bottom_sheet.dart'
     show closeCurrentBottomSheet;
 import 'package:musify/widgets/mini_player.dart';
-import 'package:window_manager/window_manager.dart';
+// import 'package:window_manager/window_manager.dart';
 
 class BottomNavigationPage extends StatefulWidget {
   const BottomNavigationPage({required this.child, super.key});
@@ -160,12 +160,12 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
                 Expanded(
                   child: Column(
                     children: [
-                      SizedBox(
-                        height: kWindowCaptionHeight,
-                        child: WindowCaption(
-                          brightness: Theme.of(context).brightness,
-                        ),
-                      ),
+                      // SizedBox(
+                      //   height: kWindowCaptionHeight,
+                      //   child: WindowCaption(
+                      //     brightness: Theme.of(context).brightness,
+                      //   ),
+                      // ),
                       Expanded(child: widget.child),
                       songBar,
                     ],
