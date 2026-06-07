@@ -11,6 +11,7 @@
     "url_launcher_ohos": "file:../har/url_launcher_ohos.har",
     "audio_service_ohos": "file:../har/audio_service_ohos.har",
     "just_audio_ohos": "file:../har/just_audio_ohos.har",
-    "file_picker_ohos": "file:../har/file_picker_ohos.har"
+    "file_picker_ohos": "file:../har/file_picker_ohos.har",
+    "@ohos/flutter_ohos": "har/flutter.har"
   }
 }

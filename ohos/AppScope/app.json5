@@ -2,8 +2,8 @@
   "app": {
     "bundleName": "com.gokadzev.musify",
     "vendor": "example",
-    "versionCode": 111,
-    "versionName": "9.0.4",
+    "versionCode": 173,
+    "versionName": "10.0.9",
     "icon": "$media:app_icon",
     "label": "$string:app_name"
   }

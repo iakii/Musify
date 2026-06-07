@@ -14,10 +14,10 @@
   },
   "overrides": {
     "@ohos/flutter_ohos": "file:./har/flutter.har",
-    "audio_session": "file:./har/audio_session.har",
-    "path_provider_ohos": "file:./har/path_provider_ohos.har",
-    "url_launcher_ohos": "file:./har/url_launcher_ohos.har",
-    "audio_service_ohos": "file:./har/audio_service_ohos.har",
+    "audio_session": "../../../../AppData/Local/Pub/Cache/git/flutter_audio_session-b76dde27c75ace3765b8d4fbaf800dbf61ccc993/ohos",
+    "path_provider_ohos": "../../../../AppData/Local/Pub/Cache/git/flutter_packages-abe263023cbc77d95ee0a8a2511e8e02903b7a6c/packages/path_provider/path_provider_ohos/ohos",
+    "url_launcher_ohos": "../../../../AppData/Local/Pub/Cache/git/flutter_packages-abe263023cbc77d95ee0a8a2511e8e02903b7a6c/packages/url_launcher/url_launcher_ohos/ohos",
+    "audio_service_ohos": "../../../../AppData/Local/Pub/Cache/git/fluttertpc_audio_service-d2b7a6b79c0ed957570bdf516426e8b4fbd2fcf4/audio_service_ohos/ohos",
     "@ohos/flutter_module": "file:./entry",
     "just_audio_ohos": "file:./har/just_audio_ohos.har",
     "file_picker_ohos": "file:./har/file_picker_ohos.har"

@@ -36,6 +36,54 @@
           ]
         }
       ]
+    },
+    {
+      "name": "url_launcher_ohos",
+      "srcPath": "../../../../AppData/Local/Pub/Cache/git/flutter_packages-abe263023cbc77d95ee0a8a2511e8e02903b7a6c/packages/url_launcher/url_launcher_ohos/ohos",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "path_provider_ohos",
+      "srcPath": "../../../../AppData/Local/Pub/Cache/git/flutter_packages-abe263023cbc77d95ee0a8a2511e8e02903b7a6c/packages/path_provider/path_provider_ohos/ohos",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "audio_session",
+      "srcPath": "../../../../AppData/Local/Pub/Cache/git/flutter_audio_session-b76dde27c75ace3765b8d4fbaf800dbf61ccc993/ohos",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "audio_service_ohos",
+      "srcPath": "../../../../AppData/Local/Pub/Cache/git/fluttertpc_audio_service-d2b7a6b79c0ed957570bdf516426e8b4fbd2fcf4/audio_service_ohos/ohos",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
     }
   ]
 }
